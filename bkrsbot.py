@@ -27,7 +27,7 @@ def handle_docs_text(message):
 	localmsg,check = webb.main()
 	bot.send_message(message.chat.id,localmsg,disable_web_page_preview=True)
 	if check is True:
-		bot.send_audio(message.chat.id,'./logs/audio'
+		bot.send_audio(message.chat.id,'./logs/audio')
 
 @server.route('/' + TOKEN, methods=['POST'])
 def getMessage():
