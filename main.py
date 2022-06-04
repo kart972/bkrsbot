@@ -44,7 +44,7 @@ class web:
 			self.language = "ru"
 		elif fstchr>=int(0x0041) and fstchr <= int(0x007A):
 			self.language = 'en'
-		#print('____________Debug Language_________________','Language detedtion',fstchr,self.language,sep='\n')
+		print('____________Debug Language_________________','Language detedtion',fstchr,self.language,sep='\n')
 
 
 	# --Downloadind--
@@ -56,7 +56,7 @@ class web:
 
 		elif not self.proxy:
 			#print('____________Debug_________________','Downloding1.1',self.url,sep='\n')
-			os.system(f'''script ./logs/out -c "wget --quiet -t 3 -O - '{self.url}' > ./logs/temp"''')
+			os.system(f'''script ./logs/out -c "curl --output ./logs/temp '{self.url}' "''')
 
 		print('____________Debug_________________','Downloding Finished',self.proxy,sep='\n')
 	
@@ -94,7 +94,7 @@ class web:
 		if self.language is None:
 			if "id='ru_ru'" in text:
 				self.language = 'ru'
-			elif "id='ch'" in text:
+			elif "id='ch'" in text or 'ch_long' in text:
 				self.language = 'cn'
 		if self.language == 'cn':
 			
@@ -103,7 +103,7 @@ class web:
 			#---https://dict.naver.com/linedict/zhendict/#/cnen/search?query=
 			if 'такого слова нет' in text or 'ch_long' in text:
 				text = '<a href="{a}">{b}</a>\n<a href="{c}">{b}</a>\nСлово не найдено.'.format(a=self.url,b=self.title,c='https://dict.naver.com/linedict/zhendict/#/cnen/search?query='+self.title)
-				return text
+				return text,False
 		
 		
 			if "<div id='ch'>" in text:
@@ -119,14 +119,14 @@ class web:
 			#---Word not found---			
 				if 'Такого слова нет.' in text:
 					text = '<a href="{}">{}</a>\nWord is not found'.format(self.url,self.title)
-					return text
+					return text,False
 				
 				mainpart = (text.split("<div id='ru_ru'>"))[1]
 				mainpart = (mainpart.split('\n\n\n'))[0]
 			
 		
 		print('____________Debug Languge and mainpart_________________',self.language,text,sep='\n')
-		return mainpart
+		return mainpart,True
 
 
 	
@@ -227,7 +227,10 @@ class web:
 				
 			self.downloadwpage()
 		page_txt = self.readfile()
-		main_info = self.parting(page_txt)
+		main_info,text_check = self.parting(page_txt)
+		if text_check is False:
+			print('____________Debug Error_________________',main_info,sep='\n')
+			return main_info
 		
 		audio_check = self.download_audio(main_info)
 		
