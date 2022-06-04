@@ -28,7 +28,9 @@ def handle_docs_text(message):
 	print('____________Debug Ready to send_________________',localmsg,check,sep='\n')
 	bot.send_message(message.chat.id,localmsg,disable_web_page_preview=True)
 	if check is True:
-		bot.send_audio(message.chat.id,'./logs/audio')
+		audio = open('./logs/audio','rb')
+		bot.send_audio(message.chat.id,audio)
+		audio.close()
 
 @server.route('/' + TOKEN, methods=['POST'])
 def getMessage():
