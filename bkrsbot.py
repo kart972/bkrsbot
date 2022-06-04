@@ -25,11 +25,11 @@ def handle_docs_text(message):
 	webb = web(message.text)
 	print(webb.url)
 	localmsg,check = webb.main()[:]
-	print('____________Debug Ready to send_________________',localmsg,check,sep='\n')
+	#print('____________Debug Ready to send_________________',localmsg,check,sep='\n')
 	bot.send_message(message.chat.id,localmsg,disable_web_page_preview=True)
 	if check is True:
 		audio = open('./logs/audio','rb')
-		bot.send_audio(message.chat.id,audio)
+		bot.send_voice(message.chat.id,audio)
 		audio.close()
 
 @server.route('/' + TOKEN, methods=['POST'])
