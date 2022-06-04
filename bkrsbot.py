@@ -17,15 +17,17 @@ print('It started')
 
 @bot.message_handler(commands=['start'])
 def handle_tags(message):
-	bot.send_message(message.chat.id,'Добро пожаловать!\nЭто бот-словарь, который переводит слова с китайского на русский и наоборот.\n\nОбновление 0.5\nУвеличение скорости обработки запроса в 2 раза🎉')
+	bot.send_message(message.chat.id,'Добро пожаловать!\nЭто бот-словарь, который переводит слова с китайского на русский и наоборот.\n\nОбновление 0.6\n🎉')
 	pass
 
 @bot.message_handler(content_types=['text'])
 def handle_docs_text(message):
 	webb = web(message.text)
 	print(webb.url)
-	localmsg = webb.main()
+	localmsg,check = webb.main()
 	bot.send_message(message.chat.id,localmsg,disable_web_page_preview=True)
+	if check is True:
+		bot.send_audio(message.chat.id,'./logs/audio'
 
 @server.route('/' + TOKEN, methods=['POST'])
 def getMessage():

@@ -10,6 +10,28 @@ class web:
 		self.title = ''
 		self.proxy = proxy
 		self.pinyin = ''
+		
+		
+			
+	# -- NEW --
+	# --Checking AND Deleting--
+	
+	def replaceplus(self,toreplist,text,repwith=''):
+		
+		print()
+		
+		if len(toreplist) == 1:
+			if toreplist[0] in text:
+				text = text.replace(toreplist[0],repwith)
+
+		elif len(toreplist) > 1:
+			for temp in toreplist:
+				if temp in text:
+					text = text.replace(temp,repwith)
+					#print('____________Debug PinYin_________________',temp,sep='\n')
+		return text
+	
+		
 
 
 	# --Language detection--
@@ -39,6 +61,24 @@ class web:
 		print('____________Debug_________________','Downloding Finished',self.proxy,sep='\n')
 	
 	
+	# --Download Audio--
+	def download_audio(self,text):
+		print('____________Debug Download Audio_________________',text,sep='\n')
+		if '<img ' in text:
+			MAIN_URL = 'https://bkrs.info/'
+			#add_url = (self.replaceplus("""');mp3.play();""",((self.replaceplus("""<img class="pointer" onclick="var mp3 = new Audio('""",text))[1])))[0]
+			#add_url = (self.replaceplus("new Audio('",text))[1]
+			add_url = (((text.split("new Audio('"))[1]).split("');mp3.play();"))[0]
+			
+			#print('____________Debug Download Audio_________________',add_url,sep='\n')
+			if 'downloads' in add_url:
+				true_url = MAIN_URL + add_url
+				print(true_url)
+				os.system(f'''wget --quiet -t 3 -O - '{true_url}' > ./logs/audio''')
+				return True
+				
+		return False		
+	
 	# --Reading--
 	
 	def readfile(self):
@@ -47,8 +87,9 @@ class web:
 		cfile.close()
 		return ctxt
 
-
+	
 	# --Get WebPage  main part--
+	
 	def parting(self, text):
 		if self.language is None:
 			if "id='ru_ru'" in text:
@@ -86,26 +127,7 @@ class web:
 		#print('____________Debug Languge and mainpart_________________',self.language,text,sep='\n')
 		return mainpart
 
-	
-	
-	# -- NEW --
-	# --Checking AND Deleting--
-	
-	def replaceplus(self,toreplist,text,repwith=''):
-		
-		print()
-		
-		if len(toreplist) == 1:
-			if toreplist[0] in text:
-				text = text.replace(toreplist[0],repwith)
 
-		elif len(toreplist) > 1:
-			for temp in toreplist:
-				if temp in text:
-					text = text.replace(temp,repwith)
-					#print('____________Debug PinYin_________________',temp,sep='\n')
-		return text
-	
 	
 	# --Formatting--
 	
@@ -205,12 +227,14 @@ class web:
 			self.downloadwpage()
 		page_txt = self.readfile()
 		main_info = self.parting(page_txt)
-
+		
+		audio_check = self.download_audio(main_info)
+		
 		main_info = self.formatting(main_info)
 
 		print('____________Debug MAIN INFO_________________',main_info,sep='\n')
-
-		return main_info
+		
+		return main_info check
 
 
 
