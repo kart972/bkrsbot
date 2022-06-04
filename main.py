@@ -204,7 +204,7 @@ class web:
 			text = self.main()
 		
 		self.title = '<a href="{}">{}</a>'.format(self.url,self.title)
-		text = self.title + "\n\n" + (text.split("\n\n",1))[1]
+		text = self.title + "\n" + (text.split("\n\n",1))[1]
 		
 		return text
 
