@@ -234,7 +234,7 @@ class web:
 
 		print('____________Debug MAIN INFO_________________',main_info,sep='\n')
 		
-		return main_info check
+		return main_info, check
 
 
 
