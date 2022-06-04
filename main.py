@@ -98,10 +98,11 @@ class web:
 				self.language = 'cn'
 		if self.language == 'cn':
 			
-			
 			#---Word not found---
-			if 'такого слова нет' in text:
-				text = '<a href="{}">{}</a>\nWord is not found'.format(self.url,self.title)
+			#---If wasn't found exact match--- "ch_long"
+			#---https://dict.naver.com/linedict/zhendict/#/cnen/search?query=
+			if 'такого слова нет' in text or 'ch_long' in text:
+				text = '<a href="{a}">{b}</a>\n<a href="{c}">{b}</a>\nСлово не найдено.'.format(a=self.url,b=self.title,c='https://dict.naver.com/linedict/zhendict/#/cnen/search?query='+self.title)
 				return text
 		
 		
