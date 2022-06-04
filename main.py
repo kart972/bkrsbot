@@ -63,7 +63,7 @@ class web:
 	
 	# --Download Audio--
 	def download_audio(self,text):
-		print('____________Debug Download Audio_________________',text,sep='\n')
+		#print('____________Debug Download Audio_________________',text,sep='\n')
 		if '<img ' in text:
 			MAIN_URL = 'https://bkrs.info/'
 			#add_url = (self.replaceplus("""');mp3.play();""",((self.replaceplus("""<img class="pointer" onclick="var mp3 = new Audio('""",text))[1])))[0]
