@@ -125,7 +125,7 @@ class web:
 				mainpart = (mainpart.split('\n\n\n'))[0]
 			
 		
-		#print('____________Debug Languge and mainpart_________________',self.language,text,sep='\n')
+		print('____________Debug Languge and mainpart_________________',self.language,text,sep='\n')
 		return mainpart
 
 
