@@ -125,7 +125,7 @@ class web:
 				mainpart = (mainpart.split('\n\n\n'))[0]
 			
 		
-		print('____________Debug Languge and mainpart_________________',self.language,text,sep='\n')
+		#print('____________Debug Languge and mainpart_________________',self.language,text,sep='\n')
 		return mainpart,True
 
 
@@ -230,7 +230,7 @@ class web:
 		main_info,text_check = self.parting(page_txt)
 		if text_check is False:
 			print('____________Debug Error_________________',main_info,sep='\n')
-			return main_info
+			return main_info, False
 		
 		audio_check = self.download_audio(main_info)
 		
