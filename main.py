@@ -201,7 +201,8 @@ class web:
 		if "сокр." not in text and "вм." in text and "см." not in text:
 			self.url = (((text.split("href='"))[1]).split("'"))[0]
 			#print('____________Debug LINK_________________','Traditional Character',self.url,sep='\n')
-			text = self.main()
+			text, _ = self.main()
+			return text
 		
 		self.title = '<a href="{}">{}</a>'.format(self.url,self.title)
 		text = self.title + "\n" + (text.split("\n\n",1))[1]
