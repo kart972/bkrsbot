@@ -71,7 +71,7 @@ class web:
 			#add_url = (self.replaceplus("new Audio('",text))[1]
 			add_url = (((text.split("new Audio('"))[1]).split("');mp3.play();"))[0]
 			
-			print('____________Debug Download Audio_________________',add_url,sep='\n')
+			#print('____________Debug Download Audio_________________',add_url,sep='\n')
 			if 'downloads' in add_url:
 				true_url = MAIN_URL + add_url
 				print(true_url)
@@ -216,7 +216,7 @@ class web:
 			text, _ = self.main()
 		
 		
-		print('____________Debug FORMATTING_________________','Traditional Character',self.title,self.url,sep='\n')
+		#print('____________Debug FORMATTING_________________','Traditional Character',self.title,self.url,sep='\n')
 		self.title = '<a href="{}">{}</a>'.format(self.url,self.title)
 		if self.language == 'cn':
 			#self.title = self.replaceplus('\n', self.title)
