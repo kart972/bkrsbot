@@ -10,6 +10,7 @@ class web:
 		self.title = ''
 		self.proxy = proxy
 		self.pinyin = ''
+		self.audio = True
 		
 		
 			
@@ -70,7 +71,7 @@ class web:
 			#add_url = (self.replaceplus("new Audio('",text))[1]
 			add_url = (((text.split("new Audio('"))[1]).split("');mp3.play();"))[0]
 			
-			#print('____________Debug Download Audio_________________',add_url,sep='\n')
+			print('____________Debug Download Audio_________________',add_url,sep='\n')
 			if 'downloads' in add_url:
 				true_url = MAIN_URL + add_url
 				print(true_url)
@@ -263,8 +264,14 @@ class web:
 			#print('____________Debug Error_________________',main_info,sep='\n')
 			return main_info, False
 		
-		#audio_check = self.download_audio(main_info)
-		audio_check = False
+		
+		
+		# --Download audio Toggle--
+		
+		if self.audio is True:
+			audio_check = self.download_audio(main_info)
+		else:
+			audio_check = False
 		
 		main_info = self.formatting(main_info)
 
