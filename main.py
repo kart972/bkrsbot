@@ -28,7 +28,7 @@ class web:
 			for temp in toreplist:
 				if temp in text:
 					text = text.replace(temp,repwith)
-					#print('____________Debug PinYin_________________',temp,sep='\n')
+
 		return text
 	
 		
@@ -44,21 +44,21 @@ class web:
 			self.language = "ru"
 		elif fstchr>=int(0x0041) and fstchr <= int(0x007A):
 			self.language = 'en'
-		print('____________Debug Language_________________','Language detedtion',fstchr,self.language,sep='\n')
+		#print('____________Debug Language_________________','Language detection',fstchr,self.language,sep='\n')
 
 
 	# --Downloadind--
 	def downloadwpage(self):
-		
+		#print('____________Debug Download________________','Downloading url',self.url,self.title,sep='\n')
 		if self.proxy:
 			#print('____________Debug_________________','Downloding1',self.url,sep='\n')
 			os.system(f'''export http_proxy="http://127.0.0.1:2341"; export https_proxy="http://127.0.0.1:2341"; export ftp_proxy="http://127.0.0.1:2341"; export no_proxy="localhost,127.0.0.1,::1"; script ./logs/out -c "wget --quiet -t 3 -O - '{self.url}' > ./logs/temp" ''')
 
 		elif not self.proxy:
 			#print('____________Debug_________________','Downloding1.1',self.url,sep='\n')
-			os.system(f'''script ./logs/out -c "curl --output ./logs/temp '{self.url}' "''')
+			os.system(f'''curl -s --output ./logs/temp '{self.url}' ''')
 
-		print('____________Debug_________________','Downloding Finished',self.proxy,sep='\n')
+		#print('____________Debug_________________','Downloding Finished',self.proxy,sep='\n')
 	
 	
 	# --Download Audio--
@@ -118,6 +118,18 @@ class web:
 			
 			#---Word not found---			
 				if 'Такого слова нет.' in text:
+				
+			#---Fingding similar words if inputed wasn't found---					
+					if 'начальная форма:' in text:
+						self.url = (((((text.split('начальная форма:</div>'))[1]).split('</a>'))[0]).split('>'))[-1]
+						
+						self.title = self.title + '\nНачальная форма:\n'
+						
+						print('____________Debug WORD NOT FOUND BUT LOOKING FOR IT_________________',self.title,sep='\n')
+						text, _ = self.main()
+						return text,False
+						
+					#print('____________Debug WORD NOT FOUND_________________',text,sep='\n')
 					text = '<a href="{}">{}</a>\nWord is not found'.format(self.url,self.title)
 					return text,False
 				
@@ -133,9 +145,7 @@ class web:
 	# --Formatting--
 	
 	def formatting(self, text):
-		if 'Word is not found' in text:
-			text = '<a href="{}">{}</a>\nWord is not found'.format(self.url,self.title)
-			return text
+		
 		temp_title = ""	
 		# ---When Looking Up Chinese Character---
 		
@@ -148,9 +158,9 @@ class web:
 			
 			temp_title = ((text.split('\n\n'))[0]).replace("\n",'',1)
 			
-			text = (text.split('\n\n'))[0] + "\n\n" + self.pinyin + "\n\n" + (text.split('\n\n'))[2]
+			text = (text.split('\n\n'))[2]
 			
-			text = text.replace("\n",'',1)
+			#text = text.replace("\n",'',1)
 				
 			text = self.replaceplus(["<hr class='hr_propper' />"], text,"\n\n")
 			
@@ -168,7 +178,7 @@ class web:
 
 			if '•' in text:
 				text = (text.split('•'))[0]
-		
+			
 		
 		# ---When Looking Up English Word/Pinyin---
 		
@@ -187,25 +197,32 @@ class web:
 
 		
 		# ---When Handling Chinese Traditional Character---
+		# ---Break the cycle
 		
 		if self.title != temp_title:
-			self.title +=" " + temp_title
-
-
-		if 'no-such-word' in text:
-			text = "Word does not exist"
+			if self.language == 'ru':
+				text = self.title + text
+			if self.language == 'en':
+				self.title +=" " + temp_title
+			return text
 
 
 		# For a single traditional character
 
 		if "сокр." not in text and "вм." in text and "см." not in text:
 			self.url = (((text.split("href='"))[1]).split("'"))[0]
-			#print('____________Debug LINK_________________','Traditional Character',self.url,sep='\n')
+			#print('____________Debug LINK_________________','Traditional Character',self.title,self.url,sep='\n')
 			text, _ = self.main()
-			return text
 		
+		
+		print('____________Debug FORMATTING_________________','Traditional Character',self.title,self.url,sep='\n')
 		self.title = '<a href="{}">{}</a>'.format(self.url,self.title)
-		text = self.title + "\n" + (text.split("\n\n",1))[1]
+		if self.language == 'cn':
+			#self.title = self.replaceplus('\n', self.title)
+			#print('____________Debug FORMATTING_________________','Traditional Character',self.title,self.pinyin,text,sep='\n')
+			text = self.title + "\n" + self.pinyin + '\n\n' + text
+		elif self.language == 'ru':
+			text = self.title + "\n\n" + (text.split("\n\n",1))[1]
 		
 		return text
 
@@ -221,8 +238,13 @@ class web:
 				if self.language == 'en':
 					text = ''' English is not implemented yet'''
 					return text
-
-				self.title = self.url.capitalize()
+				
+				# ---Fixing maybe you're loking for another word
+				
+				if self.title == '':
+					self.title = self.url.capitalize()
+				else:
+					self.title = self.title + self.url.capitalize()
 				self.url = "https://bkrs.info/slovo.php?ch=" + self.url
 
 				
@@ -230,10 +252,11 @@ class web:
 		page_txt = self.readfile()
 		main_info,text_check = self.parting(page_txt)
 		if text_check is False:
-			print('____________Debug Error_________________',main_info,sep='\n')
+			#print('____________Debug Error_________________',main_info,sep='\n')
 			return main_info, False
 		
-		audio_check = self.download_audio(main_info)
+		#audio_check = self.download_audio(main_info)
+		audio_check = False
 		
 		main_info = self.formatting(main_info)
 
