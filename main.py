@@ -194,7 +194,7 @@ class web:
 		text = self.replaceplus(["<b>","</b>",],text)
 		text = self.replaceplus(["<span class='green'>","</span>"],text,'"')
 		text = self.replaceplus(['<div class="ex">',"<div class='m2'>"],text,'')
-
+		text = self.replaceplus(['<div class="m4">'],text,' --- ')
 		
 		# ---When Handling Chinese Traditional Character---
 		# ---Break the cycle
