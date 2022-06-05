@@ -239,13 +239,21 @@ class web:
 					text = ''' English is not implemented yet'''
 					return text
 				
+				
 				# ---Fixing maybe you're loking for another word
 				
 				if self.title == '':
 					self.title = self.url.capitalize()
 				else:
 					self.title = self.title + self.url.capitalize()
-				self.url = "https://bkrs.info/slovo.php?ch=" + self.url
+					
+				# ---Russian Multiword Input Search!
+					
+				if ' ' in self.title :
+					self.url = "https://bkrs.info/slovo.php?ch=" + self.replaceplus([' '],self.url,'+')
+					print('____________Debug NEW MULTIWORD SYSTEM_________________',self.url,sep='\n')
+				else:
+					self.url = "https://bkrs.info/slovo.php?ch=" + self.url
 
 				
 			self.downloadwpage()
@@ -270,8 +278,10 @@ if __name__ == '__main__':
 	debug = True
 	#a = input("Is there a need for Proxy\n")
 	#meow = web(input(), True if a == '' else False)
+	
+	# --DOUBLE SPACE FOR TESTING
 	if debug == True:
-		list_input = input().split(' ')
+		list_input = input().split('  ')
 		print(list_input)
 		for i in list_input:
 			meow = web(i)
