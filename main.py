@@ -1,25 +1,37 @@
 #!/usr/bin/python
 import os
+MAIN_URL = 'https://bkrs.info/'
 
 class web:
+	global MAIN_URL
 
 	# --Varialbles--
-	def __init__(self,url=None, proxy=False, language=None):
+	def __init__(self,t_input=None, url=None, proxy=False, language=None):
+		self.input = t_input
+		print(t_input)
 		self.url = url
 		self.language = language
 		self.title = ''
 		self.proxy = proxy
 		self.pinyin = ''
 		self.audio = True
+		self.loop = 0
 		
-		
+	# -- Return Not found
+	def notfound(self):
+		if self.language == 'cn':
+			linedict = 'https://dict.naver.com/linedict/zhendict/#/cnen/search?query=' + self.title
+			text = '<a href="{a}">{b}</a>\n<a href="{c}">{b}</a>\nСлово не найдено.'.format(a=self.url,b=self.title,c = linedict)
 			
-	# -- NEW --
+		if self.language == 'ru':
+			text = '<a href="{a}">{b}</a>\nСлово не найдено.'.format(a=self.url,b=self.title)
+		print(self.language)
+		return text
+	
+			
 	# --Checking AND Deleting--
 	
 	def replaceplus(self,toreplist,text,repwith=''):
-		
-		print()
 		
 		if len(toreplist) == 1:
 			if toreplist[0] in text:
@@ -36,8 +48,8 @@ class web:
 
 
 	# --Language detection--
-	def whatlan(self):
-		fstchr = ord(self.url[0])
+	def whatlan(self,t_input):
+		fstchr = ord(t_input[0])
 		
 		if fstchr>=int(0x4E00):
 			self.language = "cn"
@@ -45,7 +57,7 @@ class web:
 			self.language = "ru"
 		elif fstchr>=int(0x0041) and fstchr <= int(0x007A):
 			self.language = 'en'
-		#print('____________Debug Language_________________','Language detection',fstchr,self.language,sep='\n')
+
 
 
 	# --Downloadind--
@@ -53,7 +65,7 @@ class web:
 		#print('____________Debug Download________________','Downloading url',self.url,self.title,sep='\n')
 		if self.proxy:
 			#print('____________Debug_________________','Downloding1',self.url,sep='\n')
-			os.system(f'''export http_proxy="http://127.0.0.1:2341"; export https_proxy="http://127.0.0.1:2341"; export ftp_proxy="http://127.0.0.1:2341"; export no_proxy="localhost,127.0.0.1,::1"; script ./logs/out -c "wget --quiet -t 3 -O - '{self.url}' > ./logs/temp" ''')
+			os.system(f'''curl -s --output ./logs/temp '{self.url}' ''')
 
 		elif not self.proxy:
 			#print('____________Debug_________________','Downloding1.1',self.url,sep='\n')
@@ -64,22 +76,17 @@ class web:
 	
 	# --Download Audio--
 	def download_audio(self,text):
-		#print('____________Debug Download Audio_________________',text,sep='\n')
-		if '<img ' in text:
-			MAIN_URL = 'https://bkrs.info/'
-			#add_url = (self.replaceplus("""');mp3.play();""",((self.replaceplus("""<img class="pointer" onclick="var mp3 = new Audio('""",text))[1])))[0]
-			#add_url = (self.replaceplus("new Audio('",text))[1]
-			add_url = (((text.split("new Audio('"))[1]).split("');mp3.play();"))[0]
+		if '<img ' not in text:
+			return False
 			
-			#print('____________Debug Download Audio_________________',add_url,sep='\n')
+		else:
+			add_url = (((text.split("new Audio('"))[1]).split("');mp3.play();"))[0]
 			if 'downloads' in add_url:
 				true_url = MAIN_URL + add_url
 				print(true_url)
 				os.system(f'''wget --quiet -t 3 -O - '{true_url}' > ./logs/audio''')
 				return True
 				
-		return False		
-	
 	# --Reading--
 	
 	def readfile(self):
@@ -89,7 +96,7 @@ class web:
 		return ctxt
 
 	
-	# --Get WebPage  main part--
+	# --GET Main Part Of A Webpage--
 	
 	def parting(self, text):
 		if self.language is None:
@@ -97,49 +104,61 @@ class web:
 				self.language = 'ru'
 			elif "id='ch'" in text or 'ch_long' in text:
 				self.language = 'cn'
+		
+		# -- Chinese
 		if self.language == 'cn':
-			
-			#---Word not found---
-			#---If wasn't found exact match--- "ch_long"
-			#---https://dict.naver.com/linedict/zhendict/#/cnen/search?query=
 			if 'такого слова нет' in text or 'ch_long' in text:
-				text = '<a href="{a}">{b}</a>\n<a href="{c}">{b}</a>\nСлово не найдено.'.format(a=self.url,b=self.title,c='https://dict.naver.com/linedict/zhendict/#/cnen/search?query='+self.title)
-				return text,False
-		
-		
+				return False
+			
 			if "<div id='ch'>" in text:
 				mainpart = (text.split("<div id='ch'>"))[1]
 			elif "<div id='ch' class=''>" in text:
 				mainpart = (text.split("<div id='ch' class=''>"))[1]
-				
-
+			
 			mainpart = (mainpart.split("<br />"))[0]
+			return mainpart
+			
+		# -- Russian	
 		elif self.language == 'ru':
 			if "<div id='ru_ru'>" in text:
 			
-			#---Word not found---			
-				if 'Такого слова нет.' in text:
+			# --- If Word s found ---			
+				if 'Такого слова нет.' not in text:
+					mainpart = (text.split("<div id='ru_ru'>"))[1]
+					mainpart = (mainpart.split('\n\n\n'))[0]
+					return mainpart
+			#---Word not found---					
+				if 'начальная форма:' not in text:
+					return False
 				
-			#---Fingding similar words if inputed wasn't found---					
-					if 'начальная форма:' in text:
-						self.url = (((((text.split('начальная форма:</div>'))[1]).split('</a>'))[0]).split('>'))[-1]
-						
+				#---- Ask if person spell word wrong
+				
+				elif 'начальная форма:' not in text and 'похожие слова:' in text:
+					return False
+				
+				else:
+					
+					#----Loop preventing----
+					
+					if self.loop > 3:
+						return False
+					
+					#----Looking for wrong spelling----
+					
+					if 'gray' in ((((text.split('начальная форма:</div>'))[1]).split('</a>'))[0]) and 'похожие слова:' in text:
+						if 'gray' in ((((text.split('похожие слова:</div>'))[1]).split('</a>'))[0]):
+							return False
+						self.input = (((((text.split('похожие слова:</div>'))[1]).split('</a>'))[0]).split('>'))[-1]
+						self.title = self.title + '\nВозможно вы имели ввиду:\n'
+					
+					else:
+						self.input = (((((text.split('начальная форма:</div>'))[1]).split('</a>'))[0]).split('>'))[-1]
 						self.title = self.title + '\nНачальная форма:\n'
-						
-						print('____________Debug WORD NOT FOUND BUT LOOKING FOR IT_________________',self.title,sep='\n')
-						text, _ = self.main()
-						return text,False
-						
-					#print('____________Debug WORD NOT FOUND_________________',text,sep='\n')
-					text = '<a href="{}">{}</a>\nWord is not found'.format(self.url,self.title)
-					return text,False
-				
-				mainpart = (text.split("<div id='ru_ru'>"))[1]
-				mainpart = (mainpart.split('\n\n\n'))[0]
-			
-		
-		#print('____________Debug Languge and mainpart_________________',self.language,text,sep='\n')
-		return mainpart,True
+					
+					print('____________Debug WORD NOT FOUND BUT LOOKING FOR IT_________________',self.title,self.loop,sep='\n')
+					text, _ = self.main()
+					self.loop+=1
+					return text
 
 
 	
@@ -212,17 +231,16 @@ class web:
 
 		if "сокр." not in text and "вм." in text and "см." not in text:
 			self.url = (((text.split("href='"))[1]).split("'"))[0]
-			#print('____________Debug LINK_________________','Traditional Character',self.title,self.url,sep='\n')
 			text, _ = self.main()
 		
 		
-		#print('____________Debug FORMATTING_________________','Traditional Character',self.title,self.url,sep='\n')
+
 		self.title = '<a href="{}">{}</a>'.format(self.url,self.title)
 		if self.language == 'cn':
-			#self.title = self.replaceplus('\n', self.title)
-			#print('____________Debug FORMATTING_________________','Traditional Character',self.title,self.pinyin,text,sep='\n')
+		
 			text = self.title + "\n" + self.pinyin + '\n\n' + text
 		elif self.language == 'ru':
+		
 			text = self.title + "\n\n" + (text.split("\n\n",1))[1]
 		
 		return text
@@ -231,10 +249,10 @@ class web:
 	# --Main--
 
 	def main(self):
-		
-		if self.url != "":
-			if 'bkrs.info' not in self.url:
-				self.whatlan()
+		#self.loop+=1
+		if self.input != "":
+			if 'bkrs.info' not in self.input:
+				self.whatlan(self.input)
 				
 				if self.language == 'en':
 					text = ''' English is not implemented yet'''
@@ -244,26 +262,29 @@ class web:
 				# ---Fixing maybe you're loking for another word
 				
 				if self.title == '':
-					self.title = self.url.capitalize()
+					self.title = self.input.capitalize()
 				else:
-					self.title = self.title + self.url.capitalize()
+					self.title = self.title + self.input.capitalize()
 					
 				# ---Russian Multiword Input Search!
 					
-				if ' ' in self.title :
-					self.url = "https://bkrs.info/slovo.php?ch=" + self.replaceplus([' '],self.url,'+')
-					print('____________Debug NEW MULTIWORD SYSTEM_________________',self.url,sep='\n')
+				if ' ' in self.input:
+					self.url = "https://bkrs.info/slovo.php?ch=" + self.replaceplus([' '],self.input,'+')
+					print('____________Debug NEW MULTIWORD SYSTEM_________________',self.input,sep='\n')
 				else:
-					self.url = "https://bkrs.info/slovo.php?ch=" + self.url
+					self.url = "https://bkrs.info/slovo.php?ch=" + self.input
 
-				
+			else:
+				self.url = self.input	
 			self.downloadwpage()
 		page_txt = self.readfile()
-		main_info,text_check = self.parting(page_txt)
-		if text_check is False:
-			#print('____________Debug Error_________________',main_info,sep='\n')
-			return main_info, False
+		main_info = self.parting(page_txt)
 		
+		# --Check if text ok for russian language--
+		if main_info is False:
+			main_info = self.notfound()
+			print('____________Debug NOT FOUND_________________',main_info,self.language,sep='\n')
+			return main_info, False
 		
 		
 		# --Download audio Toggle--
@@ -273,9 +294,13 @@ class web:
 		else:
 			audio_check = False
 		
-		main_info = self.formatting(main_info)
-
-		print('____________Debug MAIN INFO_________________',main_info,sep='\n')
+		# -- Privent from unnecessary formatting
+		print(self.loop)
+		if self.loop == 0:
+			main_info = self.formatting(main_info)
+		
+		
+		print('____________Debug MAIN INFO_________________',main_info,audio_check,sep='\n')
 		
 		return main_info, audio_check
 

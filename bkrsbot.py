@@ -2,7 +2,7 @@
 import os
 
 import telebot
-from constant import TOKEN, PROXY
+from constant import TOKEN, PROXY, ADMIN
 from main import web
 from flask import Flask, request
 
@@ -23,7 +23,7 @@ def handle_tags(message):
 @bot.message_handler(content_types=['text'])
 def handle_docs_text(message):
 	webb = web(message.text)
-	print(webb.url)
+	#print(webb.url)
 	localmsg,check = webb.main()[:]
 	#print('____________Debug Ready to send_________________',localmsg,check,sep='\n')
 	bot.send_message(message.chat.id,localmsg,disable_web_page_preview=True)
