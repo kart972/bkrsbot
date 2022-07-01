@@ -1,9 +1,13 @@
 #!/usr/bin/python
 import os
 MAIN_URL = 'https://bkrs.info/'
+NUM_FILTER = """<div style='color: #ba0303;'>Словарь ищет только по китайскому, русскому и пиньиню.<br />
+This is a Chinese ⇄ Russian dictionary, English is used for pinyin (transcription) search only.<br />
+</div>"""
 
 class web:
 	global MAIN_URL
+	global NUM_FILTER
 
 	# --Varialbles--
 	def __init__(self,t_input=None, url=None, proxy=False, language=None):
@@ -25,6 +29,7 @@ class web:
 			
 		if self.language == 'ru':
 			text = '<a href="{a}">{b}</a>\nСлово не найдено.'.format(a=self.url,b=self.title)
+		
 		print(self.language)
 		return text
 	
@@ -126,7 +131,14 @@ class web:
 				if 'Такого слова нет.' not in text:
 					mainpart = (text.split("<div id='ru_ru'>"))[1]
 					mainpart = (mainpart.split('\n\n\n'))[0]
+					
+					
+					# --- Handle Numbers ---
+					if NUM_FILTER in text:
+						return False
+
 					return mainpart
+					
 			#---Word not found---					
 				if 'начальная форма:' not in text:
 					return False
@@ -249,14 +261,19 @@ class web:
 	# --Main--
 
 	def main(self):
-		#self.loop+=1
 		if self.input != "":
 			if 'bkrs.info' not in self.input:
 				self.whatlan(self.input)
 				
+				# ---English not implemented
+				
 				if self.language == 'en':
 					text = ''' English is not implemented yet'''
 					return text
+				
+				
+				# ---Numbers
+				
 				
 				
 				# ---Fixing maybe you're loking for another word
@@ -277,6 +294,7 @@ class web:
 			else:
 				self.url = self.input	
 			self.downloadwpage()
+		
 		page_txt = self.readfile()
 		main_info = self.parting(page_txt)
 		
