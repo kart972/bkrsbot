@@ -1,0 +1,16 @@
+# Folders
+__pycache__/
+venv/
+
+# Files
+.*
+poetry.lock
+
+
+replit_zip_error_log.txt
+pyproject.toml
+replit.nix
+
+# Exclude
+!.git
+!.gitignore

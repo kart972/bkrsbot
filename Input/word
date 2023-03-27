@@ -1,0 +1,271 @@
+<!--https://www.yellowbridge.com/chinese/sentsearch.php?word=寡头-->
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>寡头 Example Sentences - Mandarin Chinese-English Dictionary &amp; Thesaurus - YellowBridge</title>
+<meta name="keywords" content="mandarin, chinese, english, sample sentences, examples, dictionary">
+<meta name="description" content="Free online talking dictionary with sample sentences, handwriting recognition, fuzzy pinyin matches, word decomposition, etc.">
+<link rel="preconnect" href="https://tags.expo9.exponential.com" crossorigin>
+<link rel="preconnect" href="https://s.tribalfusion.com" crossorigin>
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+<link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>
+<link rel="preconnect" href="https://partner.googleadservices.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://tpc.googlesyndication.com" crossorigin>
+<link rel="preconnect" href="https://adservice.google.com" crossorigin>	
+<meta name="robots" content="index,follow,noimageindex">
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+<link rel="apple-touch-icon" sizes="57x57" href="//r.yellowbridge.com/images/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="//r.yellowbridge.com/images/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="//r.yellowbridge.com/images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="//r.yellowbridge.com/images/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="//r.yellowbridge.com/images/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="//r.yellowbridge.com/images/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="//r.yellowbridge.com/images/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="//r.yellowbridge.com/images/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//r.yellowbridge.com/images/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon" href="//r.yellowbridge.com/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="//r.yellowbridge.com/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="//r.yellowbridge.com/images/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="//r.yellowbridge.com/images/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="//r.yellowbridge.com/images/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="//r.yellowbridge.com/images/manifest.json">
+<link rel="shortcut icon" href="//r.yellowbridge.com/images/favicon.ico">
+<link rel="stylesheet" href="//r.yellowbridge.com/styles/core.css?v=1657236418" />
+<style>#pgMain { float:left;}</style>
+<meta name="apple-mobile-web-app-title" content="YellowBridge">
+<meta name="google" content="notranslate">
+<meta name="application-name" content="YellowBridge">
+<meta name="msapplication-TileColor" content="#2d6bdb">
+<meta name="msapplication-TileImage" content="//r.yellowbridge.com/images/mstile-144x144.png">
+<meta name="msapplication-config" content="//r.yellowbridge.com/images/browserconfig.xml">
+<meta name="theme-color" content="#fdbc1e">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1092624-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-1092624-1');
+</script>
+<script defer src="//r.yellowbridge.com/scripts/core.js?v=1658602933"></script>
+<script defer src="//r.yellowbridge.com/scripts/dict-val.js?v=?v=1601428350"></script>
+<script defer src="//r.yellowbridge.com/scripts/hwr.js?v=?v=1596997347"></script>
+<script defer src="//r.yellowbridge.com/scripts/zi.js?v=1597077891"></script>
+<style>
+#tabBody { background:#d7d9ce; }
+DIV#tabs LI { background: #eaebe3; }
+DIV#searchBarBottom { background:#EBEEE6;}
+#dictOut { width:790px;}
+#bigWord { float:left; width:290px; margin:0 0 5px 0; padding:5px; text-align:center;background-color:#fdf8e0;}
+#strokeCanvas { width:280px; max-height:64px;}
+#mainData { float:right; width:470px; margin:0 0 5px 0;}
+#pgSquareM { clear:left; float:left;}
+#ytNote { clear:left; float:left; width:290px; padding:5px; overflow:auto; margin:0 0 5px 0; font-size:x-small;}
+#sentences { float:right; width:470px; margin:5px 0;}
+#sentences TR:hover { background:none;}
+#ytdata { margin-top:5px;}
+@media screen and (max-width:767px) { 
+#dictOut { width:100%;}
+#bigWord { float:left; width:96%; margin:0 0 5px 0; padding:5px; text-align:center;background-color:#fdf8e0;}
+#mainData { float:left; width:100%; top:0;}
+#pgSquareM { clear:both; float:none;}
+#ytNote { float:left; width:96%; padding:5px; overflow:auto; margin:0 0 5px 0;}
+#sentences { float:left; width:100%; margin:5px 0;}
+}
+</style>
+</head> 
+<body>
+<div id="pgWrapper">
+<!-- COPYRIGHT 2003-2023 J. Lau.  All Rights Reserved.                                    -->
+<!--======================================================================================-->
+<!-- REMINDER: Per our site's TERMS OF SERVICE, your are strictly prohibited from making  -->
+<!-- any attempt to copy, decompile, or reverse engineer any part of this website         -->
+<!--======================================================================================-->
+<div id="pgOverlay" onClick="sidebarClose()"></div>
+<header id="pgHeader">
+<div class="pgLeft"><a href="/" target="_top"><img src="//r.yellowbridge.com/images/header.png" srcset="//r.yellowbridge.com/images/header_2x.png 2x" class="block" alt="YellowBridge Chinese Language & Culture"></a></div>
+<div id="pgHeaderRight"><a href="." target="_top"><img src="//r.yellowbridge.com/images/hdr-language.png" class="block" alt="Chinese Language Center"></a></div>
+<nav id="pgNavbar">
+<ul>
+	<li><span class="hamburger" onclick="sidebarOpen()">Menu</span></li>
+	<li><a href="/general/contact.php" target="_top">About</a></li>
+	<li><a href="https://www.yellowbridge.com/general/signin.php" target="_top" title="Kill ads and get premium features">Subscribe</a></li>
+	<li><a href="https://www.yellowbridge.com/general/signin.php" target="_top">Sign In</a></li>
+</ul>
+</nav><!--pgNavbar-->
+</header><!--pgHeader-->
+<noscript>
+<div class="warningBox">Warning: Please enable Javascript in order to view site.</div>
+<style>#pgMain { display:none;}</style>
+</noscript>
+<div id="pgHeaderM">
+      
+<script>
+e9=new Object();
+e9.size="728x90";
+</script>
+<script src="//tags.expo9.exponential.com/tags/YellowBridge/ROS/tags.js" onerror="pgHeaderMX=0"></script>
+</div>
+<main id="pgMain">
+<h1><a href="index.php" class="backButton">Learn Mandarin</a>&nbsp;Mandarin-English Dictionary &amp; Thesaurus</h1>
+<div id="dictOut" class="tabGroup">
+<div id="searchBarTop">
+<div class="pgLeft"><h3><a href="dictionary.php">New Search</a></h3></div>
+<div class="pgLeftAttach"><form id="searchbar" name="searchbar" action="dictionary.php" method="post" target="_top" onSubmit="return validate(this)">
+	<select name="searchMode" id="searchMode0">
+		<optgroup label="Search Word"></optgroup>
+		  <option value="C" selected>中文 » English</option>
+		  <option value="P" >Pinyin » 中文</option>
+		  <option value="E" >English » 中文</option>
+		           <optgroup label="Search Character"></optgroup>
+		  <option value="CHD" >字 » Char. Detail</option>
+		  <option value="CHE" >字 » Etymology</option>
+		</select>
+			<input name="word" type="search" id="hwWordTop" size="12" maxlength="30" autocapitalize="off" spellcheck="false"  autocomplete="off" data-inset="0"
+            	onkeyup="validateMini(this)" onmouseup="validateMini(this)" onpaste="validateMini(this)" onchange="validateMini(this)"
+                oninput="validateMini(this)" required>
+		<button type="button" onClick="hwPopup('s',event,'hwWordTop'); return false;" class="brush" title="Handwriting input: Enter by drawing the Chinese character"></button>
+        <button type="submit" class="magnifier" title="Search"></button>
+        <input name="csrfToken" type="hidden" value="4LQMT4IclCRtBxw223x8DKlSE3jd2PAUjnE6Vf9SS40=">
+</form></div>
+</div>
+	
+  <div id="tabs">
+      <ul>
+        <li><a href="dictionary.php?word=%E5%AF%A1%E5%A4%B4"><span class="optional">詞 </span>Word</a></li>
+        <li><a href="thesaurus.php?word=%E5%AF%A1%E5%A4%B4"><span class="optional">类属 </span>Thesaurus</a></li>
+        <li id="current"><span><span class="optional">例句 </span>Examples</span></li>
+        <li><a href="character-stroke-order.php?word=%E5%AF%A1%E5%A4%B4"><span class="optional">筆順 </span>Strokes</a></li>        <li title="Tab disabled because it's only applicable to single characters"><span class="gray"><span class="optional">字 </span>Character</span></li>
+        <li title="Tab disabled because it's only applicable to single characters"><span class="gray"><span class="optional">字源 </span>Etymology</span></li>
+                <li class="right"><a href="dictionary-prefs.php" class="preferences" title="search by">Preferences</a></li>
+      </ul>
+    </div>
+<div id="tabBody" class="rounded shadow">
+  <div id="bigWord" class="rounded inset unselectable">
+	<canvas id="strokeCanvas" data-serialLayout="1" data-animationSpeed="0" data-passKey="3039f1d50af93ba6d4785a350b89407e" data-len="2">寡头</canvas>
+    <span onclick="wordAnimator(-1)" class="brush" title="Show Stroke Order"></span>
+    <span class="clipboard" onclick="copyToClipboard('寡头')" title="Copy to Clipboard"></span>
+		
+      <div class="bigger"><span onclick="sayPY('gua3 tou2')" class="speech phonetic pronouncer" title="Pronounce">guǎtóu</span></div></div>
+<table id="mainData" class="grid boldFirstCol">
+	<caption>Main</caption>
+<tr><td>English Definition</td><td><a class="definition" href="/chinese/dictionary.php?searchMode=E&amp;word=oligarch">oligarch</a></td></tr><tr><td>Simplified Script</td><td class="zh">寡头 <span class="clipboard" onclick="copyToClipboard('寡头')" title="Copy to Clipboard"></span></td></tr><tr><td>Traditional Script</td><td><a href="/chinese/sentsearch.php?word=%E5%AF%A1%E9%A0%AD&amp;cache=31094&amp;characterMode=t" class="zh" lang="zh-Hant">寡頭</a> <span class="clipboard" onclick="copyToClipboard('寡頭')" title="Copy to Clipboard"></span></td></tr>  </table>
+<div id="pgSquareM">
+<script>
+e9=new Object();
+e9.size="300x250";
+</script>
+<script src="//tags.expo9.exponential.com/tags/YellowBridge/ROS/tags.js" onerror="pgSquareMX=0"></script>
+</div>
+    
+    <table id="sentences" class="grid maxwidth">  
+      <caption>Sample Sentences</caption>
+      <tr>
+        <td>
+          <ul class="spaced pointer"><li><span class="yt2"><u>寡头</u></span><span class="yt2">卖主</span><span class="yt2">垄断</span><span class="yt2">一种</span><span class="yt2">由</span><span class="yt2">少数</span><span class="yt2">卖方</span><span class="yt2">控制</span><span class="yt2">的</span><span class="yt2">市场状况</span>。<span class="yt2">因为</span><span class="yt2">卖主</span><span class="yt2">极少</span>，<span class="yt2">以至</span><span class="yt2">卖主</span><span class="yt2">的</span><span class="yt2">任何</span><span class="yt2">行为</span><span class="yt2">都</span><span class="yt2">可能</span><span class="yt2">对</span><span class="yt2">价格</span><span class="yt2">产生</span><span class="yt2">实质</span><span class="yt2">影响</span>，<span class="yt2">从而</span><span class="yt2">对</span><span class="yt2">其</span><span class="yt2">竞争对手</span><span class="yt2">产生</span><span class="yt2">相当</span><span class="yt2">大</span><span class="yt2">的</span><span class="yt2">冲击</span><span class="yt2">影响力</span><br>A market condition in which sellers are so few that the actions of any one of them will materially affect price and have a measurable impact on competitors.</li></ul>                    </td>
+                  </tr>
+</table>
+<div id="ytNote">
+	<a href="annotator-about.php"><img src="//r.yellowbridge.com/images/tip2.gif" class="alignLeft maxHalfWidth"></a>
+	<br><span class="finger"></span>YellowTip is enabled in the first 2 sentences. To enable in the rest, please <a href="https://www.yellowbridge.com/general/signin.php">sign-in</a>.
+</div>
+ 
+<div id="searchBarBottom" class="rounded inset">
+<div class="pgLeft"><h3><a href="dictionary.php">New Search</a></h3></div>
+<div class="pgLeftAttach"><form id="searchbar" name="searchbar" action="dictionary.php" method="post" target="_top" onSubmit="return validate(this)">
+	<select name="searchMode" id="searchMode1">
+		<optgroup label="Search Word"></optgroup>
+		  <option value="C" selected>中文 » English</option>
+		  <option value="P" >Pinyin » 中文</option>
+		  <option value="E" >English » 中文</option>
+		           <optgroup label="Search Character"></optgroup>
+		  <option value="CHD" >字 » Char. Detail</option>
+		  <option value="CHE" >字 » Etymology</option>
+		</select>
+			<input name="word" type="search" id="hwWord" size="12" maxlength="30" autocapitalize="off" spellcheck="false"  autocomplete="off" data-inset="1"
+            	onkeyup="validateMini(this)" onmouseup="validateMini(this)" onpaste="validateMini(this)" onchange="validateMini(this)"
+                oninput="validateMini(this)" required>
+		<button type="button" onClick="hwPopup('s',event,'hwWord'); return false;" class="brush" title="Handwriting input: Enter by drawing the Chinese character"></button>
+        <button type="submit" class="magnifier" title="Search"></button>
+        <input name="csrfToken" type="hidden" value="4LQMT4IclCRtBxw223x8DKlSE3jd2PAUjnE6Vf9SS40=">
+</form></div>
+<div class="pgLeftAttach footnote">Wildcard: Use * as placeholder for 0 or more<br /> Chinese characters or pinyin syllables</div>
+<div class="pgRight footnote"><a href="dictionary.php">Full Search Form</a><br>
+<a href="dictionary-credits.php" rel="nofollow">Credits</a></div>
+</div>
+      </div><!--tabBody-->
+   </div><!--tabGroup-->
+</main><!--pgMain-->
+<div id="pgSkyM">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" onerror="pgSkyMX=0"></script>
+<!-- responsive wide sky -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3150855309582897"
+     data-ad-slot="7749424448"
+     data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+	
+<div id="pgFooterM">	
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" onerror="pgFooterMX=0"></script>
+<!-- responsive footer -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3150855309582897"
+     data-ad-slot="2787323647"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<footer id="pgFooter">
+	<div class="footnote">
+    <a href="/general/termsofservice.php" rel="nofollow">Terms of Service</a> | 
+	<a href="/general/privacy.php" rel="nofollow">Privacy Policy</a> |
+	<a href="/general/techinfo.php" rel="nofollow">Problems?</a></div>
+    <div class="footnote">&copy;2003-2023 J. Lau. All rights reserved.</div>
+</footer><!--pgFooter-->
+<nav id="pgSidebar">
+<div id="pgSidebarClose"><span onClick="sidebarClose()" class="close"></span></div>
+<ul>
+	<li class="top"><a href="/chinese/" class="home">LEARN CHINESE</a></li>
+    <li><a href="/chinese/dictionary.php">Dictionary</a></li>
+    <li><a href="/chinese/flashcards.php">Flashcards</a></li>
+    <li><a href="/chinese/memory.php">Memory Game</a></li>
+    <li><a href="/chinese/annotator.php">YellowTip Popup Translator</a></li>
+    <li><a href="/chinese/pinyin-intro.php">All About Pinyin</a></li>
+    <li><a href="/chinese/character-stroke-order-rules.php">Stroke Order Rules</a></li>
+    <li><a href="/chinese/hsk.php">HSK</a></li>
+    <li><a href="/onlinelit/">Chinese Reading Center</a></li>
+    <li class="top"><a href="/chinese-culture.php" class="home">CHINESE CULTURE</a></li>
+    <li><a href="/humor/">Humor</a></li>
+    <li><a href="/people/">Famous Chinese Americans</a></li>
+    <li><a href="/literature/">Chinese Literature</a></li>
+    <li><a href="/mysticism/">Mysticism</a></li>
+    <li class="top"><span>SITE &raquo;</span>
+    	<ul>
+            <li><a href="/general/contact.php">About Us</a></li>
+            <li><a href="/general/termsofservice.php">Terms of Service</a></li>
+            <li><a href="/general/privacy.php">Privacy Policy</a></li>
+            <li><a href="/general/techinfo.php">Technical Checklist</a></li>
+            <li><a href="/general/signin.php">Sign Up/Sign In</a></li>
+        </ul>
+     </li>
+     <li><a href="/general/support.php">Support</a></li>
+	<li><span class="gray">My Account</span></li>
+   
+     
+	<li><a href="/general/search-results.php">Search YellowBridge</a></li>
+    </ul>
+</nav><!--pgSidebar-->
+<!-- COPYRIGHT 2003-2023 J. Lau.  All Rights Reserved.                                    -->
+<!--======================================================================================-->
+<!-- REMINDER: Per our site's TERMS OF SERVICE, your are strictly prohibited from making  -->
+<!-- any attempt to copy, decompile, or reverse engineer any part of this website         -->
+<!--======================================================================================-->
+</div><!--pgWrapper-->
+</body>
+</html>

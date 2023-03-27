@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Добавить новое слово в 大БКРС</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex">
+	<link type="text/css" rel="stylesheet" href="css/smoothness/jquery-ui.css">
+	<link type="text/css" rel="stylesheet" href="https://bkrs.info/css/general.css?150">
+	<link type="text/css" rel="stylesheet" href="css/form.css?19">
+	<link type="text/css" rel="stylesheet" href="https://bkrs.info/css/menu_responsive.css?v=3">
+	<link type="text/css" rel="stylesheet" href="css/changes.css?29">
+	<link type="text/css" rel="stylesheet" href="css/comments.css?13">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body >
+<div id='container'>
+<div id='menu_top'>
+<div id='nav'>
+<div class="nav_center">
+<ul class="nav2">
+	<li><a id='main_page_link' href="https://bkrs.info/">Главная</a></li><li><a href="https://bkrs.info/form.php">Добавить</a></li><li><a href="https://bkrs.info/changes.php?view=words_examples_new">Новые</a></li><li><a href="https://bkrs.info/changes.php?view=words_examples_edited">Исправленные</a></li><li id='menu_examples'><a href="#" onclick='return false'>Примеры</a>
+		<ul class='nav_dropdown'>
+			<li><a href="https://bkrs.info/examples.php">Добавить</a></li>
+			<li><a href="https://bkrs.info/changes.php?view=examples_new">Новые</a></li>
+			<li><a href="https://bkrs.info/changes.php?view=examples_edited">Исправленные</a></li>
+			<li><a href="https://bkrs.info/changes.php?view=examples_from_words">Из слов</a></li>
+			<li><a href="https://bkrs.info/changes.php?view=example_to_word">В слова</a></li>
+		</ul>
+	</li><li><a href="#" onclick='return false'>Правки</a>
+		<ul class='nav_dropdown'>
+			<li><a href="https://bkrs.info/changes.php">Все</a></li>
+			<li><a href="https://bkrs.info/changes.php?view=with_comments">С комментариями</a></li>
+			<li><a href="https://bkrs.info/changes.php?view=direction_changed">Направление</a></li>
+			<li><a href="https://bkrs.info/changes.php?view=deleted">Удалённые</a></li>
+		</ul>
+	</li><li><a href="#" onclick='return false'>Меню <span class='pt8'>▼</span></a>
+		<ul class='nav_dropdown'>
+			<li><a href='https://bkrs.info/taolun/'>Форум</a></li>
+			<li><a href='https://bkrs.info/search.php'>Поиск</a></li>
+			<li><a href='http://bkrd.info/'>Объявления</a></li>
+			<li><div class='submenu_main_show'><a href='https://bkrs.info/#'>Помощь <span class='pt8'>▶</span></a><div class='submenu_main' id='submenu_main1'>
+				<a href='https://bkrs.info/p168'>Принципы</a>
+				<a href='https://bkrs.info/p87'>Правила</a>
+				<a href='https://bkrs.info/p217'>Документация 大БКРС</a>
+			</div></div></li>
+			<li><a href='https://bkrs.info/users_period.php?view=dict&time=day'>Участники</a></li>
+			<li><a href='https://bkrs.info/bywords_out.php'>Пословный</a></li>
+			<li><a href='https://bkrs.info/commonvoice.php'>Фразы</a></li>
+			<li><a href='https://bkrs.info/raokouling.php'>Скороговорки</a></li>
+			<li><a href='https://bkrs.info/frequency.php'>Частотность</a></li>
+			<li><a href='https://bkrs.info/proper_convert.php'>Собственные</a></li>
+			<li><a href='p46'>Аддон</a></li>
+			<li><a href='https://bkrs.info/p47'>Скачать словарь</a></li>			<li id='nav_theme'><a id='theme_dark' href='https://bkrs.info/?theme=dark'>Тёмная тема</a></li>
+			<li><a href='https://bkrs.info/p98'>Контакты</a></li>
+		</ul>
+	</li><li>
+
+	<a rel='nofollow' href='https://bkrs.info/user.php?name=Bangyang'><img id='avatar' style='max-width:16px;max-height:16px;' class='img_center' src='https://bkrs.info/taolun/./uploads/avatars_auto/4754438.png' /></a><ul class='nav_dropdown'>
+	<li><a href='https://bkrs.info/user.php?name=Bangyang&from=dict'>Профиль</a></li>
+	<li><a href='https://bkrs.info/taolun/private.php?fid=1'>Личка</a></li>
+	<li><a href='https://bkrs.info/login.php?action=logout'>Выйти</a></li>
+</ul>
+
+	</li>
+</ul>
+</div>
+
+
+</div>
+</div>
+<div id='main'>
+
+<form id="form" name='f' action="slovo.php" method="get" autocomplete="off">
+<div id='lips2' style='background:url(https://bkrs.info/images/lips/2/1753.jpg) no-repeat center top;'>
+<div id='form_vertical_center_wrapper'>
+<div id='form_vertical_center'>
+<div id='input_div'>
+<table id='input_tbl'>
+<tr>
+	<td id='input_td'><input id="kw" maxlength="200" type="text" name="ch" value="" autocomplete="on"></td>
+	<td id='shouxie_td'><!-- <img id='sx' alt='ручной ввод' title='ручной ввод' src='images/dif/handwriting.png' /> --></td>
+</tr>
+</table>
+</div>
+<span id='su'></span>
+<center><input id="go_button" type="submit" value="перевести"></center>
+</div>
+</div>
+</div>
+</form>
+<span id='shouxie_container'></span>
+<br />
+
+
+<div id='header'>
+<div id='h1'>Добавить новое слово / <a href='examples.php'>Добавить пример</a></div>
+
+</div>
+
+<table id='form_table'><tr><td id='form_1'>
+<form method="post">
+
+<div class="h2">слово</div>
+<div id='ch_width_wrapper'>
+<input id='chf' type="text" name="ch" class='text_input ch' size="16" value=""><div id='check_word'></div>
+</div>
+
+<div id='pinyin-div'>
+<div class="h2">пиньинь</div>
+<div id='pinyin_width_wrapper'>
+<input id="pyf" type="text" name="py" class='text_input' value="" >
+</div>
+<div class='responsive_hidden' style='padding:0 3px;'><div class='autopinyin_notice'></div></div>
+<br />
+</div>
+
+
+<div id='meaning' class="h2">перевод</div>
+
+
+
+<div id='control_responsive' class='responsive_hidden'>
+
+<div class='buttons_responsive'>
+	<span class='auto_pinyin' title='курсив'>pīnyīn</span>
+	<span class='i-tag' title='курсив'>&nbspi&nbsp</span>
+	<span class='ci-tag' title='помета'>&nbspp&nbsp</span>
+	<span class='m1-tag' title='абзац'>m1</span>
+	<span class='ref-tag' title='ссылка'>ref</span>
+	<span class='ex-tag' title='пример'>&nbspe&nbsp</span>
+	<span id='responsive_more_toggle'>▼</span>
+</div>
+<div id='control_responsive_hidden'>
+
+<a class='show_marks' href='#'>пометы<span style='font-size:10px'>▼</span></a>
+<div class='marks'></div>
+
+<br />
+<div class='pt10 gray'>информация:</div>
+<a target='_blank' href='p217'>помощь</a>
+<a target='_blank' href='p215'>быстрый ввод</a>
+<a target='_blank' href='p255' >частые ошибки</a>
+</div>
+
+</div>
+
+
+
+<textarea id="ruf" rows="6" cols="45" name="ru" class="expand200-340"></textarea><br />
+
+
+<div id='holder_proper_names' class='hidden'>
+	<div class="h2"><a class='gray' href='p57'>дополнительное</a></div>
+	<textarea id='proper_names' name='proper_names' rows="6" cols="35" class="expand100-340"></textarea>
+	<br />
+</div>
+<br />
+
+<input id='submit' class="button" type="submit" value="Добавить"><br /><br />
+
+
+<input type="hidden" name="delete_example" value="">
+</form>
+
+<div class='responsive_hidden'>
+<table class='table_options'>
+<tr>
+	<td id='option_left_buttons'>
+<a class='add_proper' title='добавить имя собственное' href='#'><img width='16px' src='images/dif/picachu_bw.png' /></a><img width='16px' src='images/dif/picachu_color.png' style='display:none' /></td>
+
+</tr>
+</table>
+</div><div class='responsive_hidden' style='padding-top: 10px;'><div class='showResult'></div></div>
+
+<div class='responsive_hidden' style='padding:3px;padding-top: 10px;'>
+<br />
+<hr>
+<div id='ready'>
+	<div><span class='green'>Cлово успешно добавлено в 大БКРС</span>:</div>
+	<div style='position:relative'><div style='position:absolute;right:0px'><a style='padding:10px' title='править' class='gray pt10' href='form.php?ch=3558205'><img src='images/dif/edit.png' /></a></div></div>
+	<div id='rch' class='ch pt18'>草绿了</div>
+	<div id='rpy'>cǎolǜle</div>
+	<div id='rru'>трава позеленела</div>
+</div>
+<br /><br />
+</div>
+
+</td><td id='form_2'>
+<div class='showResult'></div>
+
+<b>Пиньинь</b> цифрами: shi4 peng2 - преобразуется в shì péng.<br />
+<a id='auto_pinyin' class='auto_pinyin tag_button_jqueryui ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' href='#' title='не забудьте проверить пиньинь!'><span class="ui-button-text jqueruui_tmp">自动 pīnyīn</span></a> <span>- автоматическая подстановка пиньиня</span>
+<div class='autopinyin_notice'></div>
+<br />
+<br />
+
+<b>Оформление</b>: выделите текст и щелкните по кнопке:<br /><br />
+
+<div style='float:right'>
+	<a target='_blank' class='gray pt10 block' href='p217'>помощь</a>
+	<a target='_blank' class='gray pt10 block' href='p215'>быстрый ввод</a>
+	<a target='_blank' class='gray pt10 block' href='p255' >частые ошибки</a>
+
+<!--	<a class='gray pt10' href='multiadd.php'>массовое</a>
+-->
+</div>
+
+
+<div id='left_buttons'>
+
+
+<div class='left_button'><a href='#' class='i-tag tag_button tag_button_jqueryui ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'><span class="ui-button-text jqueruui_tmp">[i]<i>курсив</i>[/i]</i></span></a>
+
+
+</div>
+<div class='left_button' id='pometi'><a href='#' class='ci-tag tag_button tag_button_jqueryui ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'><span class="ui-button-text jqueruui_tmp">[p]<i class='green'>помета</i>[/p]</span></a> <a class='show_marks' href='#'>пометы<span style='font-size:10px'>▼</span></a> <a target='_blank' id='pometomania' class='gray pt10' href='w/бкрс/пометомания'>не злоупотребляйте</a></div>
+
+<div style='margin:10px 0 0 30px;' class='marks'></div>
+
+<div class='left_button'><a href='#' class='m1-tag tag_button tag_button_jqueryui ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'><span class="ui-button-text jqueruui_tmp">[m1]абзац[/m]</span></a></div>
+
+<div class='left_button'><a href='#' class='ref-tag tag_button tag_button_jqueryui ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'><span class="ui-button-text jqueruui_tmp">[ref]<span id='ref_example'>ссылка</span>[/ref]</span></a></div>
+
+<div class='left_button'><a href='#' class='ex-tag tag_button tag_button_jqueryui ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'><span class="ui-button-text jqueruui_tmp">[m2][e]<span style='color:gray;'>пример</span>[/e][/m]</span></a></div>
+
+</div>
+
+
+<table class='table_options'>
+<tr>
+	<td id='option_left_buttons'>
+<a class='add_proper' title='добавить имя собственное' href='#'><img width='16px' src='images/dif/picachu_bw.png' /></a><img width='16px' src='images/dif/picachu_color.png' style='display:none' /></td>
+
+</tr>
+</table>
+
+<br />
+<br />
+
+
+
+
+
+</td></tr></table><br />
+
+
+<div class='change'>
+<table class='tbl_change '>
+<tr class='tr_change' comments='0' restore='1' type='word_ch_new' change='1200239' item_id='3558205' checkedd='' user='Bangyang' user_rating='47' changes_item_total='1' fastedit=''  word='草绿了'>
+
+	<td class='word_new inner_td ' hover='1'>
+	<div class='add_icons'></div>
+
+	<div class='show_type'></div>
+
+	<div class='div_first_left'>
+
+<table class='tbl_texts tbl_valing_middle '>
+<tr>
+	<td class='ch_new_ch'><div class='ch pt16'>草绿了</div></td>
+	<td class='ch_new_py py_new'><div>cǎolǜle</div></td>
+	<td class='ch_new_ru'><div class='ru_new'>трава позеленела</div></td>
+</tr>
+</table>
+	</div>
+	</td>
+	
+	<td class=' tbl_user'><div class='tbl_user_fixwidth'><a target='_blank' class='user_link' href='user.php?name=Bangyang&from=changes'><img width='20px' class='img_center' src='taolun/./uploads/avatars_auto/4754438.png' /> Bangyang</a></div></td>
+	<td class='like likeable' title='поставить плюсик'><span class='emplty_like'>♡</span></td>
+	<td class='tbl_date checker'>0с</td>
+	<td class='verify_checkbox checker pointer '></td>
+</tr>
+</table>
+
+</div>
+
+
+
+<div class='change'>
+<table class='tbl_change '>
+<tr class='tr_change' comments='0' restore='0' type='word_ru_new' change='1200225' item_id='259851' checkedd='' user='Тя' user_rating='33277' changes_item_total='1' fastedit=''  word='с лёгкостью'>
+
+	<td class='word_new inner_td ' hover='1'>
+	<div class='add_icons'></div>
+
+	<div class='show_type'></div>
+
+	<div class='div_first_left'>
+
+<table class='tbl_texts tbl_valing_middle '>
+<tr>
+	<td class='ru_new_ru'><div class='ru pt14'>с лёгкостью</div></td>
+	<td class='ru_new_ch'><div>轻松地, 轻而易举地</div></td>
+</tr>
+</table>
+
+	</div>
+	</td>
+	
+	<td class=' tbl_user'><div class='tbl_user_fixwidth'><a target='_blank' class='user_link' href='user.php?name=Тя&from=changes'><img width='20px' class='img_center' src='taolun/./uploads/avatars_auto/3877722.png' /> Тя</a></div></td>
+	<td class='like likeable' title='поставить плюсик'><span class='emplty_like'>♡</span></td>
+	<td class='tbl_date checker'>6м</td>
+	<td class='verify_checkbox checker pointer '></td>
+</tr>
+</table>
+
+</div>
+
+
+
+<div class='change'>
+<table class='tbl_change checked change_old'>
+<tr class='tr_change' comments='0' restore='0' type='word_ch_new' change='1200180' item_id='3558204' checkedd='edited' user='kolomushka' user_rating='326' changes_item_total='2' fastedit=''  word='目光学' checked_info='edited|18м|Skeletos|./uploads/avatars/avatar_3393.jpg?dateline=1637525177' >
+
+	<td class='word_new inner_td ' hover='1'>
+	<div class='add_icons'></div>
+
+	<div class='show_type'></div>
+
+	<div class='div_first_left'>
+
+<table class='tbl_texts tbl_valing_middle gray'>
+<tr>
+	<td class='ch_new_ch'><div class='ch pt16'>目光学</div></td>
+	<td class='ch_new_py py_new'><div>mùguāngxué</div></td>
+	<td class='ch_new_ru'><div class='ru_new'>окулесика (наука о языке глаз и визуальном поведении людей во время общения)</div></td>
+</tr>
+</table>
+	</div>
+	</td>
+	
+	<td class=' tbl_user'><div class='tbl_user_fixwidth'><a target='_blank' class='user_link' href='user.php?name=kolomushka&from=changes'><img width='20px' class='img_center' src='taolun/./uploads/avatars_auto/8696.png' /> kolomushka</a></div></td>
+	<td class='like likeable' title='поставить плюсик'><span class='emplty_like'>♡</span></td>
+	<td class='tbl_date checker'>1ч</td>
+	<td class='verify_checkbox checker pointer checked_info_show'><span class='checked_info'>↑</span></td>
+</tr>
+</table>
+
+</div>
+
+
+
+<div class='change'>
+<table class='tbl_change '>
+<tr class='tr_change' comments='0' restore='0' type='word_ch_new' change='1199558' item_id='3558203' checkedd='' user='Кот-бегемот' user_rating='4868' changes_item_total='1' fastedit=''  word='&#136549;'>
+
+	<td class='word_new inner_td ' hover='1'>
+	<div class='add_icons'></div>
+
+	<div class='show_type'></div>
+
+	<div class='div_first_left'>
+
+<table class='tbl_texts tbl_valing_middle '>
+<tr>
+	<td class='ch_new_ch'><div class='ch pt16'>&#136549;</div></td>
+	<td class='ch_new_py py_new'><div>xuè</div></td>
+	<td class='ch_new_ru'><div class='ru_new'><i class='green'>см.</i> <a href='https://bkrs.info/slovo.php?ch=%E4%BD%BF%E7%9C%BC%E8%89%B2'>使眼色</a></div></td>
+</tr>
+</table>
+	</div>
+	</td>
+	
+	<td class=' tbl_user'><div class='tbl_user_fixwidth'><a target='_blank' class='user_link' href='user.php?name=Кот-бегемот&from=changes'><img width='20px' class='img_center' src='taolun/./uploads/avatars/avatar_29231.jpg?dateline=1470240773' /> Кот-бегемот</a></div></td>
+	<td class='like likeable' title='поставить плюсик'><span class='emplty_like'>♡</span></td>
+	<td class='tbl_date checker'>3ч</td>
+	<td class='verify_checkbox checker pointer '></td>
+</tr>
+</table>
+
+</div>
+
+
+
+<div class='change'>
+<table class='tbl_change '>
+<tr class='tr_change' comments='0' restore='0' type='word_ch_new' change='1199556' item_id='3558202' checkedd='' user='美人鱼' user_rating='2555' changes_item_total='1' fastedit=''  word='机械电气设备'>
+
+	<td class='word_new inner_td ' hover='1'>
+	<div class='add_icons'></div>
+
+	<div class='show_type'></div>
+
+	<div class='div_first_left'>
+
+<table class='tbl_texts tbl_valing_middle '>
+<tr>
+	<td class='ch_new_ch'><div class='ch pt16'>机械电气设备</div></td>
+	<td class='ch_new_py py_new'><div>_</div></td>
+	<td class='ch_new_ru'><div class='ru_new'>электромеханическое оборудование</div></td>
+</tr>
+</table>
+	</div>
+	</td>
+	
+	<td class=' tbl_user'><div class='tbl_user_fixwidth'><a target='_blank' class='user_link' href='user.php?name=美人鱼&from=changes'><img width='20px' class='img_center' src='taolun/./uploads/avatars/avatar_9235.jpg?dateline=1348535879' /> 美人鱼</a></div></td>
+	<td class='like likeable' title='поставить плюсик'><span class='emplty_like'>♡</span></td>
+	<td class='tbl_date checker'>7ч</td>
+	<td class='verify_checkbox checker pointer '></td>
+</tr>
+</table>
+
+</div>
+
+
+
+<div class='change'>
+<table class='tbl_change '>
+<tr class='tr_change' comments='0' restore='0' type='word_ch_new' change='1199553' item_id='3558201' checkedd='' user='美人鱼' user_rating='2555' changes_item_total='1' fastedit=''  word='起吊夹角'>
+
+	<td class='word_new inner_td ' hover='1'>
+	<div class='add_icons'></div>
+
+	<div class='show_type'></div>
+
+	<div class='div_first_left'>
+
+<table class='tbl_texts tbl_valing_middle '>
+<tr>
+	<td class='ch_new_ch'><div class='ch pt16'>起吊夹角</div></td>
+	<td class='ch_new_py py_new'><div>_</div></td>
+	<td class='ch_new_ru'><div class='ru_new'>угол строповки, угол между стропами</div></td>
+</tr>
+</table>
+	</div>
+	</td>
+	
+	<td class=' tbl_user'><div class='tbl_user_fixwidth'><a target='_blank' class='user_link' href='user.php?name=美人鱼&from=changes'><img width='20px' class='img_center' src='taolun/./uploads/avatars/avatar_9235.jpg?dateline=1348535879' /> 美人鱼</a></div></td>
+	<td class='like likeable' title='поставить плюсик'><span class='emplty_like'>♡</span></td>
+	<td class='tbl_date checker'>8ч</td>
+	<td class='verify_checkbox checker pointer '></td>
+</tr>
+</table>
+
+</div>
+
+
+
+<div class='change'>
+<table class='tbl_change '>
+<tr class='tr_change' comments='0' restore='0' type='word_ch_new' change='1199548' item_id='3558200' checkedd='' user='yf102' user_rating='7381' changes_item_total='1' fastedit=''  word='豌豆蛋白'>
+
+	<td class='word_new inner_td ' hover='1'>
+	<div class='add_icons'></div>
+
+	<div class='show_type'></div>
+
+	<div class='div_first_left'>
+
+<table class='tbl_texts tbl_valing_middle '>
+<tr>
+	<td class='ch_new_ch'><div class='ch pt16'>豌豆蛋白</div></td>
+	<td class='ch_new_py py_new'><div>wāndòu dànbái</div></td>
+	<td class='ch_new_ru'><div class='ru_new'>гороховый протеин</div></td>
+</tr>
+</table>
+	</div>
+	</td>
+	
+	<td class=' tbl_user'><div class='tbl_user_fixwidth'><a target='_blank' class='user_link' href='user.php?name=yf102&from=changes'><img width='20px' class='img_center' src='taolun/./uploads/avatars/avatar_3862357.jpg?dateline=1667560269' /> yf102</a></div></td>
+	<td class='like likeable' title='поставить плюсик'><span class='emplty_like'>♡</span></td>
+	<td class='tbl_date checker'>12ч</td>
+	<td class='verify_checkbox checker pointer '></td>
+</tr>
+</table>
+
+</div>
+
+
+
+<div class='change'>
+<table class='tbl_change '>
+<tr class='tr_change' comments='0' restore='0' type='word_ch_new' change='1199538' item_id='3558199' checkedd='' user='DiadiaYura' user_rating='469' changes_item_total='1' fastedit=''  word='斜方肌上束'>
+
+	<td class='word_new inner_td ' hover='1'>
+	<div class='add_icons'></div>
+
+	<div class='show_type'></div>
+
+	<div class='div_first_left'>
+
+<table class='tbl_texts tbl_valing_middle '>
+<tr>
+	<td class='ch_new_ch'><div class='ch pt16'>斜方肌上束</div></td>
+	<td class='ch_new_py py_new'><div>xiéfāngjī shàng shù</div></td>
+	<td class='ch_new_ru'><div class='ru_new'><i class='green'>анат.</i> верхние пучки трапециевидной мышцы (<i>superior trapezius</i>)</div></td>
+</tr>
+</table>
+	</div>
+	</td>
+	
+	<td class=' tbl_user'><div class='tbl_user_fixwidth'><a target='_blank' class='user_link' href='user.php?name=DiadiaYura&from=changes'><img width='20px' class='img_center' src='taolun/./uploads/avatars/avatar_1813288.jpg?dateline=1492791846' /> DiadiaYura</a></div></td>
+	<td class='like likeable' title='поставить плюсик'><span class='emplty_like'>♡</span></td>
+	<td class='tbl_date checker'>13ч</td>
+	<td class='verify_checkbox checker pointer '></td>
+</tr>
+</table>
+
+</div>
+
+
+</div></div>
+<script src="https://bkrs.info/javascript/jquery-1.8.2.min.js"></script>
+<script src="javascript/jquery-ui.js"></script>
+<script>
+var PATH = 'https://bkrs.info/';
+var USER_RATING = 46.6;
+var USER = 'Bangyang';
+var IS_LOGGED = 1;
+
+var ARGS = {
+	user		: 'Bangyang' ,
+	user_id 	: 6039739 ,
+	user_rating	: 46.6 ,
+	ip 	: '132.145.60.102' ,
+	password	: '$2y$10$wq3QbSGXu6uREsJKsojrz.fUWi7cWZCKq7yadZXyGCBdELlL/ntsC',
+	mybbuser : '6039739_hMZ7d7rInWQZh1qXnNTZxIqDeYzHOiGqXSlyhbfYPsjefcFo9q',
+	avatar	: './uploads/avatars_auto/4754438.png',
+	what : 'word' ,
+	comments_table : 'change_comments'
+};
+var changes_view = '';
+var page_type = 'word_add';
+var word_id = 0;
+
+var mobile = 0;
+
+</script>
+<script src="https://bkrs.info/javascript/text_selection.js"></script>
+<script type="text/javascript" src="https://bkrs.info/javascript/functions6.js"></script>
+<script src="https://bkrs.info/javascript/js_functions3.js?5"></script>
+<script src="https://bkrs.info/javascript/changes3.js?66"></script>
+<script src="https://bkrs.info/javascript/comments2.js?v=13"></script>
+<script src="https://bkrs.info/javascript/form7.js?8"></script>
+<script src="https://bkrs.info/javascript/slovo3.js?v=22"></script>
+</body>
+</html>
