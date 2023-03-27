@@ -1,8 +1,8 @@
-<!--https://www.yellowbridge.com/chinese/sentsearch.php?word=寡头-->
+<!--https://www.yellowbridge.com/chinese/sentsearch.php?word=刚刚好-->
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<title>寡头 Example Sentences - Mandarin Chinese-English Dictionary &amp; Thesaurus - YellowBridge</title>
+<title>刚刚好 Example Sentences - Mandarin Chinese-English Dictionary &amp; Thesaurus - YellowBridge</title>
 <meta name="keywords" content="mandarin, chinese, english, sample sentences, examples, dictionary">
 <meta name="description" content="Free online talking dictionary with sample sentences, handwriting recognition, fuzzy pinyin matches, word decomposition, etc.">
 <link rel="preconnect" href="https://tags.expo9.exponential.com" crossorigin>
@@ -129,30 +129,30 @@ e9.size="728x90";
                 oninput="validateMini(this)" required>
 		<button type="button" onClick="hwPopup('s',event,'hwWordTop'); return false;" class="brush" title="Handwriting input: Enter by drawing the Chinese character"></button>
         <button type="submit" class="magnifier" title="Search"></button>
-        <input name="csrfToken" type="hidden" value="4LQMT4IclCRtBxw223x8DKlSE3jd2PAUjnE6Vf9SS40=">
+        <input name="csrfToken" type="hidden" value="MlrJUpOCVCGute5/0Tlzr7ZVGYFJLoz6sp+XAbLv7HQ=">
 </form></div>
 </div>
 	
   <div id="tabs">
       <ul>
-        <li><a href="dictionary.php?word=%E5%AF%A1%E5%A4%B4"><span class="optional">詞 </span>Word</a></li>
-        <li><a href="thesaurus.php?word=%E5%AF%A1%E5%A4%B4"><span class="optional">类属 </span>Thesaurus</a></li>
+        <li><a href="dictionary.php?word=%E5%88%9A%E5%88%9A%E5%A5%BD"><span class="optional">詞 </span>Word</a></li>
+        <li><a href="thesaurus.php?word=%E5%88%9A%E5%88%9A%E5%A5%BD"><span class="optional">类属 </span>Thesaurus</a></li>
         <li id="current"><span><span class="optional">例句 </span>Examples</span></li>
-        <li><a href="character-stroke-order.php?word=%E5%AF%A1%E5%A4%B4"><span class="optional">筆順 </span>Strokes</a></li>        <li title="Tab disabled because it's only applicable to single characters"><span class="gray"><span class="optional">字 </span>Character</span></li>
+        <li><a href="character-stroke-order.php?word=%E5%88%9A%E5%88%9A%E5%A5%BD"><span class="optional">筆順 </span>Strokes</a></li>        <li title="Tab disabled because it's only applicable to single characters"><span class="gray"><span class="optional">字 </span>Character</span></li>
         <li title="Tab disabled because it's only applicable to single characters"><span class="gray"><span class="optional">字源 </span>Etymology</span></li>
                 <li class="right"><a href="dictionary-prefs.php" class="preferences" title="search by">Preferences</a></li>
       </ul>
     </div>
 <div id="tabBody" class="rounded shadow">
   <div id="bigWord" class="rounded inset unselectable">
-	<canvas id="strokeCanvas" data-serialLayout="1" data-animationSpeed="0" data-passKey="3039f1d50af93ba6d4785a350b89407e" data-len="2">寡头</canvas>
+	<canvas id="strokeCanvas" data-serialLayout="1" data-animationSpeed="0" data-passKey="0c2ff37393fa7dce1a97dd3009d1b449" data-len="3">刚刚好</canvas>
     <span onclick="wordAnimator(-1)" class="brush" title="Show Stroke Order"></span>
-    <span class="clipboard" onclick="copyToClipboard('寡头')" title="Copy to Clipboard"></span>
+    <span class="clipboard" onclick="copyToClipboard('刚刚好')" title="Copy to Clipboard"></span>
 		
-      <div class="bigger"><span onclick="sayPY('gua3 tou2')" class="speech phonetic pronouncer" title="Pronounce">guǎtóu</span></div></div>
+      <div class="bigger"><span onclick="sayPY('gang1 gang5 hao3')" class="speech phonetic pronouncer" title="Pronounce">gānggang hǎo</span></div></div>
 <table id="mainData" class="grid boldFirstCol">
 	<caption>Main</caption>
-<tr><td>English Definition</td><td><a class="definition" href="/chinese/dictionary.php?searchMode=E&amp;word=oligarch">oligarch</a></td></tr><tr><td>Simplified Script</td><td class="zh">寡头 <span class="clipboard" onclick="copyToClipboard('寡头')" title="Copy to Clipboard"></span></td></tr><tr><td>Traditional Script</td><td><a href="/chinese/sentsearch.php?word=%E5%AF%A1%E9%A0%AD&amp;cache=31094&amp;characterMode=t" class="zh" lang="zh-Hant">寡頭</a> <span class="clipboard" onclick="copyToClipboard('寡頭')" title="Copy to Clipboard"></span></td></tr>  </table>
+<tr><td>English Definition</td><td><a class="definition" href="/chinese/dictionary.php?searchMode=E&amp;word=just">just</a> <a class="definition" href="/chinese/dictionary.php?searchMode=E&amp;word=right">right</a></td></tr><tr><td>Simplified Script</td><td class="zh">刚刚好 <span class="clipboard" onclick="copyToClipboard('刚刚好')" title="Copy to Clipboard"></span></td></tr><tr><td>Traditional Script</td><td><a href="/chinese/sentsearch.php?word=%E5%89%9B%E5%89%9B%E5%A5%BD&amp;cache=140487&amp;characterMode=t" class="zh" lang="zh-Hant">剛剛好</a> <span class="clipboard" onclick="copyToClipboard('剛剛好')" title="Copy to Clipboard"></span></td></tr>  </table>
 <div id="pgSquareM">
 <script>
 e9=new Object();
@@ -165,7 +165,7 @@ e9.size="300x250";
       <caption>Sample Sentences</caption>
       <tr>
         <td>
-          <ul class="spaced pointer"><li><span class="yt2"><u>寡头</u></span><span class="yt2">卖主</span><span class="yt2">垄断</span><span class="yt2">一种</span><span class="yt2">由</span><span class="yt2">少数</span><span class="yt2">卖方</span><span class="yt2">控制</span><span class="yt2">的</span><span class="yt2">市场状况</span>。<span class="yt2">因为</span><span class="yt2">卖主</span><span class="yt2">极少</span>，<span class="yt2">以至</span><span class="yt2">卖主</span><span class="yt2">的</span><span class="yt2">任何</span><span class="yt2">行为</span><span class="yt2">都</span><span class="yt2">可能</span><span class="yt2">对</span><span class="yt2">价格</span><span class="yt2">产生</span><span class="yt2">实质</span><span class="yt2">影响</span>，<span class="yt2">从而</span><span class="yt2">对</span><span class="yt2">其</span><span class="yt2">竞争对手</span><span class="yt2">产生</span><span class="yt2">相当</span><span class="yt2">大</span><span class="yt2">的</span><span class="yt2">冲击</span><span class="yt2">影响力</span><br>A market condition in which sellers are so few that the actions of any one of them will materially affect price and have a measurable impact on competitors.</li></ul>                    </td>
+          Sorry, no sample sentences containing this word were found.                    </td>
                   </tr>
 </table>
 <div id="ytNote">
@@ -190,7 +190,7 @@ e9.size="300x250";
                 oninput="validateMini(this)" required>
 		<button type="button" onClick="hwPopup('s',event,'hwWord'); return false;" class="brush" title="Handwriting input: Enter by drawing the Chinese character"></button>
         <button type="submit" class="magnifier" title="Search"></button>
-        <input name="csrfToken" type="hidden" value="4LQMT4IclCRtBxw223x8DKlSE3jd2PAUjnE6Vf9SS40=">
+        <input name="csrfToken" type="hidden" value="MlrJUpOCVCGute5/0Tlzr7ZVGYFJLoz6sp+XAbLv7HQ=">
 </form></div>
 <div class="pgLeftAttach footnote">Wildcard: Use * as placeholder for 0 or more<br /> Chinese characters or pinyin syllables</div>
 <div class="pgRight footnote"><a href="dictionary.php">Full Search Form</a><br>

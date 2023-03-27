@@ -5,7 +5,7 @@ import os
 from main import web
 from search import Search, SEARCH_URL
 from edit import edit_web
-from constant import TOKEN, ADMIN, WELCOME, HEADER, HOOK
+from constant import TOKEN, ADMIN, WELCOME, HEADER, HOOK,PROXY,LOCALIZATION
 from user import User
 
 #test
@@ -28,6 +28,7 @@ import requests
 LANGUAGES = ['ru','en']
 
 
+
 #telebot.apihelper.proxy = {'https':PROXY}
 server = Flask(__name__)
 
@@ -36,6 +37,9 @@ srch = Search()
 
 #bot = telebot.TeleBot(TOKEN,parse_mode='markdown')
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
+
+
+telebot.apihelper.proxy = {'https':PROXY}
 
 usr = User()
 
@@ -164,10 +168,15 @@ def long_message_request(chat_id, text, keyboard=None):
 @bot.message_handler(commands=['start'])
 def handle_start_tags(message):
 	user_id = str(message.from_user.id)
-	lan = message.from_user.language_code if 'en' in message.from_user.language_code or 'ru' in message.from_user.language_code else "en"
-	usr.add_user(user_id, message.from_user.username,
-	             message.from_user.first_name, lan)
-	bot.send_message(message.chat.id, WELCOME)
+	user_lan = message.from_user.language_code
+	
+	lan = user_lan if user_lan in ['en','ru'] else "en"
+	usr.add_user(user_id, message.from_user.username,message.from_user.first_name, lan)
+	
+	print(usr.get_info(user_id,usr.lan))
+	print('test')
+	
+	bot.send_message(message.chat.id, LOCALIZATION[usr.get_info(user_id,usr.lan)]['welcome'])
 	pass
 
 
@@ -403,8 +412,11 @@ def getMessage():
 # Flask setup hook
 @server.route("/")
 def webhook():
+	print('debug')
 	bot.remove_webhook()
-	bot.set_webhook(url=HOOK + TOKEN)
+	url = HOOK+TOKEN if HOOK[-1]=='/' else HOOK + "/" + TOKEN
+	print(url)
+	bot.set_webhook(url=url)
 	return "!", 200
 
 
@@ -414,6 +426,10 @@ def teardown_appcontext(exception=None):
 
 
 if __name__ == "__main__":
-	server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 	#bot.remove_webhook()
+	bot.remove_webhook()
+	url = HOOK+TOKEN if HOOK[-1]=='/' else HOOK + "/" + TOKEN
+	print(url)
+	bot.set_webhook(url=url)
+	server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 	#bot.infinity_polling(interval=0, timeout=20)

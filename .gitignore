@@ -1,11 +1,15 @@
 # Folders
 __pycache__/
 venv/
+Input/
+Outtput/
 
 # Files
 .*
 poetry.lock
 
+# Local activator
+activate.sh
 
 replit_zip_error_log.txt
 pyproject.toml

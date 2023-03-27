@@ -5,6 +5,7 @@ import os
 TOKEN = os.environ["TOKEN"]
 ADMIN = os.environ["ADMIN"]
 HOOK = os.environ["HOOK"]
+PROXY = os.environ["PROXY"]
 #LOCAL = bool(os.environ["LOCAL"])
 admin = '@free4q'
 
