@@ -5,7 +5,7 @@ import os
 from main import web
 from search import Search, SEARCH_URL
 from edit import edit_web
-from constant import TOKEN, ADMIN, WELCOME, HEADER, HOOK,PROXY,LOCALIZATION
+from constant import *
 from user import User
 
 #test
@@ -39,7 +39,7 @@ srch = Search()
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
 
-telebot.apihelper.proxy = {'https':PROXY}
+if PROXY not in ('',' '):telebot.apihelper.proxy = {'https':PROXY}
 
 usr = User()
 
@@ -55,8 +55,9 @@ def get_text(user_id, text_message, language=''):
 
 	srch.whatlan(text_message)
 	
-
+	
 	lan = usr.get_info(user_id, usr.lan) if language == '' else language
+	print(lan)
 	#Return russion Translation
 	if srch.language == "ru":
 		webb = web(text_message)
@@ -67,7 +68,7 @@ def get_text(user_id, text_message, language=''):
 	if lan in LANGUAGES:result = srch.main(text_message, lan)
 	else: result = None,None
 
-	#print(result)
+	print(result)
 
 	# if there is no word found
 	if result[0] == None:
@@ -280,10 +281,13 @@ def handle_text_request(message):
 	# Check if user in database
 	if not usr.check_user(user_id): return change_language(message)
 
+	print("DEBUG")
+	print(type(TESTERS))
+	#print(type(user_id))
 	# Admin keyboard
-	if message.from_user.id == int(ADMIN) and srch.language not in ('en','ru'):
+	if user_id in TESTERS and srch.language not in ('en','ru'):
 		keyboard = define_keyboard(message.text,usr.get_info(user_id,usr.lan))
-	
+	print("DEBUG")
 	# Get text output
 	result = get_text(user_id, text)
 	
@@ -431,10 +435,6 @@ def teardown_appcontext(exception=None):
 
 
 if __name__ == "__main__":
-	#bot.remove_webhook()
-	bot.remove_webhook()
-	url = HOOK+TOKEN if HOOK[-1]=='/' else HOOK + "/" + TOKEN
-	print(url)
-	bot.set_webhook(url=url)
+	webhook()
 	server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 	#bot.infinity_polling(interval=0, timeout=20)

@@ -4,16 +4,19 @@ import os
 # System variables
 TOKEN = os.environ["TOKEN"]
 ADMIN = os.environ["ADMIN"]
+TESTERS = os.environ["TESTERS"].split(',')
 HOOK = os.environ["HOOK"]
 PROXY = os.environ["PROXY"]
-#LOCAL = bool(os.environ["LOCAL"])
+
 admin = '@free4q'
+
+print(TESTERS)
 
 HEADER = {
  'User-Agent':
  'Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0'
 }
-PROXY = 'http://127.0.0.1:2341'
+
 
 WELCOME = 'Добро пожаловать!\
 Это бот-словарь, который переводит слова с китайского на русский и наоборот.\

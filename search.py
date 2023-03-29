@@ -254,5 +254,5 @@ class Search:
 if __name__ == "__main__":
 	sch = Search()
 	while True:
-		input("\n\n".join(sch.main("中国", "cn")[0]))
+		input("\n\n".join(sch.main("天气", "en")[0]))
 		
