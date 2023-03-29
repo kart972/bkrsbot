@@ -12,6 +12,28 @@ SEARCH_URL = "https://bkrs.info/slovo.php?ch="
 SEARCH_URL_EN = "https://www.yellowbridge.com/chinese/sentsearch.php?word="
 AUDIO_URL_EN = "https://www.yellowbridge.com/gensounds/py/"
 
+#SEARCH_URL_DIC = {'cn-en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
+#		'cn-ru':'https://bkrs.info/slovo.php?ch={}',
+#		'en-cn':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
+#		'cn-cn':'https://tw.ichacha.net/mhy/{}.html'}
+
+LANGUAGES_URL_DIC = {'en':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
+					'ru':'https://bkrs.info/slovo.php?ch={}',
+					'cn':{'en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
+							'ru':'https://bkrs.info/slovo.php?ch={}',
+							'cn':'https://tw.ichacha.net/mhy/{}.html'}}
+							
+							
+
+				
+SEARCH_URL_DIC ={'en-en':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
+		'ru-en':'https://bkrs.info/slovo.php?ch={}',
+		'cn-ru':'https://bkrs.info/slovo.php?ch={}',
+		'en-ru':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
+		'cn-en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
+		'cn-cn':'https://tw.ichacha.net/mhy/{}.html',
+		'en-cn':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
+		'ru-cn':'https://bkrs.info/slovo.php?ch={}'}	
 HOME = '/'.join(os.path.realpath(__file__).split('/')[:-1]) + '/'
 OUTPUT = "Output/"
 INPUT = "Input/"
@@ -64,6 +86,9 @@ class Search:
 		elif character_hex >= int(0x0041) and character_hex <= int(0x007A):
 			self.language = 'en'
 
+	
+
+
 	def get_info(self, data_list):
 		pattern_list = [
 		 "Traditional Script", "Simplified Script", "English Definition",
@@ -77,8 +102,9 @@ class Search:
 					new_list.append(data_list[n + 1])
 
 		return new_list
+		
 
-	def ch_english(self, text):
+	def ch_english(self, text,name=''):
 		picky = lambda list1, numbers: [list1[i] for i in numbers]
 		# Css patterns
 		csspath_maininfo = "html body div#pgWrapper main#pgMain div#dictOut.tabGroup div#tabBody.rounded.shadow table#mainData.grid.boldFirstCol tr td"
@@ -130,24 +156,70 @@ class Search:
 
 		main_list += example_list
 
-		return main_list, audio_url
+		return main_list, None
 
 	def main(self, name: str, lan='ru') -> tuple:
-
+		func_dic = {'en':self.ch_english,'ru':self.ch_ru,'cn':self.cn_chinese}
+		
 		# Determine language
 		self.whatlan(name)
-		if self.language != "cn":
-			return False, None
-
-		search_url = SEARCH_URL if lan == 'ru' else SEARCH_URL_EN
-
+		
+		# Get url
+		search_url = LANGUAGES_URL_DIC[self.language] if self.language != 'cn' else LANGUAGES_URL_DIC[self.language][lan]
+		print(search_url)
+		
+		
 		# Search selections
 		if name == 'debug': return
-		elif name != '': plain_text = self.download_page(search_url + name, "word")
+		elif name != '': plain_text = self.download_page(search_url.format(name), "word")
 		else: plain_text = self.open_file("word")
 
-		if lan == 'ru': return self.ch_ru(plain_text, name)
-		return self.ch_english(plain_text)
+
+		#print('self.language',self.language)
+		if self.language == 'cn':
+			result = func_dic[lan](plain_text,name)
+		elif self.language == 'en':
+			result = self.en_chinese(plain_text,name)
+		elif self.language == 'ru':  # not implemented
+			result = (None,None)
+		#input(result)
+		return result
+		
+		#if lan == 'ru': return self.ch_ru(plain_text, name)
+		#if lan == 'en' and self.language == 'en': return self.en_chinese(plain_text,name)
+		#if lan == 'cn' and self.language == 'cn': return self.cn_chinese(plain_text,name)
+		#return self.ch_english(plain_text)
+		
+	def cn_chinese(self,text,name):
+		check_selecter = "#related"
+		css_selector = '#content'
+		soup = BeautifulSoup(text, 'html.parser')
+		
+		if soup.select(check_selecter) != []:return None,None
+		table = soup.select(css_selector)
+		
+		print(table)
+		
+		main_info = str(table[0].div).replace('<div>','').replace('</div>','')
+		pinyin = main_info.split('<br/>')[0].split('<div>')[-1]
+		text  = '\n'.join(main_info.split('<br/>',1)[-1].split('<br/>'))
+		
+		#pinyin = pinyin.replace('<br/>','')
+		text = text.replace('<br/>','') 		
+		
+		return (name,pinyin,text),None
+			
+	
+	def en_chinese(self,text,name=''):
+		
+		css_selector = '#multiRow tr'
+		soup = BeautifulSoup(text, 'html.parser')
+		table = soup.select(css_selector)
+		
+		results = [" - ".join([i.get_text() for i in l]) for l in table if name in l.get_text()]
+		
+		#input(results)
+		return ["\n".join(results)],None
 
 	def ch_ru(self, plain_text, name):
 		# Ensure that word is exists
@@ -175,11 +247,12 @@ class Search:
 
 		text = '\n\n'.join([title_text, pinyin_text, meanings])
 
-		print(text, audio_url, sep='\n')
+		
 		return [title_text, pinyin_text, meanings], audio_url
 
 
 if __name__ == "__main__":
 	sch = Search()
 	while True:
-		sch.main("载客", "en")
+		input("\n\n".join(sch.main("中国", "cn")[0]))
+		

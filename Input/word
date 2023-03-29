@@ -1,271 +1,378 @@
-<!--https://www.yellowbridge.com/chinese/sentsearch.php?word=刚刚好-->
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>刚刚好 Example Sentences - Mandarin Chinese-English Dictionary &amp; Thesaurus - YellowBridge</title>
-<meta name="keywords" content="mandarin, chinese, english, sample sentences, examples, dictionary">
-<meta name="description" content="Free online talking dictionary with sample sentences, handwriting recognition, fuzzy pinyin matches, word decomposition, etc.">
-<link rel="preconnect" href="https://tags.expo9.exponential.com" crossorigin>
-<link rel="preconnect" href="https://s.tribalfusion.com" crossorigin>
-<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
-<link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>
-<link rel="preconnect" href="https://partner.googleadservices.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://tpc.googlesyndication.com" crossorigin>
-<link rel="preconnect" href="https://adservice.google.com" crossorigin>	
-<meta name="robots" content="index,follow,noimageindex">
-<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-<link rel="apple-touch-icon" sizes="57x57" href="//r.yellowbridge.com/images/apple-touch-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="//r.yellowbridge.com/images/apple-touch-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="//r.yellowbridge.com/images/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="//r.yellowbridge.com/images/apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="//r.yellowbridge.com/images/apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="//r.yellowbridge.com/images/apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="//r.yellowbridge.com/images/apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="//r.yellowbridge.com/images/apple-touch-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="//r.yellowbridge.com/images/apple-touch-icon-180x180.png">
-<link rel="apple-touch-icon" href="//r.yellowbridge.com/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" href="//r.yellowbridge.com/images/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="//r.yellowbridge.com/images/android-chrome-192x192.png" sizes="192x192">
-<link rel="icon" type="image/png" href="//r.yellowbridge.com/images/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="//r.yellowbridge.com/images/favicon-16x16.png" sizes="16x16">
-<link rel="manifest" href="//r.yellowbridge.com/images/manifest.json">
-<link rel="shortcut icon" href="//r.yellowbridge.com/images/favicon.ico">
-<link rel="stylesheet" href="//r.yellowbridge.com/styles/core.css?v=1657236418" />
-<style>#pgMain { float:left;}</style>
-<meta name="apple-mobile-web-app-title" content="YellowBridge">
-<meta name="google" content="notranslate">
-<meta name="application-name" content="YellowBridge">
-<meta name="msapplication-TileColor" content="#2d6bdb">
-<meta name="msapplication-TileImage" content="//r.yellowbridge.com/images/mstile-144x144.png">
-<meta name="msapplication-config" content="//r.yellowbridge.com/images/browserconfig.xml">
-<meta name="theme-color" content="#fdbc1e">
-<meta name="format-detection" content="telephone=no">
-<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1" />
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1092624-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-1092624-1');
-</script>
-<script defer src="//r.yellowbridge.com/scripts/core.js?v=1658602933"></script>
-<script defer src="//r.yellowbridge.com/scripts/dict-val.js?v=?v=1601428350"></script>
-<script defer src="//r.yellowbridge.com/scripts/hwr.js?v=?v=1596997347"></script>
-<script defer src="//r.yellowbridge.com/scripts/zi.js?v=1597077891"></script>
+<!--https://tw.ichacha.net/mhy/难道.html-->
+
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head id="Head1"><meta charset="utf-8" /><meta http-equiv="Content-Language" content="zh-TW" /><meta name="apple-touch-fullscreen" content="yes" /><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0" /><meta name="MobileOptimized" content="360" /><meta name="HandheldFriendly" content="true" /><meta content="yes" name="apple-mobile-web-app-capable" /><meta content="black" name="apple-mobile-web-app-status-bar-style" /><meta name="applicable-device" content="mobile" /><link rel="icon" href="/favicon.ico" type="/image/x-icon" /><link rel="shortcut icon" href="/favicon.ico" type="/image/x-icon" />    
 <style>
-#tabBody { background:#d7d9ce; }
-DIV#tabs LI { background: #eaebe3; }
-DIV#searchBarBottom { background:#EBEEE6;}
-#dictOut { width:790px;}
-#bigWord { float:left; width:290px; margin:0 0 5px 0; padding:5px; text-align:center;background-color:#fdf8e0;}
-#strokeCanvas { width:280px; max-height:64px;}
-#mainData { float:right; width:470px; margin:0 0 5px 0;}
-#pgSquareM { clear:left; float:left;}
-#ytNote { clear:left; float:left; width:290px; padding:5px; overflow:auto; margin:0 0 5px 0; font-size:x-small;}
-#sentences { float:right; width:470px; margin:5px 0;}
-#sentences TR:hover { background:none;}
-#ytdata { margin-top:5px;}
-@media screen and (max-width:767px) { 
-#dictOut { width:100%;}
-#bigWord { float:left; width:96%; margin:0 0 5px 0; padding:5px; text-align:center;background-color:#fdf8e0;}
-#mainData { float:left; width:100%; top:0;}
-#pgSquareM { clear:both; float:none;}
-#ytNote { float:left; width:96%; padding:5px; overflow:auto; margin:0 0 5px 0;}
-#sentences { float:left; width:100%; margin:5px 0;}
+html,body,form,input,span,p,button,h1,ul{margin:0;padding:0}
+html{height:100%;min-height:350px}
+body{width:100%;height:100%;min-height:350px;font-family:Helvetica,STHeiti,Droid Sans Fallback;font-size:16px;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+a,a:visited{text-decoration:none;color:#328af4}a{outline:0;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+.msb{position:relative;width:100%}.msfo{padding-right:36px;padding-right:38px}.msfi{background-color:#fff!important;border-color:#c7d6f7;border-style:solid;border-width:2px 1px 2px 2px;border-right:0;margin-top:-1px;padding:0;height:35px;border:1px solid #d9d9d9!important;border-right:none!important;border-top:1px solid silver!important;padding-right:0;-webkit-transition: all .15s}
+.cb{display:none;height:30px;position:absolute;right:42px;width:24px;z-index:7;background:0;color:#d9d9d9;font-size:24px;line-height:30px;text-align:center;top:2px;vertical-align:middle;width:30px}
+.lsbb{background:#eee;border:1px solid #999;border-top-color:#ccc;border-left-color:#ccc;height:30px;-webkit-border-radius:0;-webkit-border-bottom-right-radius:5px;-webkit-border-top-right-radius:5px;border-color:#c7d6f7;border-style:solid;border-width:2px 2px 2px 1px;height:42px;padding:0;position:absolute;right:0;top:0;width:40px;background-color:#4d90fe;background:-webkit-gradient(linear,left top,left bottom,from(#4d90fe),to(#4787ed))!important;border:1px solid #3079ed;box-sizing:border-box;-webkit-border-bottom-right-radius:2px;-webkit-border-top-right-radius:2px;height:37px;width:38px}
+.sbico{background:url(/images/search_btn.png) no-repeat;color:transparent;display:inline-block;height:13px;margin:0 auto;margin-top:1px;width:14px}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+.lst{float:left;float:none;-webkit-box-sizing:border-box;-moz-box-sizing:content-box;padding:1px 7px;padding:0;padding-right:6px;padding-left:6px;width:100%;height:100%;border:0;-webkit-border-radius:0;border-radius:0;background:#fff;background-color:transparent;color:#000;vertical-align:top;font:17px arial,sans-serif;font-size:18px;line-height:normal;-webkit-tap-highlight-color:rgba(255,0,0,0);-webkit-appearance:none}
+.msfi input{-webkit-transition:background-color .2s ease-out}.msfi input[type="search"]::-webkit-search-cancel-button{-webkit-appearance:none}header{background-color:#f1f1f1;background-image:-webkit-gradient(radial,100 36,0,100 -40,120,from(#fafafa),to(#f1f1f1));border-bottom:1px solid #666;border-color:#e5e5e5}#tsf{background:#f1f1f1;height:34px;padding:4px}#mlogo{background-size:78px 34px;color:transparent;height:34px;left:7px;position:absolute;text-align:center;top:2px;width:78px}@media only screen and (-webkit-min-device-pixel-ratio:2){#mlogo{background-image:url(/images/logom.gif)}}.content{padding:0 7px}.content h1{font-size:23px;font-weight:700;color:green;float:none;padding-top:7px}.phonetic{padding-top:0px}.phonetic span{padding-right:30px}.laba{position:relative;top:4px;display:inline-block;width:22px;padding-left:8px;height:18px;background:url(/images/laba.png) no-repeat 8px 0;background-size:22px 18px;-webkit-background-size:22px 18px;-webkit-touch-callout:none}.play{background-image:url(/images/laba_ani.gif)}.base{clear:both;margin-top:5px;margin-bottom:5px;border: 1px solid #ccd5ff;height:auto;background-color: #F6F6F6;overflow:hidden;color:#454545;}.base p{clear:both;padding-top:4px;}.base p .pos{width:35px;font-size:90%;color:#999;display:inline-block;line-height:18px;vertical-align:middle;text-align:right;margin-right:15px;font-weight:700}.base p .def{display:inline-block;line-height:20px;vertical-align:top;font-size:1.1em;padding:5px 2px 5px 2px}.base p .def a{color:#333}.shape{clear:both;padding:18px 0;overflow:hidden}.shape li{white-space:nowrap;margin-bottom:7px;float:left;padding-right:10px;list-style:none}.shape a{padding:0 .25em}h2{font-size:11pt;position:relative;margin:0 0 .7em 0;height:26px;line-height:26px;border-bottom:2px solid #ddd}.tabs ,.cur{font-weight:normal;text-decoration:none;display:inline-block;border-bottom:2px solid #fff;height:26px;_position:relative;_top:2px}.tabs a span{cursor:pointer}.tabs .cur{cursor:default}.tabs .cur span{cursor:default;color:#434343;font-weight:bold;height:25px}.tabs span,.cur span{display:inline-block;padding:0 20px;height:26px;border-bottom:2px solid #bfbfbf;margin-right:2px;_position:relative;_top:2px}h2 .cur span{border-bottom:2px solid #328af4;color:#328af4;font-weight:bold}
+h3 {font-size: 100%;font-weight: 400;}
+.labawb {
+    position: relative;
+    top: 4px;
+    display: inline-block;
+    width: 16px;
+    margin-left: 6px;
+    height: 16px;
+    background: url(/images/laba.svg) no-repeat 1px 0;
+    background-size: 16px 16px;
+    -webkit-background-size: 16px 16px;
+    -webkit-touch-callout: none
+}
+.jkbox ol{padding-left:25px}.jkbox li{font-size:14px;margin-bottom:5px;line-height:25px}input[type="search"]:focus{background-color:transparent}.zy{color:#ff7800!important;font-style:normal}.hot{color:red!important;font-style:normal}
+.sugbox ol{padding-left:18px}.sugbox li{font-size:12px;margin-bottom:5px;line-height:26px;float:left;padding-right:25px;}input[type="search"]:focus{background-color:transparent}.zy{color:#ff7800!important;font-style:normal}.hot{color:red!important;font-style:normal}
+.tab_icon_open {
+	background: url(/images/icobg.png) no-repeat;
+	background-position: -290px -116px;
+	padding-left: 18px;
+	cursor: pointer;
+	font-weight:bold;
+}
+.tab_icon_close {
+	background: url(/images/icobg.png) no-repeat;
+	background-position: -290px -145px;
+	padding-left: 18px;
+	cursor: pointer;
+	font-weight:bold;
+}
+.fbarh{background:#f2f2f2;bottom:0;left:0;right:0}
+.fbar{border-top:1px solid #e4e4e4;line-height:35px;padding:10px 0;text-align:center}
+.fbar p{color:#777;display:inline}
+.fbar a{color:#777;text-decoration:none;white-space:nowrap}
+
+.moreTagClass {
+    color: #328af4;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.s_card{background:#fff;border-bottom:.2rem solid #e8e8e8;background-origin:border-box;position:relative;margin-bottom:0}
+.m_f_a:last-child{border:0}.m_f_a,.m_f_a_r{box-sizing:border-box;-webkit-box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:.22rem 0;margin:0 .2rem;position:relative;-webkit-tap-highlight-color:rgba(0,0,0,.1);border-bottom:1px solid #e4e4e4;clear:both}
+.bmf_c1.mini,.m_f_div,.m_f_div_book,.m_f_div_weibo{display:block;width:2rem;height:1.34rem;background-size:.64rem .5rem!important;position:relative;margin-right:.26rem;overflow:hidden}
+.m_f_con,.m_f_div img{height:inherit} .m_f_div .img_width{width:100%;height:100%}
+.m_f_con{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1 1;-webkit-box-orient:vertical;-webkit-box-pack:justify;display:-webkit-box;width:0}
+.m_f_con_t{margin-top:-.04rem}
+.cm_tit{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all}.cm_tit,.cm_tit_solo{box-sizing:border-box;-webkit-box-sizing:border-box;font-size:.28rem;color:#1a1a1a;line-height:.38rem;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis}
+.cm_f_ic{width:100%;line-height:1.1;color:#888;font-size:.22rem;position:relative}.cm_f_ic:empty{display:none}.cm_f_ic:after{content:" ";display:block;height:0;clear:both}
+.m_f_con_n{line-height:1.4}.m_f_con_n,.m_f_a_r .m_f_con_n{margin-right:.1rem}
+address,cite,em,i,mark,u{font-style:normal}
+.cm_f_ic .m_f_con_add,.m_f_a_r .m_f_con_add{margin:0 .1rem 0 0;display:inline-block;max-width:1.7rem;white-space:nowrap;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;line-height:1.4;vertical-align:middle;padding-right:.04rem}
+.card_tit {font-size: .3rem;letter-spacing: .1rem;font-weight: 600;text-indent: .34rem;border-top: .36rem solid transparent!important;margin: .3rem 0 .1rem;border: 0!important;}
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,fieldset,figcaption,figure,footer,form,h1,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,p,pre,q,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;outline:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+html{font-family:Microsoft YaHei,Helvetica Neue,Helvetica,STHeiTi,Arial,sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:50px;line-height:1.5}
+.mlogo{width:78px;height:34px;}
+.jkbox{padding-bottom:10px;}
+
+.snapup {
+    height:100%;
+    margin:0;
+    padding:0;
+    overflow: hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center
+}
+
+
+.snapup .shelf2 {
+    margin-left: -30px;
+    text-align: left;
+    width: 100%;
+}
+
+.snapup .shelfcell {
+    margin-left: 30px;
+    margin-top:6px;
+    margin-bottom:6px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.snapup .shelfcell .title {
+    color: #328af4;
+    margin-bottom: 6px;
+    margin-left:10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.snapup .arrow {
+    width: 20px;
+    height: 20px;
+    position:relative;
+    top:50%;
+    margin:0 auto;
+}
+
+
+.section02 .shelfcell .subtitel {
+    color: #666;
+    font-size: 14px;
+    margin-left:10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.h01 {
+    background: #f0f0f0;
+    height: 1px;
 }
 </style>
-</head> 
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-3629292215446789" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "查查詞典",
+  "alternateName": "ICHACHA",
+  "url": "https://tw.ichacha.net/m/"
+}
+</script>
+<title>
+	"难道"什麽意思_"难道"的解釋
+</title><meta name="description" content="难道的意思是：[ nándao ] nándào副詞，加強反問的語氣：河水...，點擊查查權威在線詞典詳細解釋难道的解釋、意思、同義詞、反義詞和造句。" /><meta name="keywords" content="难道,难道什麽意思,难道啥意思" /><link rel="canonical" href="https://tw.ichacha.net/hy/難道.html" /><link rel="alternate" hreflang="zh" href="http://www.ichacha.net/mhy/难道.html" /><link rel="alternate" hreflang="en" href="https://eng.ichacha.net/mhy/难道.html" /><link rel="alternate" hreflang="zh-Hant" href="https://tw.ichacha.net/mhy/難道.html" /></head>
 <body>
-<div id="pgWrapper">
-<!-- COPYRIGHT 2003-2023 J. Lau.  All Rights Reserved.                                    -->
-<!--======================================================================================-->
-<!-- REMINDER: Per our site's TERMS OF SERVICE, your are strictly prohibited from making  -->
-<!-- any attempt to copy, decompile, or reverse engineer any part of this website         -->
-<!--======================================================================================-->
-<div id="pgOverlay" onClick="sidebarClose()"></div>
-<header id="pgHeader">
-<div class="pgLeft"><a href="/" target="_top"><img src="//r.yellowbridge.com/images/header.png" srcset="//r.yellowbridge.com/images/header_2x.png 2x" class="block" alt="YellowBridge Chinese Language & Culture"></a></div>
-<div id="pgHeaderRight"><a href="." target="_top"><img src="//r.yellowbridge.com/images/hdr-language.png" class="block" alt="Chinese Language Center"></a></div>
-<nav id="pgNavbar">
-<ul>
-	<li><span class="hamburger" onclick="sidebarOpen()">Menu</span></li>
-	<li><a href="/general/contact.php" target="_top">About</a></li>
-	<li><a href="https://www.yellowbridge.com/general/signin.php" target="_top" title="Kill ads and get premium features">Subscribe</a></li>
-	<li><a href="https://www.yellowbridge.com/general/signin.php" target="_top">Sign In</a></li>
-</ul>
-</nav><!--pgNavbar-->
-</header><!--pgHeader-->
-<noscript>
-<div class="warningBox">Warning: Please enable Javascript in order to view site.</div>
-<style>#pgMain { display:none;}</style>
-</noscript>
-<div id="pgHeaderM">
-      
-<script>
-e9=new Object();
-e9.size="728x90";
-</script>
-<script src="//tags.expo9.exponential.com/tags/YellowBridge/ROS/tags.js" onerror="pgHeaderMX=0"></script>
+
+    <header>
+        <div style="background: none" id="tsf">
+        <div id="tmsb" class="msb">
+            <div class="msfo">
+                <a id="mlogo" style="background:url(/images/logohym.gif) no-repeat;" href="/mhy/" style="display: block">漢語詞典</a>
+                
+                <div style="position: relative; zoom: 1; margin-left: 90px" id="tsfi" class="msfi">
+                    <input id="q" type="text" autocapitalize="off" autocorrect="off" autocomplete="off" size="41" title="Search" maxlength="2048" name="q"  class="lst lst-tbb" placeholder="难道">
+                    <input id="search_type_input" type="hidden" name="l" value="en" />
+                </div>
+                <div id="cbtn" class="cb" style="display: block">
+                    ×</div>
+            </div>
+            <button value="" type="submit"  id="tsbb" class="lsbb gbil" title="查詢" onclick="do_search()">
+                <span class="sbico"></span></button>
+        </div>
+        </div>
+    </header>
+<div class="content">
+<h1>难道<span style="color:#000;font-size:18px">的意思</span></h1>
+<div class="phonetic"><span>[ nándao ]&nbsp;<a href="/mfayin/难道.html" title="难道發音怎麽讀" style="color:black">發音</a>:<i class="laba" onClick="playMp3('sound')" /></i><audio preload="none" id='sound' src="https://tw.ichacha.net/audio/files/chinese/mp3/101883.mp3"></audio> &nbsp;&nbsp;<a href="/mjy/难道.html">"难道"的同義詞</a>&nbsp;&nbsp;<a href="/mzj/难道.html">用"难道"造句</a></span></div>
+<div id="baseDiv" class="base">
+<section style="padding-left:8px;">
+<div id="content"><div>nándào<br>副詞，加強反問的語氣：河水～會倒流嗎？│他們做得到，～我們就做不到嗎？也說難道說。注意句末可以用‘不成’呼應，如：～他病了不成？│～就罷了不成！</div></div><ul class="compo_list" style="padding:0 0 5px 0;"><li style="font-size:14px;padding:5px 0 0 5px;"><a href="/mhy/難.html" title="難 什麼意思"><span class="style5" style="font-size:14px;">難</span></a>:&nbsp;&nbsp;&nbsp;&nbsp;（難）nán ㄋㄢˊ1）不容易，做起 ...</li><li style="font-size:14px;padding:5px 0 0 5px;"><a href="/mhy/道.html" title="道 什麼意思"><span class="style5" style="font-size:14px;">道</span></a>:&nbsp;&nbsp;&nbsp;&nbsp;dào ㄉㄠˋ1）路，方向，途徑：～ ...</li></ul>
+</section>
 </div>
-<main id="pgMain">
-<h1><a href="index.php" class="backButton">Learn Mandarin</a>&nbsp;Mandarin-English Dictionary &amp; Thesaurus</h1>
-<div id="dictOut" class="tabGroup">
-<div id="searchBarTop">
-<div class="pgLeft"><h3><a href="dictionary.php">New Search</a></h3></div>
-<div class="pgLeftAttach"><form id="searchbar" name="searchbar" action="dictionary.php" method="post" target="_top" onSubmit="return validate(this)">
-	<select name="searchMode" id="searchMode0">
-		<optgroup label="Search Word"></optgroup>
-		  <option value="C" selected>中文 » English</option>
-		  <option value="P" >Pinyin » 中文</option>
-		  <option value="E" >English » 中文</option>
-		           <optgroup label="Search Character"></optgroup>
-		  <option value="CHD" >字 » Char. Detail</option>
-		  <option value="CHE" >字 » Etymology</option>
-		</select>
-			<input name="word" type="search" id="hwWordTop" size="12" maxlength="30" autocapitalize="off" spellcheck="false"  autocomplete="off" data-inset="0"
-            	onkeyup="validateMini(this)" onmouseup="validateMini(this)" onpaste="validateMini(this)" onchange="validateMini(this)"
-                oninput="validateMini(this)" required>
-		<button type="button" onClick="hwPopup('s',event,'hwWordTop'); return false;" class="brush" title="Handwriting input: Enter by drawing the Chinese character"></button>
-        <button type="submit" class="magnifier" title="Search"></button>
-        <input name="csrfToken" type="hidden" value="MlrJUpOCVCGute5/0Tlzr7ZVGYFJLoz6sp+XAbLv7HQ=">
-</form></div>
-</div>
-	
-  <div id="tabs">
-      <ul>
-        <li><a href="dictionary.php?word=%E5%88%9A%E5%88%9A%E5%A5%BD"><span class="optional">詞 </span>Word</a></li>
-        <li><a href="thesaurus.php?word=%E5%88%9A%E5%88%9A%E5%A5%BD"><span class="optional">类属 </span>Thesaurus</a></li>
-        <li id="current"><span><span class="optional">例句 </span>Examples</span></li>
-        <li><a href="character-stroke-order.php?word=%E5%88%9A%E5%88%9A%E5%A5%BD"><span class="optional">筆順 </span>Strokes</a></li>        <li title="Tab disabled because it's only applicable to single characters"><span class="gray"><span class="optional">字 </span>Character</span></li>
-        <li title="Tab disabled because it's only applicable to single characters"><span class="gray"><span class="optional">字源 </span>Etymology</span></li>
-                <li class="right"><a href="dictionary-prefs.php" class="preferences" title="search by">Preferences</a></li>
-      </ul>
-    </div>
-<div id="tabBody" class="rounded shadow">
-  <div id="bigWord" class="rounded inset unselectable">
-	<canvas id="strokeCanvas" data-serialLayout="1" data-animationSpeed="0" data-passKey="0c2ff37393fa7dce1a97dd3009d1b449" data-len="3">刚刚好</canvas>
-    <span onclick="wordAnimator(-1)" class="brush" title="Show Stroke Order"></span>
-    <span class="clipboard" onclick="copyToClipboard('刚刚好')" title="Copy to Clipboard"></span>
-		
-      <div class="bigger"><span onclick="sayPY('gang1 gang5 hao3')" class="speech phonetic pronouncer" title="Pronounce">gānggang hǎo</span></div></div>
-<table id="mainData" class="grid boldFirstCol">
-	<caption>Main</caption>
-<tr><td>English Definition</td><td><a class="definition" href="/chinese/dictionary.php?searchMode=E&amp;word=just">just</a> <a class="definition" href="/chinese/dictionary.php?searchMode=E&amp;word=right">right</a></td></tr><tr><td>Simplified Script</td><td class="zh">刚刚好 <span class="clipboard" onclick="copyToClipboard('刚刚好')" title="Copy to Clipboard"></span></td></tr><tr><td>Traditional Script</td><td><a href="/chinese/sentsearch.php?word=%E5%89%9B%E5%89%9B%E5%A5%BD&amp;cache=140487&amp;characterMode=t" class="zh" lang="zh-Hant">剛剛好</a> <span class="clipboard" onclick="copyToClipboard('剛剛好')" title="Copy to Clipboard"></span></td></tr>  </table>
-<div id="pgSquareM">
-<script>
-e9=new Object();
-e9.size="300x250";
-</script>
-<script src="//tags.expo9.exponential.com/tags/YellowBridge/ROS/tags.js" onerror="pgSquareMX=0"></script>
-</div>
-    
-    <table id="sentences" class="grid maxwidth">  
-      <caption>Sample Sentences</caption>
-      <tr>
-        <td>
-          Sorry, no sample sentences containing this word were found.                    </td>
-                  </tr>
-</table>
-<div id="ytNote">
-	<a href="annotator-about.php"><img src="//r.yellowbridge.com/images/tip2.gif" class="alignLeft maxHalfWidth"></a>
-	<br><span class="finger"></span>YellowTip is enabled in the first 2 sentences. To enable in the rest, please <a href="https://www.yellowbridge.com/general/signin.php">sign-in</a>.
-</div>
+
+<div style="font-weight:bold;margin:38px 0 8px 0px;height:280px"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <!-- 移动自适应第一个 -->
+ <ins class="adsbygoogle" style="display:block" data-full-width-responsive="true" data-ad-client="ca-pub-3629292215446789" data-ad-slot="5723247408" data-ad-format="auto"></ins>
+ <script>
+ (adsbygoogle = window.adsbygoogle || []).push({});
+ </script></div>
+
+
+
+
  
-<div id="searchBarBottom" class="rounded inset">
-<div class="pgLeft"><h3><a href="dictionary.php">New Search</a></h3></div>
-<div class="pgLeftAttach"><form id="searchbar" name="searchbar" action="dictionary.php" method="post" target="_top" onSubmit="return validate(this)">
-	<select name="searchMode" id="searchMode1">
-		<optgroup label="Search Word"></optgroup>
-		  <option value="C" selected>中文 » English</option>
-		  <option value="P" >Pinyin » 中文</option>
-		  <option value="E" >English » 中文</option>
-		           <optgroup label="Search Character"></optgroup>
-		  <option value="CHD" >字 » Char. Detail</option>
-		  <option value="CHE" >字 » Etymology</option>
-		</select>
-			<input name="word" type="search" id="hwWord" size="12" maxlength="30" autocapitalize="off" spellcheck="false"  autocomplete="off" data-inset="1"
-            	onkeyup="validateMini(this)" onmouseup="validateMini(this)" onpaste="validateMini(this)" onchange="validateMini(this)"
-                oninput="validateMini(this)" required>
-		<button type="button" onClick="hwPopup('s',event,'hwWord'); return false;" class="brush" title="Handwriting input: Enter by drawing the Chinese character"></button>
-        <button type="submit" class="magnifier" title="Search"></button>
-        <input name="csrfToken" type="hidden" value="MlrJUpOCVCGute5/0Tlzr7ZVGYFJLoz6sp+XAbLv7HQ=">
-</form></div>
-<div class="pgLeftAttach footnote">Wildcard: Use * as placeholder for 0 or more<br /> Chinese characters or pinyin syllables</div>
-<div class="pgRight footnote"><a href="dictionary.php">Full Search Form</a><br>
-<a href="dictionary-credits.php" rel="nofollow">Credits</a></div>
-</div>
-      </div><!--tabBody-->
-   </div><!--tabGroup-->
-</main><!--pgMain-->
-<div id="pgSkyM">
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" onerror="pgSkyMX=0"></script>
-<!-- responsive wide sky -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3150855309582897"
-     data-ad-slot="7749424448"
-     data-ad-format="auto"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-	
-<div id="pgFooterM">	
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" onerror="pgFooterMX=0"></script>
-<!-- responsive footer -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3150855309582897"
-     data-ad-slot="2787323647"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-<footer id="pgFooter">
-	<div class="footnote">
-    <a href="/general/termsofservice.php" rel="nofollow">Terms of Service</a> | 
-	<a href="/general/privacy.php" rel="nofollow">Privacy Policy</a> |
-	<a href="/general/techinfo.php" rel="nofollow">Problems?</a></div>
-    <div class="footnote">&copy;2003-2023 J. Lau. All rights reserved.</div>
-</footer><!--pgFooter-->
-<nav id="pgSidebar">
-<div id="pgSidebarClose"><span onClick="sidebarClose()" class="close"></span></div>
-<ul>
-	<li class="top"><a href="/chinese/" class="home">LEARN CHINESE</a></li>
-    <li><a href="/chinese/dictionary.php">Dictionary</a></li>
-    <li><a href="/chinese/flashcards.php">Flashcards</a></li>
-    <li><a href="/chinese/memory.php">Memory Game</a></li>
-    <li><a href="/chinese/annotator.php">YellowTip Popup Translator</a></li>
-    <li><a href="/chinese/pinyin-intro.php">All About Pinyin</a></li>
-    <li><a href="/chinese/character-stroke-order-rules.php">Stroke Order Rules</a></li>
-    <li><a href="/chinese/hsk.php">HSK</a></li>
-    <li><a href="/onlinelit/">Chinese Reading Center</a></li>
-    <li class="top"><a href="/chinese-culture.php" class="home">CHINESE CULTURE</a></li>
-    <li><a href="/humor/">Humor</a></li>
-    <li><a href="/people/">Famous Chinese Americans</a></li>
-    <li><a href="/literature/">Chinese Literature</a></li>
-    <li><a href="/mysticism/">Mysticism</a></li>
-    <li class="top"><span>SITE &raquo;</span>
-    	<ul>
-            <li><a href="/general/contact.php">About Us</a></li>
-            <li><a href="/general/termsofservice.php">Terms of Service</a></li>
-            <li><a href="/general/privacy.php">Privacy Policy</a></li>
-            <li><a href="/general/techinfo.php">Technical Checklist</a></li>
-            <li><a href="/general/signin.php">Sign Up/Sign In</a></li>
-        </ul>
-     </li>
-     <li><a href="/general/support.php">Support</a></li>
-	<li><span class="gray">My Account</span></li>
-   
+<section id="gapDiv" style="margin-top:8px">
+
+</section>
      
-	<li><a href="/general/search-results.php">Search YellowBridge</a></li>
-    </ul>
-</nav><!--pgSidebar-->
-<!-- COPYRIGHT 2003-2023 J. Lau.  All Rights Reserved.                                    -->
-<!--======================================================================================-->
-<!-- REMINDER: Per our site's TERMS OF SERVICE, your are strictly prohibited from making  -->
-<!-- any attempt to copy, decompile, or reverse engineer any part of this website         -->
-<!--======================================================================================-->
-</div><!--pgWrapper-->
+     
+
+<section class="sugbox" style="padding:18px 0 0 0"><h2><span class="tabs"><div rel="#related" class="cur"><span style="font-size:18px">相關詞匯</span></div></span></h2><ol style="list-style-type:circle"><li><a href="/mhy/難近母祭.html" title="難近母祭什麼意思">"難近母祭"什麼意思</a></li><li><a href="/mhy/難進.html" title="難進什麼意思">"難進"什麼意思</a></li><li><a href="/mhy/難進易退.html" title="難進易退什麼意思">"難進易退"什麼意思</a></li><li><a href="/mhy/難逢難遇.html" title="難逢難遇什麼意思">"難逢難遇"什麼意思</a></li><li><a href="/mhy/難遇難逢.html" title="難遇難逢什麼意思">"難遇難逢"什麼意思</a></li><li><a href="/mhy/難問.html" title="難問什麼意思">"難問"什麼意思</a></li><li><a href="/mhy/難聞.html" title="難聞什麼意思">"難聞"什麼意思</a></li><li><a href="/mhy/難阸.html" title="難阸什麼意思">"難阸"什麼意思</a></li><li><a href="/mhy/難阻.html" title="難阻什麼意思">"難阻"什麼意思</a></li><li><a href="/mhy/難陀.html" title="難陀什麼意思">"難陀"什麼意思</a></li></ol></section><div style="clear:both"></div>     
+</div>
+
+
+
+
+<section style="line-height:28px;margin-left:8px;margin-right:8px;">
+<a href="/hy/难道.html" title="难道 什麼意思" style="margin:8px 0 8px 8px">桌面版</a><a href="http://www.ichacha.net/mhy/难道.html" title="难道 什么意思" style="margin:18px 0 8px 8px"><i class="scb"></i>简体版</a><a href="https://eng.ichacha.net/mhy/难道.html" title="难道 meaning in Chinese" style="margin:18px 0 8px 8px"><i class="scb"></i>English</a><a href="https://ko.ichacha.net/mzh/难道.html" title="难道 뜻" style="margin:18px 0 8px 18px">한국어</a>
+</section>
+
+
+
+<script type="text/javascript">
+    function toggle(headid, cntid) {
+        if (document.getElementById(headid).className == "tab_icon_open") {
+            document.getElementById(headid).className = "tab_icon_close";
+            document.getElementById(cntid).style.display = 'none';
+        }
+        else if (document.getElementById(headid).className == "tab_icon_close") {
+            document.getElementById(headid).className = "tab_icon_open";
+            document.getElementById(cntid).style.display = 'block';
+        }
+        return false;
+    }
+    function toggleMore() {
+        document.getElementById('moreToggle').style.display = "none";
+        document.getElementById('moreContent').style.display = 'inline';
+        if (document.getElementById('moreContentList')) {
+            document.getElementById('moreContentList').style.display = 'inline';
+        }
+    }
+    function do_search() {
+        var kw = document.getElementById("q").value;
+        if (kw == "") return;
+        var subdir = "m";
+        var lang = "";
+        var reg = new RegExp("(^|\\?|&)l=([^&]*?)(\\s|&|$|#)", "i");
+        var regdir = new RegExp("ichacha.net/(\\w+?)/", "i");
+        if (reg.test(location.href)) lang = unescape(RegExp.$2.replace(/\+/g, " "));
+        if (regdir.test(location.href)) subdir = unescape(RegExp.$1);
+        //if (subdir == "") subdir = "m";
+        if (lang == "") {
+            if (subdir == "m") lang = "en";
+            if (subdir == "mjp") lang = "jp";
+            if (subdir == "mfr") lang = "fr";
+            if (subdir == "mkr") lang = "kr";
+            if (subdir == "mar") lang = "ar";
+            if (subdir == "mid") lang = "id";
+            if (subdir == "mru") lang = "ru";
+            if (subdir == "mhy") lang = "hy";
+            if (subdir == "mzj") lang = "zj";
+            if (subdir == "mjy") lang = "jy";
+            if (subdir == "mfy") lang = "fy";
+            if (subdir == "mzjfr") lang = "zjfr";
+        }
+        var src = "/" + subdir + "/" + kw + ".html";
+        if (lang == "jy" || lang == "jy" || lang == "zjfr" || lang == "zj" || lang == "zaoju") {
+            if (lang == "zj") subdir = "mzj";
+            if (lang == "zaoju") subdir = "mzj";
+            if (lang == "jy") subdir = "mjy";
+            if (lang == "fy") subdir = "mfy";
+            if (lang == "zjfr") subdir = "mzjfr";
+            src = "/" + subdir + "/" + kw + ".html";
+        }
+        else
+        {
+            src = "/m.aspx?sq=" + kw + "&l=" + lang + "&pn=0";
+        }
+        window.location = src;
+    }
+
+    function goBaike(url, lang) {
+        url = "https://" + lang + ".wikipedia.org/wiki/" + url;
+        window.location.href = url;
+    }
+</script>
+
+
+<div style='margin:8px 0 0px 2px'>
+
+
+
+
+</div>
+
+
+   
+
+
+
+
+
+
+
+
+
+
+<div id="jquery_yuyin"></div>
+
+
+
+
+
+<script type="text/javascript">
+    document.onkeydown = function (event) {
+        event = event ? event : (window.event ? window.event : null);
+        var botton = document.getElementById('tsbb');
+        if (event.keyCode == 13 && null != botton) {
+            botton.click();
+        }
+    };
+
+    function playMp3(id) {
+        var sound = document.getElementById(id);
+        sound.play();
+    };
+
+</script>
+
+<script type="text/javascript">
+    window._taboola = window._taboola || [];
+    _taboola.push({ photo: 'auto' });
+    !function (e, f, u, i) {
+        if (!document.getElementById(i)) {
+            e.async = 1;
+            e.src = u;
+            e.id = i;
+            f.parentNode.insertBefore(e, f);
+        }
+    }(document.createElement('script'),
+        document.getElementsByTagName('script')[0],
+        '//cdn.taboola.com/libtrc/ichachanet/loader.js',
+        'tb_loader_script');
+    if (window.performance && typeof window.performance.mark == 'function') { window.performance.mark('tbl_ic'); }
+</script>
+
+<div id="taboola-below-gallery-thumbnails"></div>
+<script type="text/javascript">
+  window._taboola = window._taboola || [];
+  _taboola.push({
+    mode: 'thumbnails-a',
+    container: 'taboola-below-gallery-thumbnails',
+    placement: 'Below Gallery Thumbnails',
+    target_type: 'mix'
+  });
+</script>
+
+<script type="text/javascript">
+    window._taboola = window._taboola || [];
+    _taboola.push({ flush: true });
+</script>
+
+
+    <div class="fbarh" style="text-align:center;line-height: 33px;">
+        <div class="fbar">
+            <p>
+                Copyright © 2023 <a href="http://www.wordtech.com.cn">WordTech</a> Co.</p>
+        </div>
+    </div>
+
+
+
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+    var sc_project = 9710791;
+    var sc_invisible = 1;
+    var sc_security = "71b20c0a";
+</script>
+<script async="async" type="text/javascript" src="https://secure.statcounter.com/counter/counter.js"></script>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+
+
 </body>
 </html>
