@@ -25,9 +25,7 @@ import requests
 #import json
 
 #constants
-LANGUAGES = ['ru','en','cn']
-
-
+LANGUAGES = ['ru', 'en', 'cn']
 
 #telebot.apihelper.proxy = {'https':PROXY}
 server = Flask(__name__)
@@ -38,8 +36,8 @@ srch = Search()
 #bot = telebot.TeleBot(TOKEN,parse_mode='markdown')
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
-
-if PROXY not in ('',' '):telebot.apihelper.proxy = {'https':PROXY}
+# Setup proxy
+if PROXY not in ('', ' '): telebot.apihelper.proxy = {'https': PROXY}
 
 usr = User()
 
@@ -51,70 +49,61 @@ def query_lines():
 
 
 # Retrieve translation
-def get_text(user_id, text_message, language=''):
+def get_text(user_id, text_message, mode=False):
 
 	srch.whatlan(text_message)
-	
-	
-	lan = usr.get_info(user_id, usr.lan) if language == '' else language
+
+	lan = usr.get_info(user_id, usr.lan)
 	print(lan)
 	#Return russion Translation
 	if srch.language == "ru":
 		webb = web(text_message)
 		return webb.main()[:]
-	
-	
+
 	# If language is not one of supported return not found
-	if lan in LANGUAGES:result = srch.main(text_message, lan)
-	else: result = None,None
+	if lan in LANGUAGES: result = srch.main(text_message, lan, mode)
+	else: result = (None, None)
 
-	print(result)
+	if result[0] != None: text = "\n\n".join(result[0])
+	else:
+		text = LOCALIZATION[lan]['error'].format(SEARCH_URL + text_message,
+		                                         text_message)
 
-	# if there is no word found
-	if result[0] == None:
-		outmessage = f'Слово <a href="{SEARCH_URL+text_message}">{text_message}</a> не найдено'
-		return outmessage, None
+	return text, result[0]
 
-	outmessage = "\n\n".join(result[0])
 
-	return outmessage, result[1]
-
-def bt_assemble(text,date):
+def bt_assemble(text, date):
 	return telebot.types.InlineKeyboardButton(text=text, callback_data=date)
-	
+
 
 # Admin Keyboard
-def define_keyboard(char,lan='',admin=True):
-	
+def define_keyboard(char, lan='', admin=False):
+
 	# button assemble
-	create_button = lambda text,date : telebot.types.InlineKeyboardButton(text=text, callback_data=date)
-	
-	
+	create_button = lambda text, date: telebot.types.InlineKeyboardButton(
+	 text=text, callback_data=date)
+
 	buttons = []
 	if admin:
-		buttons.append(create_button('Edit','edit'))
-	
-	if lan != 'ru':buttons.append(create_button('Russian',f"{char}#ru"))
-	if lan != 'en':buttons.append(create_button('English',f"{char}#en"))
-	if lan != 'cn':buttons.append(create_button('Chinese',f"{char}#cn"))
-		
-		
-	
+		buttons.append(create_button('Edit', 'edit'))
+
+	if lan != 'ru': buttons.append(create_button('Русский', f"{char}#ru"))
+	if lan != 'en': buttons.append(create_button('English', f"{char}#en"))
+	if lan != 'cn': buttons.append(create_button('中文', f"{char}#cn"))
+
 	keyboard = telebot.types.InlineKeyboardMarkup(row_width=len(buttons))
 	keyboard.add(*buttons)
-	print('keyboard')
 	return keyboard
 
 
 # Change language keyboard
 def define_language_keyboard():
 	buttons = []
-	
-	buttons.append(bt_assemble('Englist',"en"))
-	buttons.append(bt_assemble('Русский','ru'))
-	buttons.append(bt_assemble('Chinese','cn'))
-	                                             
-	
+
+	buttons.append(bt_assemble('Русский', 'ru'))
+	buttons.append(bt_assemble('English', "en"))
+	buttons.append(bt_assemble('中文', 'cn'))
+
 	keyboard = telebot.types.InlineKeyboardMarkup(row_width=len(buttons))
 	keyboard.add(*buttons)
 
@@ -170,11 +159,13 @@ def long_message_request(chat_id, text, keyboard=None):
 def handle_start_tags(message):
 	user_id = str(message.from_user.id)
 	user_lan = message.from_user.language_code
-	
-	lan = user_lan if user_lan in ['en','ru'] else "en"
-	usr.add_user(user_id, message.from_user.username,message.from_user.first_name, lan)
-	
-	bot.send_message(message.chat.id, LOCALIZATION[usr.get_info(user_id,usr.lan)]['welcome'])
+
+	lan = user_lan if user_lan in ['en', 'ru'] else "en"
+	usr.add_user(user_id, message.from_user.username,
+	             message.from_user.first_name, lan)
+
+	bot.send_message(message.chat.id,
+	                 LOCALIZATION[usr.get_info(user_id, usr.lan)]['welcome'])
 	pass
 
 
@@ -264,60 +255,59 @@ def query_text(inline_query):
 
 
 # Handle all incomming text
-@bot.message_handler(func=lambda q: q.from_user.is_bot == False and q.via_bot==None,content_types=['text'])
+@bot.message_handler(
+ func=lambda q: q.from_user.is_bot == False and q.via_bot == None,
+ content_types=['text'])
 def handle_text_request(message):
 	# Extract user main info
 	user_id = str(message.from_user.id)
-	text = message.text
+	text_message = message.text
+	user_lan = usr.get_info(user_id, usr.lan)
 	# define keyboard
 	keyboard = None
 	# Get message languge
-	srch.whatlan(text)
-	
-	
+	srch.whatlan(text_message)
+
 	# Debbuging information
-	print("User id",user_id,message.from_user.username,text,sep="\n")
-	
+	print("User id", user_id, message.from_user.username, text_message, sep="\n")
+
 	# Check if user in database
 	if not usr.check_user(user_id): return change_language(message)
 
-	print("DEBUG")
-	print(type(TESTERS))
-	#print(type(user_id))
-	# Admin keyboard
-	if user_id in TESTERS and srch.language not in ('en','ru'):
-		keyboard = define_keyboard(message.text,usr.get_info(user_id,usr.lan))
-	print("DEBUG")
-	# Get text output
-	result = get_text(user_id, text)
-	
-	# Debbuging information
+	# Admin and testers
+	if user_id in TESTERS and srch.language not in ('en', 'ru'):
+		keyboard = define_keyboard(message.text, user_lan)
+		result = get_text(user_id, text_message, True)
+	else:
+		# Get text output
+		result = get_text(user_id, text_message)
+
 	print(result)
-	
+
 	# Print message to a user
 	long_message_request(message.chat.id, result[0], keyboard)
-	
-	
+
 	# Cancel audio generation in message language is not chinese
-	if srch.language != 'cn':return
+	if srch.language != 'cn': return
 	if result[1] == None:
 		fp = BytesIO()
-		generated = gTTS(text, lang='zh')
+		generated = gTTS(text_message, lang='zh')
 		generated.write_to_fp(fp)
 		fp.seek(0)
-	else:fp = requests.get(result[1], headers=HEADER).content
+	else:
+		fp = requests.get(result[1], headers=HEADER).content
 	bot.send_voice(message.chat.id, fp)
 
 
 # Handle call back: Change language
-@bot.callback_query_handler(func=lambda call: call.data in ('en','ru','cn'))
+@bot.callback_query_handler(func=lambda call: call.data in ('en', 'ru', 'cn'))
 def handle_Language_callback(call):
 	try:
 		user_id = str(call.from_user.id)
 		chat_id = call.message.chat.id
 		lan_code = call.from_user.language_code
 
-		lan = lan_code if lan_code in ('ru','en','cn') else "en"
+		lan = lan_code if lan_code in ('ru', 'en', 'cn') else "en"
 
 		usr.add_user(user_id, call.from_user.username, call.from_user.first_name,
 		             lan)
@@ -337,16 +327,14 @@ def handle_Language_callback(call):
 @bot.callback_query_handler(func=lambda call: "#" in call.data)
 def handle_edit_callback(call):
 	#switch_lang = {'ru':'en','en':'ru'}
-	
+
 	user_id = str(call.from_user.id)
 	chat_id = call.message.chat.id
 	message_text = call.message.text
 
-	
-
 	char, lan = call.data.split('#')
 	result = get_text(user_id, char, lan)
-	keyboard = define_keyboard(char,lan)
+	keyboard = define_keyboard(char, lan)
 
 	bot.edit_message_text(chat_id=chat_id,
 	                      message_id=call.message.message_id,
@@ -423,7 +411,7 @@ def getMessage():
 def webhook():
 	print('debug')
 	bot.remove_webhook()
-	url = HOOK+TOKEN if HOOK[-1]=='/' else HOOK + "/" + TOKEN
+	url = HOOK + TOKEN if HOOK[-1] == '/' else HOOK + "/" + TOKEN
 	print(url)
 	bot.set_webhook(url=url)
 	return "!", 200

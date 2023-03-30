@@ -5,6 +5,7 @@ import os
 from bs4 import BeautifulSoup
 import requests
 from pypinyin import pinyin as get_pinyin
+import concurrent.futures
 
 # Constants
 MAIN_URL = 'https://bkrs.info/'
@@ -12,28 +13,12 @@ SEARCH_URL = "https://bkrs.info/slovo.php?ch="
 SEARCH_URL_EN = "https://www.yellowbridge.com/chinese/sentsearch.php?word="
 AUDIO_URL_EN = "https://www.yellowbridge.com/gensounds/py/"
 
-#SEARCH_URL_DIC = {'cn-en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
-#		'cn-ru':'https://bkrs.info/slovo.php?ch={}',
-#		'en-cn':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
-#		'cn-cn':'https://tw.ichacha.net/mhy/{}.html'}
-
 LANGUAGES_URL_DIC = {'en':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
 					'ru':'https://bkrs.info/slovo.php?ch={}',
 					'cn':{'en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
 							'ru':'https://bkrs.info/slovo.php?ch={}',
 							'cn':'https://tw.ichacha.net/mhy/{}.html'}}
 							
-							
-
-				
-SEARCH_URL_DIC ={'en-en':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
-		'ru-en':'https://bkrs.info/slovo.php?ch={}',
-		'cn-ru':'https://bkrs.info/slovo.php?ch={}',
-		'en-ru':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
-		'cn-en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
-		'cn-cn':'https://tw.ichacha.net/mhy/{}.html',
-		'en-cn':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
-		'ru-cn':'https://bkrs.info/slovo.php?ch={}'}	
 HOME = '/'.join(os.path.realpath(__file__).split('/')[:-1]) + '/'
 OUTPUT = "Output/"
 INPUT = "Input/"
@@ -60,11 +45,11 @@ class Search:
 		plain_text = '<!--' + url + '-->' + "\n" + text
 		#plain_text = url+"\n"+text
 		# Keep logs
-		if save:
-			file_path = HOME + INPUT + path
-			with open(file_path, 'w') as f:
-				f.write(plain_text)
-
+		if path == "":return text
+		
+		file_path = HOME + INPUT + path
+		with open(file_path, 'w') as f:
+			f.write(plain_text)
 		return text
 
 	# Read website
@@ -158,9 +143,9 @@ class Search:
 
 		return main_list, None
 
-	def main(self, name: str, lan='ru') -> tuple:
+	def main(self, name: str, lan='ru',syn=True) -> tuple:
 		func_dic = {'en':self.ch_english,'ru':self.ch_ru,'cn':self.cn_chinese}
-		
+	
 		# Determine language
 		self.whatlan(name)
 		
@@ -168,27 +153,45 @@ class Search:
 		search_url = LANGUAGES_URL_DIC[self.language] if self.language != 'cn' else LANGUAGES_URL_DIC[self.language][lan]
 		print(search_url)
 		
-		
+		map_urls = [search_url.format(name),LANGUAGES_URL_DIC['ru'].format(name)]
 		# Search selections
-		if name == 'debug': return
-		elif name != '': plain_text = self.download_page(search_url.format(name), "word")
-		else: plain_text = self.open_file("word")
+		if syn is True:
+			with concurrent.futures.ThreadPoolExecutor() as executor:
+				plain_text_list = list(executor.map(self.download_page,map_urls, ["",'']))
+			plain_text = plain_text_list[0]
+			plain_text_syn = plain_text_list[1]
+		else:
+			plain_text = self.download_page(map_urls[0],'')	
 
 
 		#print('self.language',self.language)
 		if self.language == 'cn':
 			result = func_dic[lan](plain_text,name)
+			if syn is False: return result 
+			synonyms = self.get_synonyms(plain_text_syn)
+			if result[0] != None and synonyms != None: result[0].append(synonyms) 	
+			
 		elif self.language == 'en':
 			result = self.en_chinese(plain_text,name)
 		elif self.language == 'ru':  # not implemented
-			result = (None,None)
+			result =  (None,None)
+
+		# Additional funtions
+		
+			
 		#input(result)
 		return result
 		
-		#if lan == 'ru': return self.ch_ru(plain_text, name)
-		#if lan == 'en' and self.language == 'en': return self.en_chinese(plain_text,name)
-		#if lan == 'cn' and self.language == 'cn': return self.cn_chinese(plain_text,name)
-		#return self.ch_english(plain_text)
+		
+	def get_synonyms(self,text):
+		#text=self.download_page(LANGUAGES_URL_DIC['ru'].format(name), "")
+		css_selector = '#synonyms'
+		
+		soup = BeautifulSoup(text, 'html.parser')
+		synonyms = soup.select(css_selector)
+		if synonyms == []:return None
+		result = synonyms[0].get_text().replace('\t','')
+		return result
 		
 	def cn_chinese(self,text,name):
 		check_selecter = "#related"
@@ -198,16 +201,16 @@ class Search:
 		if soup.select(check_selecter) != []:return None,None
 		table = soup.select(css_selector)
 		
-		print(table)
+		#print(table[0].div.get_text())
 		
 		main_info = str(table[0].div).replace('<div>','').replace('</div>','')
 		pinyin = main_info.split('<br/>')[0].split('<div>')[-1]
 		text  = '\n'.join(main_info.split('<br/>',1)[-1].split('<br/>'))
 		
-		#pinyin = pinyin.replace('<br/>','')
+		
 		text = text.replace('<br/>','') 		
 		
-		return (name,pinyin,text),None
+		return [name,pinyin,text],None
 			
 	
 	def en_chinese(self,text,name=''):
@@ -253,6 +256,8 @@ class Search:
 
 if __name__ == "__main__":
 	sch = Search()
-	while True:
-		input("\n\n".join(sch.main("天气", "en")[0]))
+	print("\n\n".join(sch.main("天气", "ru",True)[0]))
+	#input("\n\n".join(sch.main("天气", "en")[0]))
+	#while True:input("\n\n".join(sch.main("天气", "en")[0]))
+		
 		
