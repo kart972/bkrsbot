@@ -18,7 +18,8 @@ LANGUAGES_URL_DIC = {'en':'https://www.yellowbridge.com/chinese/dictionary.php?s
 					'cn':{'en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
 							'ru':'https://bkrs.info/slovo.php?ch={}',
 							'cn':'https://tw.ichacha.net/mhy/{}.html'}}
-							
+
+WIKI_URL = 'https://zh.wikipedia.org/zh-cn/{}'
 HOME = '/'.join(os.path.realpath(__file__).split('/')[:-1]) + '/'
 OUTPUT = "Output/"
 INPUT = "Input/"
@@ -192,7 +193,15 @@ class Search:
 		if synonyms == []:return None
 		result = synonyms[0].get_text().replace('\t','')
 		return result
+
+	def html_cleaner(self,text)->str:
+		if "<" not in text or '>' not in text: return text
+		diff = []
+		[diff.append('<{}>'.format(i.split('>')[0])) for i in text.split('<') if '>' in i and i.split('>')[0] not in diff]
 		
+		for i in diff:text=text.replace(i,'')
+		return text
+	
 	def cn_chinese(self,text,name):
 		check_selecter = "#related"
 		css_selector = '#content'
@@ -207,8 +216,7 @@ class Search:
 		pinyin = main_info.split('<br/>')[0].split('<div>')[-1]
 		text  = '\n'.join(main_info.split('<br/>',1)[-1].split('<br/>'))
 		
-		
-		text = text.replace('<br/>','') 		
+		text = self.html_cleaner(text) 		
 		
 		return [name,pinyin,text],None
 			
@@ -253,11 +261,30 @@ class Search:
 		
 		return [title_text, pinyin_text, meanings], audio_url
 
+	def wiki(self,input):
+		css_sel = 'div#mw-content-text div.mw-parser-output p'
+		plain_text = self.download_page(WIKI_URL.format(input),'')
+		soup = BeautifulSoup(plain_text, 'html.parser')
+		main = soup.select(css_sel)
+		text = '<a href="{}">{}</a>\n'.format(WIKI_URL.format(input),input)
+		
+		print(WIKI_URL.format(input))
+		if main == []:return WIKI_URL.format(input)
+		for m in main:
+			print( m.attrs != {})
+			if m.attrs != {}:continue
+			text+=m.get_text()
+			break
+			
+		return text
+		
 
 if __name__ == "__main__":
 	sch = Search()
-	print("\n\n".join(sch.main("天气", "ru",True)[0]))
+	#print(sch.wiki('天氣'))
+	#print("\n\n".join(sch.main("天气", "ru",True)[0]))
 	#input("\n\n".join(sch.main("天气", "en")[0]))
+	print("\n\n".join(sch.main("茄科", "cn")[0]))
 	#while True:input("\n\n".join(sch.main("天气", "en")[0]))
 		
 		

@@ -1,4 +1,5 @@
 import json
+import time
 
 
 class User:
@@ -58,3 +59,36 @@ class User:
 	def save(self):
 		with open(self.path, 'w') as f:
 			json.dump(self.data, f)
+
+
+class Logs:
+
+	def __init__(self):
+		self.log_string = ''
+		self.path = "./logs/logs.log"
+
+	def add(self, information_list: list) -> None:
+
+		current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+		information_list.insert(0,current_time)
+		self.log_string += ' - '.join(information_list) + '\n'
+		print('Added successfully')
+
+	def read(self,lines:int=0)->str:
+		output = lambda a, lines: "".join(a) if lines == 0 else ''.join(a[-lines:]) 
+		try:
+			with open(self.path)as f:return output(f.readlines(),lines)
+		except FileNotFoundError:
+			return ''
+	
+	def save(self) -> bool:
+		if self.log_string == '': return False
+		try:
+			with open(self.path, 'a') as f:
+				f.write(self.log_string)
+		except FileNotFoundError:
+			with open(self.path, 'w') as f:
+				f.write(self.log_string)
+		self.log_string = ''
+		print('Saved successfully')
+		return True
