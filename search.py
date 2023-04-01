@@ -15,9 +15,9 @@ AUDIO_URL_EN = "https://www.yellowbridge.com/gensounds/py/"
 
 LANGUAGES_URL_DIC = {'en':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
 					'ru':'https://bkrs.info/slovo.php?ch={}',
-					'cn':{'en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
+					'zh':{'en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
 							'ru':'https://bkrs.info/slovo.php?ch={}',
-							'cn':'https://tw.ichacha.net/mhy/{}.html'}}
+							'zh':'https://tw.ichacha.net/mhy/{}.html'}}
 
 WIKI_URL = 'https://zh.wikipedia.org/zh-cn/{}'
 HOME = '/'.join(os.path.realpath(__file__).split('/')[:-1]) + '/'
@@ -26,11 +26,13 @@ INPUT = "Input/"
 
 
 class Search:
+	def __init__(self):
+		self.language = ''
 	# Download webpage
 	# And add url in the top
 	def download_page(self,
 	                  url: str,
-	                  path: str = "temp",
+	                  path: str = "",
 	                  save: bool = True) -> None:
 		headers = {
 		 'User-Agent':
@@ -61,20 +63,20 @@ class Search:
 			return f.read()
 
 	# Determine language function
-	def whatlan(self, text_input: str) -> None:
+	def whatlan(self, text_input: str) -> bool:
 		character_hex = ord(text_input[0])
-
+		
 		if character_hex >= int(0x4E00):
-			self.language = "cn"
+			self.language = "zh"
 		elif character_hex >= int(0x0410) and character_hex <= int(
 		  0x044f) or character_hex == int(0x0401) or character_hex == int(0x451):
 			self.language = "ru"
 		elif character_hex >= int(0x0041) and character_hex <= int(0x007A):
 			self.language = 'en'
-
-	
-
-
+		else:self.whatlan(text_input[1:])
+		
+		return True
+		
 	def get_info(self, data_list):
 		pattern_list = [
 		 "Traditional Script", "Simplified Script", "English Definition",
@@ -145,13 +147,13 @@ class Search:
 		return main_list, None
 
 	def main(self, name: str, lan='ru',syn=True) -> tuple:
-		func_dic = {'en':self.ch_english,'ru':self.ch_ru,'cn':self.cn_chinese}
+		func_dic = {'en':self.ch_english,'ru':self.ch_ru,'zh':self.zh_chinese}
 	
 		# Determine language
 		self.whatlan(name)
 		
 		# Get url
-		search_url = LANGUAGES_URL_DIC[self.language] if self.language != 'cn' else LANGUAGES_URL_DIC[self.language][lan]
+		search_url = LANGUAGES_URL_DIC[self.language] if self.language != 'zh' else LANGUAGES_URL_DIC[self.language][lan]
 		print(search_url)
 		
 		map_urls = [search_url.format(name),LANGUAGES_URL_DIC['ru'].format(name)]
@@ -166,7 +168,7 @@ class Search:
 
 
 		#print('self.language',self.language)
-		if self.language == 'cn':
+		if self.language == 'zh':
 			result = func_dic[lan](plain_text,name)
 			if syn is False: return result 
 			synonyms = self.get_synonyms(plain_text_syn)
@@ -175,13 +177,30 @@ class Search:
 		elif self.language == 'en':
 			result = self.en_chinese(plain_text,name)
 		elif self.language == 'ru':  # not implemented
-			result =  (None,None)
+			result = [self.ru_chinese(plain_text),None]
 
-		# Additional funtions
-		
 			
 		#input(result)
 		return result
+	
+	def ru_chinese(self,plain_text,length=2):
+		css_selector = "#ru_ru"
+		css_translation = ".ch_ru"
+		css_check = "#no-such-word"
+		css_correction = "#words_hunspell a"
+		
+		soup = BeautifulSoup(plain_text, 'html.parser')
+		if soup.select(css_check) != []:
+			correction = soup.select(css_correction)
+			if correction == [] or length < 1:return None
+			url = MAIN_URL + correction[0]['href']
+			print(url)
+			return self.ru_chinese(self.download_page(url),length-1)
+		
+		title = soup.select(css_selector)[0].get_text()
+		translation = soup.select(css_translation)[0].get_text()
+		
+		return [title.capitalize(),translation]
 		
 		
 	def get_synonyms(self,text):
@@ -202,7 +221,7 @@ class Search:
 		for i in diff:text=text.replace(i,'')
 		return text
 	
-	def cn_chinese(self,text,name):
+	def zh_chinese(self,text,name):
 		check_selecter = "#related"
 		css_selector = '#content'
 		soup = BeautifulSoup(text, 'html.parser')
@@ -281,10 +300,13 @@ class Search:
 
 if __name__ == "__main__":
 	sch = Search()
+	#output = sch.main("погода", "zh")
+	#print(len(output))
 	#print(sch.wiki('天氣'))
 	#print("\n\n".join(sch.main("天气", "ru",True)[0]))
-	#input("\n\n".join(sch.main("天气", "en")[0]))
-	print("\n\n".join(sch.main("茄科", "cn")[0]))
+	print("\n\n".join(sch.main("天气", "en")[0]))
+	#print("\n\n".join(sch.main("茄科", "zh")[0]))
+	#print("\n\n".join(sch.main("щвабра", "zh")[0]))
 	#while True:input("\n\n".join(sch.main("天气", "en")[0]))
 		
 		
