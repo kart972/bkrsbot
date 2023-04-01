@@ -13,11 +13,16 @@ SEARCH_URL = "https://bkrs.info/slovo.php?ch="
 SEARCH_URL_EN = "https://www.yellowbridge.com/chinese/sentsearch.php?word="
 AUDIO_URL_EN = "https://www.yellowbridge.com/gensounds/py/"
 
-LANGUAGES_URL_DIC = {'en':'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
-					'ru':'https://bkrs.info/slovo.php?ch={}',
-					'zh':{'en':'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
-							'ru':'https://bkrs.info/slovo.php?ch={}',
-							'zh':'https://tw.ichacha.net/mhy/{}.html'}}
+LANGUAGES_URL_DIC = {
+ 'en':
+ 'https://www.yellowbridge.com/chinese/dictionary.php?searchMode=E&word={}',
+ 'ru': 'https://bkrs.info/slovo.php?ch={}',
+ 'zh': {
+  'en': 'https://www.yellowbridge.com/chinese/sentsearch.php?word={}',
+  'ru': 'https://bkrs.info/slovo.php?ch={}',
+  'zh': 'https://tw.ichacha.net/mhy/{}.html'
+ }
+}
 
 WIKI_URL = 'https://zh.wikipedia.org/zh-cn/{}'
 HOME = '/'.join(os.path.realpath(__file__).split('/')[:-1]) + '/'
@@ -26,14 +31,13 @@ INPUT = "Input/"
 
 
 class Search:
+
 	def __init__(self):
 		self.language = ''
+
 	# Download webpage
 	# And add url in the top
-	def download_page(self,
-	                  url: str,
-	                  path: str = "",
-	                  save: bool = True) -> None:
+	def download_page(self, url: str, path: str = "", save: bool = True) -> None:
 		headers = {
 		 'User-Agent':
 		 'Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0'
@@ -48,8 +52,8 @@ class Search:
 		plain_text = '<!--' + url + '-->' + "\n" + text
 		#plain_text = url+"\n"+text
 		# Keep logs
-		if path == "":return text
-		
+		if path == "": return text
+
 		file_path = HOME + INPUT + path
 		with open(file_path, 'w') as f:
 			f.write(plain_text)
@@ -65,7 +69,7 @@ class Search:
 	# Determine language function
 	def whatlan(self, text_input: str) -> bool:
 		character_hex = ord(text_input[0])
-		
+
 		if character_hex >= int(0x4E00):
 			self.language = "zh"
 		elif character_hex >= int(0x0410) and character_hex <= int(
@@ -73,10 +77,11 @@ class Search:
 			self.language = "ru"
 		elif character_hex >= int(0x0041) and character_hex <= int(0x007A):
 			self.language = 'en'
-		else:self.whatlan(text_input[1:])
-		
+		else:
+			self.whatlan(text_input[1:])
+
 		return True
-		
+
 	def get_info(self, data_list):
 		pattern_list = [
 		 "Traditional Script", "Simplified Script", "English Definition",
@@ -90,9 +95,8 @@ class Search:
 					new_list.append(data_list[n + 1])
 
 		return new_list
-		
 
-	def ch_english(self, text,name=''):
+	def ch_english(self, text, name=''):
 		picky = lambda list1, numbers: [list1[i] for i in numbers]
 		# Css patterns
 		csspath_maininfo = "html body div#pgWrapper main#pgMain div#dictOut.tabGroup div#tabBody.rounded.shadow table#mainData.grid.boldFirstCol tr td"
@@ -102,12 +106,12 @@ class Search:
 		soup = BeautifulSoup(text, 'html.parser')
 		maininfo_list = soup.select(csspath_maininfo)
 
-		if maininfo_list == []:return None,None
+		if maininfo_list == []: return None, None
 		#[print(self.url),self.display_ln(maininfo_list),print(maininfo_list)]
 
 		# Handle examples
 		examp = soup.select(csspath_example)
-		
+
 		example_list = [
 		 "".join([j.get_text() for j in i.select("span")]) for i in examp
 		]
@@ -146,110 +150,122 @@ class Search:
 
 		return main_list, None
 
-	def main(self, name: str, lan='ru',syn=True) -> tuple:
-		func_dic = {'en':self.ch_english,'ru':self.ch_ru,'zh':self.zh_chinese}
-	
+	def main(self, name: str, lan='ru', syn=True) -> tuple:
+		func_dic = {'en': self.ch_english, 'ru': self.ch_ru, 'zh': self.zh_chinese}
+
 		# Determine language
 		self.whatlan(name)
-		
+
 		# Get url
-		search_url = LANGUAGES_URL_DIC[self.language] if self.language != 'zh' else LANGUAGES_URL_DIC[self.language][lan]
+		search_url = LANGUAGES_URL_DIC[
+		 self.language] if self.language != 'zh' else LANGUAGES_URL_DIC[
+		  self.language][lan]
 		print(search_url)
-		
-		map_urls = [search_url.format(name),LANGUAGES_URL_DIC['ru'].format(name)]
+
+		map_urls = [search_url.format(name), LANGUAGES_URL_DIC['ru'].format(name)]
 		# Search selections
 		if syn is True:
 			with concurrent.futures.ThreadPoolExecutor() as executor:
-				plain_text_list = list(executor.map(self.download_page,map_urls, ["",'']))
+				plain_text_list = list(executor.map(self.download_page, map_urls,
+				                                    ["", '']))
 			plain_text = plain_text_list[0]
 			plain_text_syn = plain_text_list[1]
 		else:
-			plain_text = self.download_page(map_urls[0],'')	
-
+			plain_text = self.download_page(map_urls[0], '')
 
 		#print('self.language',self.language)
 		if self.language == 'zh':
-			result = func_dic[lan](plain_text,name)
-			if syn is False: return result 
+			result = func_dic[lan](plain_text, name)
+			if syn is False: return result
 			synonyms = self.get_synonyms(plain_text_syn)
-			if result[0] != None and synonyms != None: result[0].append(synonyms) 	
-			
-		elif self.language == 'en':
-			result = self.en_chinese(plain_text,name)
-		elif self.language == 'ru':  # not implemented
-			result = [self.ru_chinese(plain_text),None]
+			if result[0] != None and synonyms != None: result[0].append(synonyms)
 
-			
+		elif self.language == 'en':
+			result = self.en_chinese(plain_text, name)
+		elif self.language == 'ru':  # not implemented
+			result = [self.ru_chinese(plain_text), None]
+
 		#input(result)
 		return result
-	
-	def ru_chinese(self,plain_text,length=2):
+
+	def ru_chinese(self, plain_text, length=2):
 		css_selector = "#ru_ru"
 		css_translation = ".ch_ru"
 		css_check = "#no-such-word"
 		css_correction = "#words_hunspell a"
-		
+		css_russ_dic = "#ruch_fullsearch div"
+		css_chi_dic = "#xinsheng_fullsearch"	
+
 		soup = BeautifulSoup(plain_text, 'html.parser')
 		if soup.select(css_check) != []:
 			correction = soup.select(css_correction)
-			if correction == [] or length < 1:return None
+			if correction == [] or length < 1: return None
 			url = MAIN_URL + correction[0]['href']
 			print(url)
-			return self.ru_chinese(self.download_page(url),length-1)
-		
+			return self.ru_chinese(self.download_page(url), length - 1)
+
 		title = soup.select(css_selector)[0].get_text()
 		translation = soup.select(css_translation)[0].get_text()
-		
-		return [title.capitalize(),translation]
-		
-		
-	def get_synonyms(self,text):
+
+		return [title.capitalize(), translation]
+
+	def get_synonyms(self, text):
 		#text=self.download_page(LANGUAGES_URL_DIC['ru'].format(name), "")
 		css_selector = '#synonyms'
-		
+
 		soup = BeautifulSoup(text, 'html.parser')
 		synonyms = soup.select(css_selector)
-		if synonyms == []:return None
-		result = synonyms[0].get_text().replace('\t','')
+		if synonyms == []: return None
+		result = synonyms[0].get_text().replace('\t', '')
 		return result
 
-	def html_cleaner(self,text)->str:
+	def html_cleaner(self, text) -> str:
 		if "<" not in text or '>' not in text: return text
 		diff = []
-		[diff.append('<{}>'.format(i.split('>')[0])) for i in text.split('<') if '>' in i and i.split('>')[0] not in diff]
-		
-		for i in diff:text=text.replace(i,'')
+		[
+		 diff.append('<{}>'.format(i.split('>')[0])) for i in text.split('<')
+		 if '>' in i and '<{}>'.format(i.split('>')[0]) not in diff
+		]
+		#input(diff)
+
+		for i in diff:
+			text = text.replace(i, '')
 		return text
-	
-	def zh_chinese(self,text,name):
+
+	def zh_chinese(self, text, name):
 		check_selecter = "#related"
 		css_selector = '#content'
 		soup = BeautifulSoup(text, 'html.parser')
-		
-		if soup.select(check_selecter) != []:return None,None
+
+		if soup.select(check_selecter) != []: return None, None
 		table = soup.select(css_selector)
-		
+
 		#print(table[0].div.get_text())
-		
-		main_info = str(table[0].div).replace('<div>','').replace('</div>','')
+
+		main_info = str(table[0].div).replace('<div>', '').replace('</div>', '')
 		pinyin = main_info.split('<br/>')[0].split('<div>')[-1]
-		text  = '\n'.join(main_info.split('<br/>',1)[-1].split('<br/>'))
-		
-		text = self.html_cleaner(text) 		
-		
-		return [name,pinyin,text],None
-			
-	
-	def en_chinese(self,text,name=''):
-		
+		text = '\n'.join(main_info.split('<br/>', 1)[-1].split('<br/>'))
+
+		#input(text)
+		text = self.html_cleaner(text)
+		pinyin = self.html_cleaner(pinyin)
+		name = self.html_cleaner(name)
+
+		return [name, pinyin, text], None
+
+	def en_chinese(self, text, name=''):
+
 		css_selector = '#multiRow tr'
 		soup = BeautifulSoup(text, 'html.parser')
 		table = soup.select(css_selector)
-		
-		results = [" - ".join([i.get_text() for i in l]) for l in table if name in l.get_text()]
-		
+
+		results = [
+		 " - ".join([i.get_text() for i in l]) for l in table
+		 if name in l.get_text()
+		]
+
 		#input(results)
-		return ["\n".join(results)],None
+		return ["\n".join(results)], None
 
 	def ch_ru(self, plain_text, name):
 		# Ensure that word is exists
@@ -277,26 +293,25 @@ class Search:
 
 		text = '\n\n'.join([title_text, pinyin_text, meanings])
 
-		
 		return [title_text, pinyin_text, meanings], audio_url
 
-	def wiki(self,input):
+	def wiki(self, input):
 		css_sel = 'div#mw-content-text div.mw-parser-output p'
-		plain_text = self.download_page(WIKI_URL.format(input),'')
+		plain_text = self.download_page(WIKI_URL.format(input), '')
 		soup = BeautifulSoup(plain_text, 'html.parser')
 		main = soup.select(css_sel)
-		text = '<a href="{}">{}</a>\n'.format(WIKI_URL.format(input),input)
-		
+		text = '<a href="{}">{}</a>\n'.format(WIKI_URL.format(input), input)
+
 		print(WIKI_URL.format(input))
-		if main == []:return WIKI_URL.format(input)
+		if main == []: return WIKI_URL.format(input)
 		for m in main:
-			print( m.attrs != {})
-			if m.attrs != {}:continue
-			text+=m.get_text()
+			print(m.attrs != {})
+			if m.attrs != {}: continue
+			text += m.get_text()
 			break
-			
+
 		return text
-		
+
 
 if __name__ == "__main__":
 	sch = Search()
@@ -304,9 +319,7 @@ if __name__ == "__main__":
 	#print(len(output))
 	#print(sch.wiki('天氣'))
 	#print("\n\n".join(sch.main("天气", "ru",True)[0]))
-	print("\n\n".join(sch.main("天气", "en")[0]))
+	print("\n\n".join(sch.main("法国", "zh")[0]))
 	#print("\n\n".join(sch.main("茄科", "zh")[0]))
 	#print("\n\n".join(sch.main("щвабра", "zh")[0]))
 	#while True:input("\n\n".join(sch.main("天气", "en")[0]))
-		
-		
