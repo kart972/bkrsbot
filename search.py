@@ -295,32 +295,42 @@ class Search:
 
 		return [title_text, pinyin_text, meanings], audio_url
 
-	def wiki(self, input):
+	def wiki(self, user_input):
+		image_css_sel = "table.infobox img"
+		css_sel = 'div#mw-content-text div.mw-parser-output p'
+		
 		prep_url = lambda a,rep='_': rep.join(a.split(' '))
 		# Prepare url
 		# If there spaces in a user input
-		if ' ' in input: 
-			input = prep_url(input,'+')
-			#url = WIKI_URL.format(prep_url(input))
+		url_key=user_input
+		if ' ' in user_input: 
+			url_key = prep_url(user_input,'+')
+			#url = WIKI_URL.format(prep_url(user_input))
 
-		url = WIKI_SEARCH_URL.format(input)
+		url = WIKI_SEARCH_URL.format(url_key)
 		print(url)
 		
-
-		css_sel = 'div#mw-content-text div.mw-parser-output p'
 		plain_text = self.download_page(url, '')
 		soup = BeautifulSoup(plain_text, 'html.parser')
 		main = soup.select(css_sel)
-		text = '<a href="{}">{}</a>\n'.format(url, input)
-
-		if main == []: return url
+		text = '<a href="{}">{}</a>\n'.format(url, user_input)
+		
+		# Check if page exists
+		if main == []: return url,None
+		
+		
 		for m in main:
 			print(m.attrs != {})
 			if m.attrs != {}: continue
 			text += m.get_text()
 			break
-
-		return text
+		
+		
+		# Get image
+		image = soup.select(image_css_sel)
+		if image == []: return text, None
+		
+		return text,image[0]['src'][2:]
 
 
 if __name__ == "__main__":

@@ -219,7 +219,9 @@ def handle_wiki_tags(message):
 	result = srch.wiki(request)
 
 	# Print message to a user
-	long_message_request(chat_id, result, keyboard)
+	if result[1] != None:bot.send_photo(chat_id,result[1])
+	long_message_request(chat_id, result[0], keyboard)
+	
 
 
 # Send resent History to admin
