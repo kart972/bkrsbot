@@ -92,3 +92,31 @@ class Logs:
 		self.log_string = ''
 		print('Saved successfully')
 		return True
+
+
+class Word:
+	def __init__(self,word,pronunciation,meanings,examples=None,similar=None,audio=None,alternatives=None):
+		self.word = word
+		self.pronunciation = pronunciation
+		self.meanings = meanings
+		self.examples = examples
+		self.similar = similar
+		self.alternatives = alternatives
+		self.audio = audio
+		
+		
+	def get_audio(self):
+		return self.audio
+
+	def get_alternatives(self):
+		return self.alternatives
+	
+	def return_text(self):
+		result = []
+		validate = lambda a,l:l.append(a) if a != None else None
+		
+		for i in [self.word,self.pronunciation,self.meanings,self.examples,
+		self.similar]:validate(i,result)
+		
+		return '\n\n'.join(result)
+		

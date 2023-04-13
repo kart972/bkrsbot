@@ -23,7 +23,7 @@ LANGUAGES_URL_DIC = {
   'zh': 'https://tw.ichacha.net/mhy/{}.html'
  }
 }
-
+WIKI_SEARCH_URL = "https://zh.wikipedia.org/w/index.php?title=Special:%E6%90%9C%E7%B4%A2&variant=zh-cn&search={}"
 WIKI_URL = 'https://zh.wikipedia.org/zh-cn/{}'
 HOME = '/'.join(os.path.realpath(__file__).split('/')[:-1]) + '/'
 OUTPUT = "Output/"
@@ -194,7 +194,7 @@ class Search:
 		css_check = "#no-such-word"
 		css_correction = "#words_hunspell a"
 		css_russ_dic = "#ruch_fullsearch div"
-		css_chi_dic = "#xinsheng_fullsearch"	
+		css_chi_dic = "#xinsheng_fullsearch"
 
 		soup = BeautifulSoup(plain_text, 'html.parser')
 		if soup.select(css_check) != []:
@@ -296,14 +296,24 @@ class Search:
 		return [title_text, pinyin_text, meanings], audio_url
 
 	def wiki(self, input):
+		prep_url = lambda a,rep='_': rep.join(a.split(' '))
+		# Prepare url
+		# If there spaces in a user input
+		if ' ' in input: 
+			input = prep_url(input,'+')
+			#url = WIKI_URL.format(prep_url(input))
+
+		url = WIKI_SEARCH_URL.format(input)
+		print(url)
+		
+
 		css_sel = 'div#mw-content-text div.mw-parser-output p'
-		plain_text = self.download_page(WIKI_URL.format(input), '')
+		plain_text = self.download_page(url, '')
 		soup = BeautifulSoup(plain_text, 'html.parser')
 		main = soup.select(css_sel)
-		text = '<a href="{}">{}</a>\n'.format(WIKI_URL.format(input), input)
+		text = '<a href="{}">{}</a>\n'.format(url, input)
 
-		print(WIKI_URL.format(input))
-		if main == []: return WIKI_URL.format(input)
+		if main == []: return url
 		for m in main:
 			print(m.attrs != {})
 			if m.attrs != {}: continue

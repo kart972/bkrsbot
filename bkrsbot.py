@@ -86,9 +86,9 @@ def get_text(user_id, text_message, language=None, mode=False):
 	else: lan = language
 
 	#Return russion Translation
-	if srch.language == "ru":
-		webb = web(text_message)
-		return webb.main()[:]
+	# if srch.language == "ru":
+	# 	webb = web(text_message)
+	# 	return webb.main()[:]
 
 	# If language is not one of supported return not found
 	if lan in LANGUAGES: result = srch.main(text_message, lan, mode)
@@ -98,13 +98,15 @@ def get_text(user_id, text_message, language=None, mode=False):
 		logs.add([user_id, usr.get_info(user_id, "nick"), text_message, lan, "TRUE"])
 		text = "\n\n".join(result[0])
 	else:
-		logs.add([
-		 user_id,
-		 usr.get_info(user_id, "nick"), text_message, lan,
-		 usr.get_info(user_id, "nick"), "ERROR"
-		])
+		pinyin_str = ''.join([i[0] for i in pinyin(text_message)]) + '*'
+		logs.add(
+		 [user_id,
+		  usr.get_info(user_id, "nick"), text_message, lan, "ERROR"])
 		text = LOCALIZATION[lan]['error'].format(SEARCH_URL + text_message,
-		                                         text_message)
+		                                         text_message, pinyin_str)
+
+	# Save logs
+	logs.save()
 	return text, result[1]
 
 
@@ -158,7 +160,7 @@ def define_language_keyboard():
 # Change language init message
 def init_change_language(message):
 	chat_id = message.chat.id
-	
+
 	keyboard = new_keyboard(list(LANGUAGES_DIC.values()), LANGUAGES)
 
 	#keyboard = define_language_keyboard()
@@ -211,7 +213,9 @@ def handle_wiki_tags(message):
 	text_message = message.text
 	if ' ' not in text_message: return
 	request = text_message.split(' ', 1)[1]
+	
 	if request == '': return
+
 	result = srch.wiki(request)
 
 	# Print message to a user
@@ -341,14 +345,14 @@ def handle_text_request(message):
 
 	# Admin and testers
 	if user_id in TESTERS and srch.language not in ('en', 'ru'):
+		avalible = [i for i in LANGUAGES if user_lan not in i]
+		keyboard = new_keyboard([LANGUAGES_DIC[i] for i in avalible],
+		                        [f'{text_message}#{i}' for i in avalible])
+		#keyboard = define_keyboard(message.text, user_lan)
 		try:
-			avalible = [i for i in LANGUAGES if user_lan not in i]
-			keyboard = new_keyboard([LANGUAGES_DIC[i] for i in avalible],
-			                        [f'{text_message}#{i}' for i in avalible])
+			result = get_text(user_id, text_message, mode=True)
 		except:
 			print(sys.exc_info())
-		#keyboard = define_keyboard(message.text, user_lan)
-		result = get_text(user_id, text_message, mode=True)
 	else:
 		# Get text output
 		result = get_text(user_id, text_message)
@@ -415,7 +419,7 @@ def switch_language_source(call):
 
 	avalible = [i for i in LANGUAGES if lan not in i]
 	keyboard = new_keyboard([LANGUAGES_DIC[i] for i in avalible],
-			                        [f'{char}#{i}' for i in avalible])
+	                        [f'{char}#{i}' for i in avalible])
 
 	edit_message(chat_id, message_id, result[0], keyboard)
 
