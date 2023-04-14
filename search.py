@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 import requests
 from pypinyin import pinyin as get_pinyin
 import concurrent.futures
+import wikipedia
+
 
 # Constants
 MAIN_URL = 'https://bkrs.info/'
@@ -296,6 +298,7 @@ class Search:
 		return [title_text, pinyin_text, meanings], audio_url
 
 	def wiki(self, user_input):
+		list_css_sel = ".mw-search-results"
 		image_css_sel = "table.infobox img"
 		css_sel = 'div#mw-content-text div.mw-parser-output p'
 		
@@ -303,14 +306,24 @@ class Search:
 		# Prepare url
 		# If there spaces in a user input
 		url_key=user_input
-		if ' ' in user_input: 
-			url_key = prep_url(user_input,'+')
-			#url = WIKI_URL.format(prep_url(user_input))
+		if ' ' in user_input:url_key = prep_url(user_input,'+')
 
 		url = WIKI_SEARCH_URL.format(url_key)
 		print(url)
 		
+		# Check if result is a list
 		plain_text = self.download_page(url, '')
+		soup = BeautifulSoup(plain_text, 'html.parser')
+		wiki_list = soup.select(list_css_sel)
+		if wiki_list == []:
+			return self.wiki_page(plain_text)
+		
+		
+	def wiki_page(self,plain_text,user_input):
+		image_css_sel = "table.infobox img"
+		css_sel = 'div#mw-content-text div.mw-parser-output p'
+		
+		
 		soup = BeautifulSoup(plain_text, 'html.parser')
 		main = soup.select(css_sel)
 		text = '<a href="{}">{}</a>\n'.format(url, user_input)
@@ -331,7 +344,49 @@ class Search:
 		if image == []: return text, None
 		
 		return text,image[0]['src'][2:]
-
+	
+	def get_image(self,urls):
+		IMAGE_FORMATS = ('jpg','jpeg','png','PNG')
+		
+		for i in urls:
+			if i.split(".")[-1] in IMAGE_FORMATS:return i
+		
+		return None
+		
+	
+	def new_wiki(self,user_input,searchMode = True):
+		#default url
+		default_url = "zh.wikipedia.org/wiki/"
+		print(default_url+user_input)
+		
+		# set language
+		wikipedia.set_lang("zh")
+		print(user_input)
+		# Search
+		if searchMode is True:
+			search = wikipedia.search(user_input)
+		
+			print(search)
+			
+			if search == []:return None
+			else: return search 
+			
+			
+			
+			
+		try:
+			page = wikipedia.page(user_input)
+		except wikipedia.exceptions.DisambiguationError as e:
+			return "\n".join(e.options),user_input,None
+		
+		if page == []:return None,None
+		summary = page.summary
+		images = tuple(page.images)
+		image = self.get_image(images) if images != []  else None
+		print(image)
+		return summary,user_input,image
+		
+		
 
 if __name__ == "__main__":
 	sch = Search()
@@ -339,7 +394,14 @@ if __name__ == "__main__":
 	#print(len(output))
 	#print(sch.wiki('天氣'))
 	#print("\n\n".join(sch.main("天气", "ru",True)[0]))
-	print("\n\n".join(sch.main("法国", "zh")[0]))
+	
+	#print(sch.wiki('supper mario'))
+	#print(sch.wiki('Flash'))
+	#print(sch.wiki('far cry 3'))
+	
+	sch.new_wiki('supper mario')
+	
+	#print("\n\n".join(sch.main("法国", "zh")[0]))
 	#print("\n\n".join(sch.main("茄科", "zh")[0]))
 	#print("\n\n".join(sch.main("щвабра", "zh")[0]))
 	#while True:input("\n\n".join(sch.main("天气", "en")[0]))

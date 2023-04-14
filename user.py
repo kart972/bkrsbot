@@ -53,8 +53,12 @@ class User:
 		return self.data
 
 	def load_users(self):
-		with open(self.path, 'r') as f:
-			self.data = json.load(f)
+		try:
+			with open(self.path, 'r') as f:
+				self.data = json.load(f)
+		except FileNotFoundError:
+			self.data = {}
+		
 
 	def save(self):
 		with open(self.path, 'w') as f:
