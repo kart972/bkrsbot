@@ -343,15 +343,15 @@ class Search:
 
 	def get_image(self, urls):
 		IMAGE_FORMATS = ('jpg', 'jpeg', 'png', 'PNG')
-
+		result = []
 		for i in urls:
-			if i.split(".")[-1] in IMAGE_FORMATS: return i
-
-		return None
+			if i.split(".")[-1] in IMAGE_FORMATS: result.append(i)
+		if result == []: result = None
+		return result
 
 	def new_wiki(self, user_input, searchMode=True):
 		#default url
-		image_url = "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|pageterms&piprop=thumbnail&pithumbsize=600&titles="
+		image_url = "https://zh.wikipedia.org/w/api.php?action=query&pilicense=any&format=json&piprop=thumbnail&pithumbsize=600&prop=pageimages|pageterms&titles="
 		down_image = lambda name: requests.get(image_url + name).json()
 
 		default_url = "zh.wikipedia.org/wiki/"
@@ -383,17 +383,18 @@ class Search:
 		if not (raw_image_json): return summary, user_input, None
 
 		for key, value in raw_image_json.items():
-			if (value['thumbnail']['source']):
+			print(value)
+			if 'thumbnail' in value:
 				image = value['thumbnail']['source']
 				break
 		else:
 			image = None
 
-		#images = tuple(page.images)
-		#image = self.get_image(images) if images != []  else None
+		images = tuple(page.images)
+		images = self.get_image(images) if images != []  else None
 
 		print(image)
-		return summary, user_input, image
+		return summary, user_input,images, image
 
 
 if __name__ == "__main__":

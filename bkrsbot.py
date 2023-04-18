@@ -227,15 +227,26 @@ def handle_wiki_tags(message):
 	search_list = srch.new_wiki(request)
 	if not (search_list):bot.send_photo(chat_id,DEFAULT_PIC,"NOT FOUND")
 	result = srch.new_wiki(search_list[0],False)
+	print(not (result[-1]))
+	print(result)
+	if  (result[-1]) and (result[-2]):
+		images = [result[-1]]+result[-2]
+		print(images)
+		images = [telebot.types.InputMediaPhoto(i) for i in images]
+	else: images = DEFAULT_PIC if not (result[-1]) else result[-1]
+	
 	image = DEFAULT_PIC if not (result[-1]) else result[-1]
 	text = result[0]
 	
-	print(result)
+	print(images)
 	# set keyboard
 	#search_list.pop(0)
 	keyboard = new_keyboard(search_list, ["@wiki"+i for i in search_list],4)
 
 	# Print message to a user
+	#try:bot.send_media_group(chat_id,images)
+	#except:
+		#print(sys.exc_info())
 	bot.send_photo(chat_id,image,text,reply_markup = keyboard)
 	
 	
@@ -475,19 +486,17 @@ def select_wiki_page(call):
 	#keyboard = new_keyboard(search_list, ["@wiki"+i for i in search_list],4)
 	keyboard = call.message.reply_markup
 
-	# edit message
+	#print(image)
+	#media = requests.get(image).content
+	#fp = BytesIO(media)
+	#fp.seek(0)
+	#print(media)
 	
-	#edit_message(chat_id,message_id,text,None,True)
-	#bot.edit_message_caption(text, chat_id, message_id, reply_markup = keyboard)
-	#
-	print(image)
-	media = requests.get(image).content
-	
-	file_name = image.split('/')[-1]
-	with open("./logs/"+file_name,'wb') as f: f.write(media)
+	#file_name = image.split('/')[-1]
+	#with open("./logs/"+file_name,'wb') as f: f.write(media)
 	
 	
-	bot.edit_message_media(telebot.types.InputMediaPhoto(media,text),chat_id,message_id,reply_markup=keyboard)
+	bot.edit_message_media(telebot.types.InputMediaPhoto(image,text[:1024]),chat_id,message_id,reply_markup=keyboard)
 			
 	
 	
@@ -515,6 +524,8 @@ def handle_callbacks(call):
 		else: return
 	except :
 		print(sys.exc_info())
+		bot.answer_callback_query(call.id,sys.exc_info()[:])
+		
 
 # Flask accept
 @server.route('/' + TOKEN, methods=['POST'])
