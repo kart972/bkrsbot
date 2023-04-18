@@ -8,7 +8,6 @@ from pypinyin import pinyin as get_pinyin
 import concurrent.futures
 import wikipedia
 
-
 # Constants
 MAIN_URL = 'https://bkrs.info/'
 SEARCH_URL = "https://bkrs.info/slovo.php?ch="
@@ -265,6 +264,7 @@ class Search:
 		 " - ".join([i.get_text() for i in l]) for l in table
 		 if name in l.get_text()
 		]
+		if results == []: return None, None
 
 		#input(results)
 		return ["\n".join(results)], None
@@ -301,92 +301,100 @@ class Search:
 		list_css_sel = ".mw-search-results"
 		image_css_sel = "table.infobox img"
 		css_sel = 'div#mw-content-text div.mw-parser-output p'
-		
-		prep_url = lambda a,rep='_': rep.join(a.split(' '))
+
+		prep_url = lambda a, rep='_': rep.join(a.split(' '))
 		# Prepare url
 		# If there spaces in a user input
-		url_key=user_input
-		if ' ' in user_input:url_key = prep_url(user_input,'+')
+		url_key = user_input
+		if ' ' in user_input: url_key = prep_url(user_input, '+')
 
 		url = WIKI_SEARCH_URL.format(url_key)
 		print(url)
-		
+
 		# Check if result is a list
 		plain_text = self.download_page(url, '')
 		soup = BeautifulSoup(plain_text, 'html.parser')
 		wiki_list = soup.select(list_css_sel)
 		if wiki_list == []:
 			return self.wiki_page(plain_text)
-		
-		
-	def wiki_page(self,plain_text,user_input):
+
+	def wiki_page(self, plain_text, user_input):
 		image_css_sel = "table.infobox img"
 		css_sel = 'div#mw-content-text div.mw-parser-output p'
-		
-		
+
 		soup = BeautifulSoup(plain_text, 'html.parser')
 		main = soup.select(css_sel)
 		text = '<a href="{}">{}</a>\n'.format(url, user_input)
-		
+
 		# Check if page exists
-		if main == []: return url,None
-		
-		
+		if main == []: return url, None
+
 		for m in main:
 			print(m.attrs != {})
 			if m.attrs != {}: continue
 			text += m.get_text()
 			break
-		
-		
+
 		# Get image
 		image = soup.select(image_css_sel)
 		if image == []: return text, None
-		
-		return text,image[0]['src'][2:]
-	
-	def get_image(self,urls):
-		IMAGE_FORMATS = ('jpg','jpeg','png','PNG')
-		
+
+		return text, image[0]['src'][2:]
+
+	def get_image(self, urls):
+		IMAGE_FORMATS = ('jpg', 'jpeg', 'png', 'PNG')
+
 		for i in urls:
-			if i.split(".")[-1] in IMAGE_FORMATS:return i
-		
+			if i.split(".")[-1] in IMAGE_FORMATS: return i
+
 		return None
-		
-	
-	def new_wiki(self,user_input,searchMode = True):
+
+	def new_wiki(self, user_input, searchMode=True):
 		#default url
+		image_url = "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|pageterms&piprop=thumbnail&pithumbsize=600&titles="
+		down_image = lambda name: requests.get(image_url + name).json()
+
 		default_url = "zh.wikipedia.org/wiki/"
-		print(default_url+user_input)
-		
+		print(default_url + user_input)
+
 		# set language
 		wikipedia.set_lang("zh")
 		print(user_input)
 		# Search
 		if searchMode is True:
 			search = wikipedia.search(user_input)
-		
+
 			print(search)
-			
-			if search == []:return None
-			else: return search 
-			
-			
-			
-			
+
+			if search == []: return None
+			else: return search
+
 		try:
 			page = wikipedia.page(user_input)
 		except wikipedia.exceptions.DisambiguationError as e:
-			return "\n".join(e.options),user_input,None
-		
-		if page == []:return None,None
+			return "\n".join(e.options), user_input, None
+
+		if page == []: return None, None
 		summary = page.summary
-		images = tuple(page.images)
-		image = self.get_image(images) if images != []  else None
+		raw_image_json = down_image(page.title)
+		print(raw_image_json)
+		raw_image_json = raw_image_json['query']['pages']
+		#
+		if not (raw_image_json): return summary, user_input, None
+
+		for key, value in raw_image_json.items():
+			if (value['thumbnail']['source']):
+				image = value['thumbnail']['source']
+				break
+		else:
+			image = None
+
+		#images = tuple(page.images)
+		#image = self.get_image(images) if images != []  else None
+
 		print(image)
-		return summary,user_input,image
-		
-		
+		return summary, user_input, image
+
 
 if __name__ == "__main__":
 	sch = Search()
@@ -394,13 +402,13 @@ if __name__ == "__main__":
 	#print(len(output))
 	#print(sch.wiki('天氣'))
 	#print("\n\n".join(sch.main("天气", "ru",True)[0]))
-	
+
 	#print(sch.wiki('supper mario'))
 	#print(sch.wiki('Flash'))
 	#print(sch.wiki('far cry 3'))
-	
-	sch.new_wiki('supper mario')
-	
+
+	print(sch.new_wiki('Mario (歌手)', False))
+
 	#print("\n\n".join(sch.main("法国", "zh")[0]))
 	#print("\n\n".join(sch.main("茄科", "zh")[0]))
 	#print("\n\n".join(sch.main("щвабра", "zh")[0]))
