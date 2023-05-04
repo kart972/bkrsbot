@@ -154,6 +154,9 @@ class Search:
 	def main(self, name: str, lan='ru', syn=True) -> tuple:
 		func_dic = {'en': self.ch_english, 'ru': self.ch_ru, 'zh': self.zh_chinese}
 
+		# get a lower case
+		name = name.lower()
+
 		# Determine language
 		self.whatlan(name)
 

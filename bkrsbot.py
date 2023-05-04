@@ -13,6 +13,7 @@ from support import extracter
 
 #foreign import
 import telebot
+from googletrans import Translator
 from gtts import gTTS
 from io import BytesIO
 
@@ -38,6 +39,9 @@ srch = Search()
 usr = User()
 logs = Logs()
 
+# Google translate for words that are not in dictionary
+translator = Translator()
+
 #bot = telebot.TeleBot(TOKEN,parse_mode='markdown')
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
@@ -49,17 +53,16 @@ print('It started')
 
 # Edit message
 def edit_message(chat_id, message_id, text, keyboard=None, media=None):
-	if not(media):return bot.edit_message_text(text,
-	                      chat_id,
-	                      message_id,
-	                      reply_markup=keyboard,
-	                      disable_web_page_preview=True)
-	elif media is True:bot.edit_message_caption(text, chat_id, message_id, reply_markup = keyboard)
-	else:bot.edit_message_media(media,
-					   chat_id,
-					   message_id,
-					   reply_markup=keyboard)
-	 
+	if not (media):
+		return bot.edit_message_text(text,
+		                             chat_id,
+		                             message_id,
+		                             reply_markup=keyboard,
+		                             disable_web_page_preview=True)
+	elif media is True:
+		bot.edit_message_caption(text, chat_id, message_id, reply_markup=keyboard)
+	else:
+		bot.edit_message_media(media, chat_id, message_id, reply_markup=keyboard)
 
 
 # Send a message request
@@ -92,11 +95,6 @@ def get_text(user_id, text_message, language=None, mode=False):
 	if language == None: lan = usr.get_info(user_id, usr.lan)
 	else: lan = language
 
-	#Return russion Translation
-	# if srch.language == "ru":
-	# 	webb = web(text_message)
-	# 	return webb.main()[:]
-
 	# If language is not one of supported return not found
 	if lan in LANGUAGES: result = srch.main(text_message, lan, mode)
 	else: result = (None, None)
@@ -109,8 +107,16 @@ def get_text(user_id, text_message, language=None, mode=False):
 		logs.add(
 		 [user_id,
 		  usr.get_info(user_id, "nick"), text_message, lan, "ERROR"])
-		text = LOCALIZATION[lan]['error'].format(SEARCH_URL + text_message,
-		                                         text_message, pinyin_str)
+		language = lan if srch.language == "zh" else "zh-cn"
+		if language == zh:language = 'en'
+		
+		try:
+			text_output = translator.translate(text_message, dest=language).text+"*"
+			text = "\n\n".join([text_message, pinyin_str, text_output])
+		except:
+			print(sys.exc_info())
+			text = LOCALIZATION[lan]['error'].format(SEARCH_URL + text_message,
+			                                         text_message, pinyin_str)
 
 	# Save logs
 	logs.save()
@@ -124,7 +130,7 @@ def create_button(text, date):
 
 # New keyboard
 def new_keyboard(tags, callbacks, length=0):
-	print(tags, callbacks,length)
+	print(tags, callbacks, length)
 	#print([i for i in range(len(tags))])
 	buttons = [create_button(tags[i], callbacks[i]) for i in range(len(tags))]
 	keyboard_len = len(buttons) if length == 0 else length
@@ -197,7 +203,7 @@ def handle_start_tags(message):
 	user_id = str(message.from_user.id)
 	user_lan = message.from_user.language_code
 
-	lan = user_lan if user_lan in ['en', 'ru'] else "en"
+	lan = user_lan if user_lan in list(LANGUAGES_DIC.keys()) else "en"
 	usr.add_user(user_id, message.from_user.username,
 	             message.from_user.first_name, lan)
 
@@ -221,40 +227,39 @@ def handle_wiki_tags(message):
 	text_message = message.text
 	if ' ' not in text_message: return
 	request = text_message.split(' ', 1)[1]
-	
+
 	if request == '': return
 
 	search_list = srch.new_wiki(request)
-	if not (search_list):bot.send_photo(chat_id,DEFAULT_PIC,"NOT FOUND")
-	result = srch.new_wiki(search_list[0],False)
+	if not (search_list): bot.send_photo(chat_id, DEFAULT_PIC, "NOT FOUND")
+	result = srch.new_wiki(search_list[0], False)
 	print(not (result[-1]))
 	print(result)
-	if  (result[-1]) and (result[-2]):
-		images = [result[-1]]+result[-2]
+	if (result[-1]) and (result[-2]):
+		images = [result[-1]] + result[-2]
 		print(images)
 		images = [telebot.types.InputMediaPhoto(i) for i in images]
-	else: images = DEFAULT_PIC if not (result[-1]) else result[-1]
-	
+	else:
+		images = DEFAULT_PIC if not (result[-1]) else result[-1]
+
 	image = DEFAULT_PIC if not (result[-1]) else result[-1]
 	text = result[0]
-	
+
 	print(images)
 	# set keyboard
 	#search_list.pop(0)
-	keyboard = new_keyboard(search_list, ["@wiki"+i for i in search_list],4)
+	keyboard = new_keyboard(search_list, ["@wiki" + i for i in search_list], 4)
 
 	# Print message to a user
 	#try:bot.send_media_group(chat_id,images)
 	#except:
-		#print(sys.exc_info())
-	bot.send_photo(chat_id,image,text,reply_markup = keyboard)
-	
-	
+	#print(sys.exc_info())
+	bot.send_photo(chat_id, image, text, reply_markup=keyboard)
 
 
 # Send resent History to admin
 @bot.message_handler(commands=['hist'])
-def handle_language_tags(message):
+def handle_hist_tags(message):
 	# define keyboard
 	keyboard = None
 	chat_id = message.chat.id
@@ -311,7 +316,7 @@ def inline_fetch(query_str, page=-2):
 	result = exctar.main(query_str)
 	pinyin_str = ''.join([i[0] for i in pinyin(query_str)])
 	output = []
-	print(result)
+	#print(result)
 	n = 0
 	for t in result[:]:
 		for i in t['all_definitions'][:3]:
@@ -417,20 +422,18 @@ def change_language(call):
 	first_name = call.from_user.first_name
 	lan_code = call.from_user.language_code
 	callback_data = call.data
-	
-		
-	
-	callback_text = LANGUAGES_DIC['callback_data']
+
+	language_name = LANGUAGES_DIC[callback_data]
 
 	lan = lan_code if lan_code in LANGUAGES else "en"
 
 	usr.add_user(user_id, username, first_name, lan)
 	if usr.edit_info(user_id, usr.lan, call.data) is False:
 		text = LOCALIZATION[callback_data]['language_change_error'].format(
-		 callback_text)
+		 language_name)
 		return long_message_request(chat_id, text)
 	text = LOCALIZATION[callback_data]['language_change_success'].format(
-	 callback_text)
+	 language_name)
 
 	edit_message(chat_id, message_id, text)
 
@@ -469,46 +472,28 @@ def handle_database_edit(call):
 	message = long_message_request(chat_id, "Write your message:")
 	bot.register_next_step_handler(message=message, callback=next_message)
 
+
 # Select wikipage
 def select_wiki_page(call):
-	#input(call)
+
 	message_id = call.message.message_id
 	keyboard = None
 	chat_id = call.message.chat.id
 	user_input = call.data[5:]
-	
-	result = srch.new_wiki(user_input,False)
+
+	result = srch.new_wiki(user_input, False)
 	image = DEFAULT_PIC if not (result[-1]) else result[-1]
 	text = result[0]
-	
+
 	print(result)
-	#search_list.pop(0)
-	#keyboard = new_keyboard(search_list, ["@wiki"+i for i in search_list],4)
+
 	keyboard = call.message.reply_markup
 
-	#print(image)
-	#media = requests.get(image).content
-	#fp = BytesIO(media)
-	#fp.seek(0)
-	#print(media)
-	
-	#file_name = image.split('/')[-1]
-	#with open("./logs/"+file_name,'wb') as f: f.write(media)
-	
-	
-	bot.edit_message_media(telebot.types.InputMediaPhoto(image,text[:1024]),chat_id,message_id,reply_markup=keyboard)
-			
-	
-	
-	
-	
-	#edit_message(chat_id,message_id,text,keyboard,telebot.types.InputMediaPhoto(image))
-	
-	# Print message to a user
-	#bot.send_photo(chat_id,image,text,reply_markup = keyboard)
-	
-	
-	#bot.send_photo(chat_id,output[-1],output[0],reply_markup = keyboard)
+	bot.edit_message_media(telebot.types.InputMediaPhoto(image, text[:1024]),
+	                       chat_id,
+	                       message_id,
+	                       reply_markup=keyboard)
+
 
 # Call Back handler all in one
 @bot.callback_query_handler(func=lambda call: True)
@@ -522,10 +507,10 @@ def handle_callbacks(call):
 		elif "edit" in call.data and user_id == ADMIN: handle_database_edit(call)
 		elif "@wiki" in call.data: select_wiki_page(call)
 		else: return
-	except :
+	except:
 		print(sys.exc_info())
-		bot.answer_callback_query(call.id,sys.exc_info()[:])
-		
+		bot.answer_callback_query(call.id, sys.exc_info()[:])
+
 
 # Flask accept
 @server.route('/' + TOKEN, methods=['POST'])
