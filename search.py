@@ -8,6 +8,9 @@ from pypinyin import pinyin as get_pinyin
 import concurrent.futures
 import wikipedia
 
+#import wikipediaapi
+
+
 # Constants
 MAIN_URL = 'https://bkrs.info/'
 SEARCH_URL = "https://bkrs.info/slovo.php?ch="
@@ -351,7 +354,7 @@ class Search:
 			if i.split(".")[-1] in IMAGE_FORMATS: result.append(i)
 		if result == []: result = None
 		return result
-
+	
 	def new_wiki(self, user_input, searchMode=True):
 		#default url
 		image_url = "https://zh.wikipedia.org/w/api.php?action=query&pilicense=any&format=json&piprop=thumbnail&pithumbsize=600&prop=pageimages|pageterms&titles="
@@ -398,6 +401,34 @@ class Search:
 
 		print(image)
 		return summary, user_input,images, image
+
+	def test(self,user_input):
+		wikipediaapi = ''
+		self.whatlan(user_input)
+	
+		wiki_wiki = wikipediaapi.Wikipedia(
+        	language=self.language,
+        	extract_format=wikipediaapi.ExtractFormat.WIKI
+		)
+
+		p_wiki = wiki_wiki.page(user_input)
+		
+		langlinks = p_wiki.langlinks
+		
+		if 'zh' not in langlinks.keys(): return 'Not avalible in chinese',None
+		
+		title = langlinks['zh'].title
+		
+		
+		wiki = wikipediaapi.Wikipedia(language='zh')
+
+		page_ostrava = wiki.page(title)
+		
+		summary = page_ostrava.summary
+		
+		return summary , None
+
+	
 
 
 if __name__ == "__main__":

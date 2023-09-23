@@ -7,6 +7,7 @@ from search import Search, SEARCH_URL
 from edit import edit_web
 from constant import *
 from user import User, Logs
+from wikisearch import Wiki
 
 #test
 from support import extracter
@@ -38,6 +39,7 @@ server = Flask(__name__)
 srch = Search()
 usr = User()
 logs = Logs()
+wikisearch = Wiki()
 
 # Google translate for words that are not in dictionary
 translator = Translator()
@@ -108,10 +110,10 @@ def get_text(user_id, text_message, language=None, mode=False):
 		 [user_id,
 		  usr.get_info(user_id, "nick"), text_message, lan, "ERROR"])
 		language = lan if srch.language == "zh" else "zh-cn"
-		if language == zh:language = 'en'
-		
+		if language == "zh": language = 'en'
+
 		try:
-			text_output = translator.translate(text_message, dest=language).text+"*"
+			text_output = translator.translate(text_message, dest=language).text + "*"
 			text = "\n\n".join([text_message, pinyin_str, text_output])
 		except:
 			print(sys.exc_info())
@@ -129,14 +131,15 @@ def create_button(text, date):
 
 
 # New keyboard
-def new_keyboard(tags, callbacks, length=0):
+def new_keyboard(tags, callbacks, length=0, width=0):
 	print(tags, callbacks, length)
 	#print([i for i in range(len(tags))])
 	buttons = [create_button(tags[i], callbacks[i]) for i in range(len(tags))]
 	keyboard_len = len(buttons) if length == 0 else length
 	print(keyboard_len)
 	keyboard = telebot.types.InlineKeyboardMarkup(row_width=keyboard_len)
-	keyboard.add(*buttons)
+	if width == 0: keyboard.add(*buttons)
+	else: keyboard.add(*buttons[:width])
 	return keyboard
 
 
@@ -247,14 +250,51 @@ def handle_wiki_tags(message):
 
 	print(images)
 	# set keyboard
-	#search_list.pop(0)
 	keyboard = new_keyboard(search_list, ["@wiki" + i for i in search_list], 4)
 
 	# Print message to a user
-	#try:bot.send_media_group(chat_id,images)
-	#except:
-	#print(sys.exc_info())
 	bot.send_photo(chat_id, image, text, reply_markup=keyboard)
+
+
+# Language command Handler
+@bot.message_handler(commands=['wiki1'])
+def handle_wiki2_tags(message):
+	# define keyboard
+	keyboard = None
+	chat_id = message.chat.id
+	user_id = str(message.from_user.id)
+	text_message = message.text
+
+	# Get main part
+	if ' ' not in text_message: return
+	request = text_message.split(' ', 1)[1]
+	if request == '': return
+
+	search_list = wikisearch.search_pages(request)
+
+	if search_list == []: bot.send_photo(chat_id, DEFAULT_PIC, "NOT FOUND")
+
+	search_list = [i['title'] for i in search_list]
+
+	# usr.get_info(user_id,"lan")
+	result = wikisearch.search(search_list[0], dest="zh")
+
+	print(result)
+
+	image = DEFAULT_PIC if not (result[-1]) else result[-1]
+	text = result[0]
+
+	# set keyboard
+	keyboard = new_keyboard(search_list, ["@1wiki" + i for i in search_list], 4,
+	                        4)
+
+	try:
+		# Print message to a user
+		bot.send_photo(chat_id, image, text, reply_markup=keyboard)
+
+	except:
+		print(sys.exc_info())
+		bot.answer_callback_query(call.id, sys.exc_info()[:])
 
 
 # Send resent History to admin
@@ -495,6 +535,30 @@ def select_wiki_page(call):
 	                       reply_markup=keyboard)
 
 
+# Select wikipage
+def select_wiki_page1(call):
+	user_id = str(call.from_user.id)
+	message_id = call.message.message_id
+	keyboard = None
+	chat_id = call.message.chat.id
+	user_input = call.data[6:]
+
+	result = wikisearch.search(user_input, dest="zh")
+	image = DEFAULT_PIC if not (result[-1]) else result[-1]
+	text = result[0]
+
+	print(result)
+
+	keyboard = call.message.reply_markup
+
+	bot.edit_message_media(telebot.types.InputMediaPhoto(image,
+	                                                     text[:1024],
+	                                                     parse_mode="html"),
+	                       chat_id,
+	                       message_id,
+	                       reply_markup=keyboard)
+
+
 # Call Back handler all in one
 @bot.callback_query_handler(func=lambda call: True)
 def handle_callbacks(call):
@@ -506,6 +570,7 @@ def handle_callbacks(call):
 		elif "#" in call.data: switch_language_source(call)
 		elif "edit" in call.data and user_id == ADMIN: handle_database_edit(call)
 		elif "@wiki" in call.data: select_wiki_page(call)
+		elif "@1wiki" in call.data: select_wiki_page1(call)
 		else: return
 	except:
 		print(sys.exc_info())
